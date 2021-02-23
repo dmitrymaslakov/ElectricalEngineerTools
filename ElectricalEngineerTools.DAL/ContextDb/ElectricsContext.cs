@@ -10,7 +10,19 @@ namespace ElectricalEngineerTools.DAL.ContextDb
 
         public ElectricsContext(DbContextOptions<ElectricsContext> options) : base(options)
         {
+
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+
+            /*modelBuilder.Entity<LightingFixture>(entity =>
+                        {
+                            entity.HasOne(l => l.Cable)
+                            .WithMany(c => c.LightingFixtures)
+                            .HasForeignKey(l => l.CableId)
+                            .OnDelete(DeleteBehavior.SetNull);
+                        });*/
+        }
     }
 }

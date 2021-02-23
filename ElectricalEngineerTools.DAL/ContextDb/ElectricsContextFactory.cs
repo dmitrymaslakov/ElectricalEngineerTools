@@ -13,15 +13,16 @@ namespace ElectricalEngineerTools.DAL.ContextDb
 {
     public class ElectricsContextFactory : IDesignTimeDbContextFactory<ElectricsContext>
     {
-        public ElectricsContext CreateDbContext(string[] args)
+        public ElectricsContext CreateDbContext(string[] args = null)
         {
-            var config = new ConfigurationBuilder()
+            /*var config = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json")
-                .Build();
+                .Build();*/
 
             var options = new DbContextOptionsBuilder<ElectricsContext>()
-                .UseMySql(config.GetConnectionString("DefaultConnection"))
+                //.UseMySql(config.GetConnectionString("DefaultConnection"))
+                .UseMySql("server=localhost;user=root;password=HichnikMySQL1985;database=electrics")
                 .Options;
 
             return new ElectricsContext(options);

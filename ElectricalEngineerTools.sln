@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30128.74
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElectricalEngineerTools.PL", "ElectricalEngineerTools.PL\ElectricalEngineerTools.PL.csproj", "{1E5B9DE2-97AD-4D95-BA97-7309908705B6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElectricalEngineerTools.Framework.PL", "ElectricalEngineerTools.Framework.PL\ElectricalEngineerTools.Framework.PL.csproj", "{3F3381C5-888D-4E5E-AC3B-4E68E5C427AD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElectricalEngineerTools.DAL", "ElectricalEngineerTools.DAL\ElectricalEngineerTools.DAL.csproj", "{4B6BBE0B-4C37-434A-9907-FEBEF5FD9072}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElectricalEngineerTools.Framework.DAL", "ElectricalEngineerTools.Framework.DAL\ElectricalEngineerTools.Framework.DAL.csproj", "{F63B3A1E-32D3-4219-A951-00193D9FCB65}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElectricalEngineerTools.Tab.LightingAdmin.PL", "ElectricalEngineerTools.Tab.LightingAdmin.PL\ElectricalEngineerTools.Tab.LightingAdmin.PL.csproj", "{772CC8E3-AF16-4E5C-9C35-6462649E6DCD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElectricalEngineerTools.Test", "ElectricalEngineerTools.Test\ElectricalEngineerTools.Test.csproj", "{F3DD63E9-3B32-43CB-8F74-00C6628985E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +17,22 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1E5B9DE2-97AD-4D95-BA97-7309908705B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1E5B9DE2-97AD-4D95-BA97-7309908705B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1E5B9DE2-97AD-4D95-BA97-7309908705B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1E5B9DE2-97AD-4D95-BA97-7309908705B6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4B6BBE0B-4C37-434A-9907-FEBEF5FD9072}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4B6BBE0B-4C37-434A-9907-FEBEF5FD9072}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4B6BBE0B-4C37-434A-9907-FEBEF5FD9072}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4B6BBE0B-4C37-434A-9907-FEBEF5FD9072}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F3381C5-888D-4E5E-AC3B-4E68E5C427AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F3381C5-888D-4E5E-AC3B-4E68E5C427AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F3381C5-888D-4E5E-AC3B-4E68E5C427AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F3381C5-888D-4E5E-AC3B-4E68E5C427AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F63B3A1E-32D3-4219-A951-00193D9FCB65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F63B3A1E-32D3-4219-A951-00193D9FCB65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F63B3A1E-32D3-4219-A951-00193D9FCB65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F63B3A1E-32D3-4219-A951-00193D9FCB65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{772CC8E3-AF16-4E5C-9C35-6462649E6DCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{772CC8E3-AF16-4E5C-9C35-6462649E6DCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{772CC8E3-AF16-4E5C-9C35-6462649E6DCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{772CC8E3-AF16-4E5C-9C35-6462649E6DCD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3DD63E9-3B32-43CB-8F74-00C6628985E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3DD63E9-3B32-43CB-8F74-00C6628985E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3DD63E9-3B32-43CB-8F74-00C6628985E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3DD63E9-3B32-43CB-8F74-00C6628985E8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

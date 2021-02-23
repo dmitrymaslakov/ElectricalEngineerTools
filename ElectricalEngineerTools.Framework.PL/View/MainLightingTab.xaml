@@ -1,0 +1,28 @@
+﻿<UserControl x:Class="ElectricalEngineerTools.Framework.PL.View.MainLightingTab"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ElectricalEngineerTools.Framework.PL.View"
+             xmlns:controls="clr-namespace:ElectricalEngineerTools.Framework.PL.Controls"
+             mc:Ignorable="d">
+    <Grid Background="Wheat">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.7*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0">
+            <controls:PremiseParameters DataContext="{Binding Measurer}"/>
+            <Button Content="Расчет освещенности" Padding="3" Margin="0 3" HorizontalAlignment="Left"/>
+            <Button Content="Расставить светильники" Padding="3" Margin="0 3" HorizontalAlignment="Left"/>
+            <Button Content="Вставить светильник" Padding="3" Margin="0 3" HorizontalAlignment="Left"/>
+            <Button Content="Управление светильниками" Padding="3" Margin="0 3" HorizontalAlignment="Left"
+                    Command="{Binding GetLightingControlPanel}"/>
+        </StackPanel>
+        <StackPanel Grid.Column="1">
+            <controls:LightingFixtureSelection/>
+            <controls:SpatialArrangement/>
+            <controls:CalculatedIlluminationValue/>
+        </StackPanel>
+    </Grid>
+</UserControl>

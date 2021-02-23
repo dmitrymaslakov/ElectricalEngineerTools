@@ -6,13 +6,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ElectricalEngineerTools.DAL.Entities
 {
-    public class LightingFixture : IEntity, INotifyPropertyChanged
+    public class LightingFixture : BaseEntity
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public Guid Id { get; set; }
+        public Guid? CableId { get; set; }
         public string Manufacturer { get; set; }
         [Required]
         public string Brand { get; set; }
+        [Required]
+        public string Name { get; set; }
         [Required]
         public double Power { get; set; }
         [Required]
@@ -22,11 +23,11 @@ namespace ElectricalEngineerTools.DAL.Entities
         [Required]
         public string IP { get; set; }
         [Required]
-        public bool IsFireproof { get; set; }
-        [Required]
+        public bool IsFireproof { get; set; }       
         public Cable Cable { get; set; }
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
+        [Required]
+        public string LdtIesFile { get; set; }
+        [Required]
+        public string DwgFile { get; set; }
     }
 }

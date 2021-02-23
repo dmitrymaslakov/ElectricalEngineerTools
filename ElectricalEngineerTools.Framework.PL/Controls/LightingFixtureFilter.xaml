@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="ElectricalEngineerTools.Framework.PL.Controls.LightingFixtureFilter"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ElectricalEngineerTools.Framework.PL.Controls"
+             mc:Ignorable="d">
+    <Expander Margin="0" Padding="0" Header="Фильтр" IsExpanded="True">
+        <StackPanel>
+            <GroupBox Header="Производитель">
+                <StackPanel>
+                    <CheckBox Margin="5,0" Content="ЗАО &quot;Белинтегра&quot;"/>
+                    <CheckBox Margin="5,0" Content="ООО &quot;СВС Лайтинг&quot;"/>
+                    <CheckBox Margin="5,0" Content="Световые технологии"/>
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="Форма">
+                <StackPanel x:Name="stackForm">
+                    <CheckBox x:Name="rectangular" Margin="5 0" Content="прямоугольный"/>
+                    <CheckBox x:Name="square" Margin="5 0" Content="квадрат"/>
+                    <CheckBox x:Name="circular" Margin="5 0" Content="круглый"/>
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="Способ монтажа">
+                <StackPanel x:Name="stackMounting">
+                    <CheckBox x:Name="ceiling" Margin="5 0" Content="потолочный, настенный"/>
+                    <CheckBox x:Name="recessed" Margin="5 0" Content="встраиваемый"/>
+                    <CheckBox x:Name="pendant" Margin="5 0" Content="подвесной"/>
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="Источник света">
+                <StackPanel x:Name="stackTypeLamp">
+                    <CheckBox x:Name="LED" Margin="5 0" Content="светодиодный"/>
+                    <CheckBox x:Name="luminescent" Margin="5 0" Content="с люминесцентной лампой"/>
+                    <CheckBox x:Name="incandescent" Margin="5 0" Content="с лампой накаливания"/>
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox x:Name="grBoxNumberLamps" Header="Количество ламп в светильнике" IsEnabled="False">
+                <StackPanel x:Name="stackNumberLamps">
+                    <CheckBox x:Name="one" Margin="5 0" Content="1"/>
+                    <CheckBox x:Name="two" Margin="5 0" Content="2"/>
+                    <CheckBox x:Name="four" Margin="5 0" Content="4"/>
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="Климатическое исполнение">
+                <StackPanel x:Name="stackClimaticVersion">
+                    <CheckBox x:Name="uhl4" Margin="5 0" Content="УХЛ4"/>
+                    <CheckBox x:Name="u1" Margin="5 0" Content="У1"/>
+                    <CheckBox x:Name="u2" Margin="5 0" Content="У2"/>
+                </StackPanel>
+            </GroupBox>
+
+            <CheckBox x:Name="chBoxIP" IsThreeState="True" IsChecked="{x:Null}" Margin="5 0" Content="Пылевлагозащищенный"/>
+            <CheckBox x:Name="chBoxFireproof" IsThreeState="True" IsChecked= "{x:Null}" Margin="5 0" Content="Пожаробезопасный"/>
+            <CheckBox x:Name="chBoxUPS" IsThreeState="True" IsChecked= "{x:Null}" Margin="5 0" Content="БАП"/>
+        </StackPanel>
+    </Expander>
+</UserControl>

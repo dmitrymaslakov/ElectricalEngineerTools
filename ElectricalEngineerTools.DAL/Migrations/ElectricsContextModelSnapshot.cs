@@ -29,16 +29,10 @@ namespace ElectricalEngineerTools.DAL.Migrations
                     b.Property<int>("CoresNumber")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("LightingFixtureId")
-                        .HasColumnType("char(36)");
-
                     b.Property<double>("Section")
                         .HasColumnType("double");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LightingFixtureId")
-                        .IsUnique();
 
                     b.ToTable("Cables");
                 });
@@ -51,6 +45,9 @@ namespace ElectricalEngineerTools.DAL.Migrations
                     b.Property<string>("Brand")
                         .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<Guid?>("CableId")
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("ClimaticModification")
                         .IsRequired()
@@ -67,6 +64,10 @@ namespace ElectricalEngineerTools.DAL.Migrations
                     b.Property<bool>("IsFireproof")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<string>("LdtIesFile")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
                     b.Property<string>("Manufacturer")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
@@ -75,16 +76,16 @@ namespace ElectricalEngineerTools.DAL.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CableId");
+
                     b.ToTable("LightingFixtures");
                 });
 
-            modelBuilder.Entity("ElectricalEngineerTools.DAL.Entities.Cable", b =>
+            modelBuilder.Entity("ElectricalEngineerTools.DAL.Entities.LightingFixture", b =>
                 {
-                    b.HasOne("ElectricalEngineerTools.DAL.Entities.LightingFixture", "LightingFixture")
-                        .WithOne("Cable")
-                        .HasForeignKey("ElectricalEngineerTools.DAL.Entities.Cable", "LightingFixtureId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("ElectricalEngineerTools.DAL.Entities.Cable", "Cable")
+                        .WithMany("LightingFixtures")
+                        .HasForeignKey("CableId");
                 });
 #pragma warning restore 612, 618
         }

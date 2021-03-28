@@ -16,5 +16,9 @@ namespace ElectricalEngineerTools.Framework.DAL.Entities
         [Required]
         public double Section { get; set; }
         public virtual IEnumerable<LightingFixture> LightingFixtures { get; set; }
+        public override string ToString()
+        {
+            return $"{Brand} {CoresNumber}х{Section}";
+        }
     }
 }

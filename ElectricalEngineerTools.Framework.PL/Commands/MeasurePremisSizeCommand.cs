@@ -11,6 +11,7 @@ using static Ac.NetApi.Rivilis;
 using System.Linq;
 using ElectricalEngineerTools.Framework.PL.ViewModels;
 using ElectricalEngineerTools.Framework.PL.Interfaces;
+using ElectricalEngineerTools.Framework.DAL.Commands;
 
 namespace ElectricalEngineerTools.Framework.PL.Commands
 {

@@ -14,10 +14,9 @@ namespace ElectricalEngineerTools.Framework.PL.HostBuilders
         {
             host.ConfigureServices(services =>
             {
-                services.AddScoped<LightingControlPanelViewModel>();
-                services.AddScoped(s => new LightingControlPanel(s.GetService<LightingControlPanelViewModel>()));
+                services.AddSingleton<LightingControlPanelViewModel>();
+                services.AddSingleton(s => new LightingControlPanel(s.GetService<LightingControlPanelViewModel>()));
                 services.AddSingleton<MainLightingTabViewModel>();
-
                 services.AddSingleton(s => new MainLightingTab(s.GetRequiredService<MainLightingTabViewModel>()));
             });
 

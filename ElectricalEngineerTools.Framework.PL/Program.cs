@@ -13,30 +13,40 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Windows;
 
-[assembly: ExtensionApplication(typeof(ElectricalEngineerTools.Framework.PL.Program))]
-[assembly: CommandClass(typeof(ElectricalEngineerTools.Framework.PL.Program))]
+/*[assembly: ExtensionApplication(typeof(ElectricalEngineerTools.Framework.PL.Program))]
+[assembly: CommandClass(typeof(ElectricalEngineerTools.Framework.PL.Program))]*/
 
 namespace ElectricalEngineerTools.Framework.PL
 {
-    public sealed class Program : IExtensionApplication
+    public sealed class Program : //IExtensionApplication
+        Application
     {
         private readonly IHost _host;
         public Program()
         {
             _host = CreateHostBuilder().Build();
         }
-        [CommandMethod("qwРасчетОсвещенностиПомещения", CommandFlags.Session)]
-        //[STAThread]
-        public void Main()
+        //[CommandMethod("qwРасчетОсвещенностиПомещения", CommandFlags.Session)]
+        [STAThread]
+        public static void Main()
         {
+            new Program().Run();
             //Example.ExecuteExample();
             //new Application().Run(new Window());
             /*Configuration config = ConfigurationManager.OpenExeConfiguration
                 (System.Reflection.Assembly.GetExecutingAssembly().Location);
             string value = config.AppSettings.Settings["pdfOutput"].Value;*/
 
+            /*_host.Start();
+            _host.Services.GetRequiredService<Palette>().Show();*/
+        }
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
             _host.Start();
-            _host.Services.GetRequiredService<Palette>().Show();
+            _host.Services.GetRequiredService<MainLightingTab>().Show();
+
+            base.OnStartup(e);
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args = null)
@@ -50,7 +60,7 @@ namespace ElectricalEngineerTools.Framework.PL
                 .AddPalette();
         }
 
-        void IExtensionApplication.Initialize()
+        /*void IExtensionApplication.Initialize()
         {
             Main();
         }
@@ -58,6 +68,6 @@ namespace ElectricalEngineerTools.Framework.PL
         void IExtensionApplication.Terminate()
         {
 
-        }
+        }*/
     }
 }

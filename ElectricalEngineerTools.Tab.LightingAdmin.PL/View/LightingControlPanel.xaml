@@ -5,36 +5,222 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ElectricalEngineerTools.Tab.LightingAdmin.PL.View"
              mc:Ignorable="d"
-        Width="1000">
+        Width="1300">
     <Grid Background="LavenderBlush">
-        <DataGrid x:Name="dataGrid" AutoGenerateColumns="False" HorizontalGridLinesBrush="DarkGray" 
-                  RowBackground="LightGray" AlternatingRowBackground="White" ItemsSource="{Binding LightingFixtures}">
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <WrapPanel Grid.Row="2" HorizontalAlignment="Right">
+            <Button x:Name="commitButton" Content="Зафиксировать изменения" Margin="10 10"
+                    Command="{Binding CommitChangesData}" IsEnabled="{Binding CommitState}"/>
+            <Button Content="Откатить изменения" Margin="10 10"
+                    Command="{Binding RevertChangesData}" IsEnabled="{Binding CommitState}" />
+        </WrapPanel>
+
+        <DataGrid Grid.Row="0" AutoGenerateColumns="False" HorizontalGridLinesBrush="DarkGray" CanUserAddRows="True"
+                  RowBackground="LightGray" AlternatingRowBackground="White" ItemsSource="{Binding LightingFixtures}"
+                  SelectedItem="{Binding SelectedItem}">
             <DataGrid.Columns>
-                <DataGridTemplateColumn Header="Производитель" Width="100">
-                    <DataGridTemplateColumn.CellEditingTemplate >
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBox Text="{Binding Manufacturer}" Height="30"/>
+                            <Button Content="Delete" 
+                                    Command="{Binding Path=DataContext.DeleteRow,
+                                        RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                                    CommandParameter="{Binding Path=DataContext.SelectedItem,
+                                        RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Производитель" Width="120" Binding="{Binding Manufacturer}"/>
+                <DataGridTextColumn Header="Тип" Width="100" Binding="{Binding Brand}"/>
+                <DataGridTextColumn Header="Монтаж" Width="100" Binding="{Binding Mounting}"/>
+                <DataGridTextColumn Header="Мощность" Width="100" Binding="{Binding Power}"/>
+                <DataGridTextColumn Header="Климат" Width="70" Binding="{Binding ClimaticModification}"/>
+                <DataGridTextColumn Header="Рассеиватель" Width="100" Binding="{Binding DiffuserMaterial}"/>
+                <DataGridTextColumn Header="IP" Width="35" Binding="{Binding IP}"/>
+                <DataGridCheckBoxColumn Header="Пожаробезопасный" Binding="{Binding IsFireproof}"/>
+                <DataGridCheckBoxColumn Header="БАП" Width="40" Binding="{Binding BPSU}"/>
+                <DataGridTextColumn Header="Источник света" Width="100" Binding="{Binding LightSource}"/>
+                <DataGridTextColumn Header="Тип источника света" Width="100" Binding="{Binding LightSourceType}"/>
+                <DataGridTextColumn Header="Длина" Width="60" Binding="{Binding Length}"/>
+                <DataGridTextColumn Header="Ширина" Width="60" Binding="{Binding Width}"/>
+                <DataGridTextColumn Header="Ldt/Ies файл" Width="100" Binding="{Binding LdtIesFile}"/>
+                <DataGridTextColumn Header="Dwg файл" Width="100" Binding="{Binding DwgFile}"/>
+                <DataGridTextColumn Header="CableId" Width="50" Binding="{Binding CableId}"/>
+
+                <!--<DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Width="100">
+                                <Button Content="Edit" Command="{Binding Path=DataContext.EditLightingData,
+                                        RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Width="100">
+                                <Button Content="Cancel"/>
+                                <Button Content="Commit"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Производитель" Width="100">
+                    <DataGridTemplateColumn.CellTemplate >
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Manufacturer}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <TextBox Background="Aquamarine" Text="{Binding Manufacturer, Mode=TwoWay, UpdateSourceTrigger=Explicit}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellEditingTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="Тип" Width="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Brand}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
                     <DataGridTemplateColumn.CellEditingTemplate>
                         <DataTemplate>
-                            <TextBox Text="{Binding Brand}" Height="30"/>
+                            <TextBox Background="Aquamarine" Text="{Binding Brand, Mode=TwoWay, UpdateSourceTrigger=Explicit}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellEditingTemplate>
                 </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Мощность" Width="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Power}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <TextBox Background="Aquamarine" Text="{Binding Power, Mode=TwoWay, UpdateSourceTrigger=Explicit}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Климатическое исполнение" Binding="{Binding ClimaticModification, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTemplateColumn Header="Климатическое исполнение" Width="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox Text="{Binding ClimaticModification}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <TextBox Background="Aquamarine" Text="{Binding ClimaticModification, Mode=TwoWay, UpdateSourceTrigger=Explicit}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Оптический материал" Width="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding DiffuserMaterial}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <TextBox Background="Aquamarine" Text="{Binding DiffuserMaterial, Mode=TwoWay, UpdateSourceTrigger=Explicit}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="IP" Width="50">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding IP}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <TextBox Background="Aquamarine" Text="{Binding IP, Mode=TwoWay, UpdateSourceTrigger=Explicit}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
+                <DataGridCheckBoxColumn Header="Пожаробезопасный" Binding="{Binding IsFireproof}"/>
+                <DataGridCheckBoxColumn Header="БАП" Binding="{Binding BPSU, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTemplateColumn Header="Источник света" Width="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding LightSourceType}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <TextBox Background="Aquamarine" Text="{Binding LightSourceType, Mode=TwoWay, UpdateSourceTrigger=Explicit}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+
+                </DataGridTemplateColumn> 
+                <DataGridTemplateColumn Header="Длина" Width="60">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Length}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <TextBox Background="Aquamarine" Text="{Binding Length, Mode=TwoWay, UpdateSourceTrigger=Explicit}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Ширина" Width="60">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Width}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <TextBox Background="Aquamarine" Text="{Binding Width, Mode=TwoWay, UpdateSourceTrigger=Explicit}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Файл базы данных" Width="120">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding LdtIesFile}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <TextBox Background="Aquamarine" Text="{Binding LdtIesFile, Mode=TwoWay, UpdateSourceTrigger=Explicit}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+
+                </DataGridTemplateColumn>-->
+
             </DataGrid.Columns>
-            <!--<DataGrid.Columns>                
-                <DataGridTextColumn Header="Производитель" Binding="{Binding Manufacturer}" Width="100"/>
-                <DataGridTextColumn Header="Тип" Binding="{Binding Brand}" Width="100"/>
-                <DataGridTextColumn Header="Мощность" Binding="{Binding Power}" Width="100"/>
-                <DataGridTextColumn Header="Климатическое исполнение" Binding="{Binding ClimaticModification}" Width="170"/>
-                <DataGridTextColumn Header="Рассеиватель" Binding="{Binding DiffuserMaterial}" Width="100"/>
-                <DataGridTextColumn Header="IP" Binding="{Binding IP}" Width="40"/>
-                <DataGridTextColumn Header="Пожаробезопасный" Binding="{Binding IsFireproof}" Width="150"/>
-                <DataGridTextColumn Header="Кабель подключения" Binding="{Binding Cable.Brand}" Width="150"/>
-            </DataGrid.Columns>-->
+        </DataGrid>
+        <DataGrid Grid.Row="1" AutoGenerateColumns="False" HorizontalGridLinesBrush="DarkGray" CanUserAddRows="True"
+                  RowBackground="LightGray" AlternatingRowBackground="White" ItemsSource="{Binding Cables}"
+                  SelectedItem="{Binding SelectedItem}">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Delete" 
+                                    Command="{Binding Path=DataContext.DeleteRow,
+                                        RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                                    CommandParameter="{Binding Path=DataContext.SelectedItem,
+                                        RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTextColumn Header="Id" Width="50" Binding="{Binding Id}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Тип" Width="50" Binding="{Binding Brand}"/>
+                <DataGridTextColumn Header="Число жил" Width="70" Binding="{Binding CoresNumber}"/>
+                <DataGridTextColumn Header="Сечение" Width="60" Binding="{Binding Section}"/>
+            </DataGrid.Columns>
         </DataGrid>
     </Grid>
 </Window>

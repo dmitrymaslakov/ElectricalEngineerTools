@@ -9,7 +9,7 @@
         <GroupBox Header="Выбор светильника" Padding="5">
             <StackPanel>
                 <ComboBox MinWidth="150"/>
-                <local:LightingFixtureFilter/>
+                <local:LightingFixtureFilter DataContext="{Binding LightingFixtureFilter}"/>
                 <WrapPanel>
                     <TextBlock Padding="1" Margin="3 0" HorizontalAlignment="Left" Text="Лампа"/>
                     <Label Padding="3" Margin="3 0" HorizontalAlignment="Left"/>

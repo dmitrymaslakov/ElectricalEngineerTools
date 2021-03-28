@@ -27,6 +27,12 @@ namespace ElectricalEngineerTools.Framework.DAL
         {
 
         }
+        /*protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<LightingFixture>().MapToStoredProcedures();
+            modelBuilder.Entity<Cable>().MapToStoredProcedures();
+        }*/
     }
 
     public class Example
@@ -77,17 +83,17 @@ namespace ElectricalEngineerTools.Framework.DAL
                     BPSU = false,
                     Brand = "ЛПО12-910-4х36",
                     ClimaticModification = "УХЛ5",
-                    Description = "Светильник потолочный с люминесцентной лампой",
+                    Mounting = "потолочный",
                     DiffuserMaterial = "Опаловый рассеиватель",
                     DwgFile = "dwg.dwg",
                     IP = "IP54",
                     IsFireproof = true,
                     LdtIesFile = "ldt.ldt",
-                    Length = "1300",
+                    Length = 1300,
                     LightSourceType = "T8 G13",
                     Manufacturer = "ООО СВС Лайтинг",
                     Power = 144.0,
-                    Width = "600"
+                    Width = 600
                 }
              };
             context.LightingFixtures.AddRange(lightings);

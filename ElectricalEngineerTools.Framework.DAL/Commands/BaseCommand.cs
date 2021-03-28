@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace ElectricalEngineerTools.Framework.PL.Commands
+namespace ElectricalEngineerTools.Framework.DAL.Commands
 {
     public abstract class BaseCommand : ICommand
     {

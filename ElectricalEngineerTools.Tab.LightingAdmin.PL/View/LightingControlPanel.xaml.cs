@@ -23,8 +23,8 @@ namespace ElectricalEngineerTools.Tab.LightingAdmin.PL.View
         public LightingControlPanel(object dataContext)
         {
             InitializeComponent();
-            //dataGrid.Items.Clear();
             DataContext = dataContext;
+            Closing += Window_Closing;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

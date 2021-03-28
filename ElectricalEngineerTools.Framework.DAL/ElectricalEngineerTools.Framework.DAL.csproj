@@ -104,6 +104,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\BaseCommand.cs" />
     <Compile Include="ElectricsContext.cs" />
     <Compile Include="ElectricsContextFactory.cs" />
     <Compile Include="Entities\BaseEntity.cs" />
@@ -117,6 +118,30 @@
     <Compile Include="Migrations\202102200753226_Fix1.cs" />
     <Compile Include="Migrations\202102200753226_Fix1.designer.cs">
       <DependentUpon>202102200753226_Fix1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103221405063_AddStoredProcedures.cs" />
+    <Compile Include="Migrations\202103221405063_AddStoredProcedures.designer.cs">
+      <DependentUpon>202103221405063_AddStoredProcedures.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103240708118_GuidToString.cs" />
+    <Compile Include="Migrations\202103240708118_GuidToString.designer.cs">
+      <DependentUpon>202103240708118_GuidToString.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103240800517_BoolToInt.cs" />
+    <Compile Include="Migrations\202103240800517_BoolToInt.designer.cs">
+      <DependentUpon>202103240800517_BoolToInt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103241126420_IntToBool.cs" />
+    <Compile Include="Migrations\202103241126420_IntToBool.designer.cs">
+      <DependentUpon>202103241126420_IntToBool.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103241131372_StringToGuid.cs" />
+    <Compile Include="Migrations\202103241131372_StringToGuid.designer.cs">
+      <DependentUpon>202103241131372_StringToGuid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103241235004_GuidToInt.cs" />
+    <Compile Include="Migrations\202103241235004_GuidToInt.designer.cs">
+      <DependentUpon>202103241235004_GuidToInt.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -132,6 +157,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102200753226_Fix1.resx">
       <DependentUpon>202102200753226_Fix1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103221405063_AddStoredProcedures.resx">
+      <DependentUpon>202103221405063_AddStoredProcedures.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103240708118_GuidToString.resx">
+      <DependentUpon>202103240708118_GuidToString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103240800517_BoolToInt.resx">
+      <DependentUpon>202103240800517_BoolToInt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103241126420_IntToBool.resx">
+      <DependentUpon>202103241126420_IntToBool.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103241131372_StringToGuid.resx">
+      <DependentUpon>202103241131372_StringToGuid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103241235004_GuidToInt.resx">
+      <DependentUpon>202103241235004_GuidToInt.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

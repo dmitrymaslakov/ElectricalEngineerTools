@@ -100,29 +100,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\RevertChangesDataCommand.cs" />
+    <Compile Include="Commands\CommitChangesDataCommand.cs" />
+    <Compile Include="Commands\DeleteRowCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\LightingAdminTabViewModel.cs" />
     <Compile Include="ViewModels\LightingControlPanelViewModel.cs" />
-    <Compile Include="View\LightingAdminTab.xaml.cs">
-      <DependentUpon>LightingAdminTab.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\LightingControlPanel.xaml.cs">
       <DependentUpon>LightingControlPanel.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="View\LightingAdminTab.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\LightingControlPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Commands\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\ElectricalEngineerTools.Framework.DAL\ElectricalEngineerTools.Framework.DAL.csproj">
       <Project>{f63b3a1e-32d3-4219-a951-00193d9fcb65}</Project>

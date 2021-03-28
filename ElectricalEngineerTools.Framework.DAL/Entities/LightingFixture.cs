@@ -11,7 +11,7 @@ namespace ElectricalEngineerTools.Framework.DAL.Entities
         [Required]
         public string Brand { get; set; }
         [Required]
-        public string Description { get; set; }
+        public string Mounting { get; set; }
         [Required]
         public double Power { get; set; }
         [Required]
@@ -25,17 +25,17 @@ namespace ElectricalEngineerTools.Framework.DAL.Entities
         [Required]
         public bool BPSU { get; set; }
         [Required]
+        public string LightSource { get; set; }
         public string LightSourceType { get; set; }
         [Required]
-        public string Length { get; set; }
+        public double Length { get; set; }
         [Required]
-        public string Width { get; set; }
+        public double Width { get; set; }
         [Required]
         public string LdtIesFile { get; set; }
         [Required]
         public string DwgFile { get; set; }
-        
-        public Guid? CableId { get; set; }
+        public int? CableId { get; set; }
         public virtual Cable Cable { get; set; }
     }
 }

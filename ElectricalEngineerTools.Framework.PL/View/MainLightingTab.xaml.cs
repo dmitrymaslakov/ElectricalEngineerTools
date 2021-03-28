@@ -7,7 +7,7 @@ namespace ElectricalEngineerTools.Framework.PL.View
     /// <summary>
     /// Interaction logic for MainWindowLighting.xaml
     /// </summary>
-    public partial class MainLightingTab : UserControl
+    public partial class MainLightingTab : Window
     {
         public MainLightingTab(object dataContext)
         {

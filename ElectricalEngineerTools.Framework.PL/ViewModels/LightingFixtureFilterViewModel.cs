@@ -1,83 +1,96 @@
 ﻿using Autodesk.AutoCAD.Geometry;
+using ElectricalEngineerTools.Framework.DAL;
 using ElectricalEngineerTools.Framework.DAL.ViewModels;
 using ElectricalEngineerTools.Framework.PL.Commands;
 using ElectricalEngineerTools.Framework.PL.Helpers;
 using ElectricalEngineerTools.Framework.PL.Interfaces;
 using ElectricalEngineerTools.Framework.PL.Services;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows;
 
 namespace ElectricalEngineerTools.Framework.PL.ViewModels
 {
 
     public class LightingFixtureFilterViewModel : ViewModelBase
     {
-        private double _length;
-        private double _width;
-        private double _area;
-        private double _workingSurfaceHeight;
-        private double _safetyFactor;
+        private CheckBox[] _manufacturers;
+        private CheckBox[] _mounting;
+        private CheckBox[] _lightSource;
+        private CheckBox[] _climaticModification;
 
-        public ICommand MeasurePremisSize => new MeasurePremisSizeCommand(this);
+        public CheckBox[] Manufacturers
+        {
+            get => _manufacturers;
+            set
+            {
+                _manufacturers = value;
+                OnPropertyChanged(nameof(Manufacturers));
+            }
+        }
+        public CheckBox[] Mounting
+        {
+            get => _mounting;
+            set
+            {
+                _mounting = value;
+                OnPropertyChanged(nameof(Mounting));
+            }
+        }
+        public CheckBox[] LightSource
+        {
+            get => _lightSource;
+            set
+            {
+                _lightSource = value;
+                OnPropertyChanged(nameof(LightSource));
+            }
+        }
+        public CheckBox[] ClimaticModification
+        {
+            get => _climaticModification;
+            set
+            {
+                _climaticModification = value;
+                OnPropertyChanged(nameof(ClimaticModification));
+            }
+        }
 
-        public double Length
-        {
-            get => _length;
-            set
-            {
-                _length = value;
-                OnPropertyChanged(nameof(Length));
-            }
-        }
-        public double Width
-        {
-            get => _width;
-            set
-            {
-                _width = value;
-                OnPropertyChanged(nameof(Width));
-            }
-        }
-        public double Area
-        {
-            get => _area;
-            set
-            {
-                _area = value;
-                OnPropertyChanged(nameof(Area));
-            }
-        }
-        /// <summary>координаты на плане</summary>
-        public Point2d[] Coordinates { get; set; }
-        public double Height { get; set; }
-        /// <summary>угол поворота помещения в пространстве относительно X</summary>
-        public double dArrayAng { get; set; }
-        /// <summary>коэффициенты отражения </summary>
-        public PceilingPwallPworkingSurface PcPwPws { get; set; }
-        /// <summary>высота рабочей поверхности</summary>
-        public double WorkingSurfaceHeight
-        {
-            get => _workingSurfaceHeight;
-            set
-            {
-                _workingSurfaceHeight = value;
-                OnPropertyChanged(nameof(WorkingSurfaceHeight));
-            }
-        }
-        /// <summary>коэффициент запаса</summary>
-        public double SafetyFactor
-        {
-            get => _safetyFactor; 
-            set
-            {
-                _safetyFactor = value;
-                OnPropertyChanged(nameof(SafetyFactor));
-            }
-        }
-        /// <summary>индекс помещения</summary>
-        public double i { get; set; }
 
+        public LightingFixtureFilterViewModel(MySqlConnection connection, ElectricsContext context)
+        {
+            Manufacturers = context.LightingFixtures
+                .Select(l => l.Manufacturer)
+                .Distinct()
+                .ToArray()
+                .Select(m => new CheckBox { Content = m, Margin = new Thickness(5, 0, 5, 0) })
+                .ToArray();
+
+            Mounting = context.LightingFixtures
+                .Select(l => l.Mounting)
+                .Distinct()
+                .ToArray()
+                .Select(m => new CheckBox { Content = m, Margin = new Thickness(5, 0, 5, 0) })
+                .ToArray();
+
+            LightSource = context.LightingFixtures
+                .Select(l => l.LightSource)
+                .Distinct()
+                .ToArray()
+                .Select(m => new CheckBox { Content = m, Margin = new Thickness(5, 0, 5, 0) })
+                .ToArray();
+
+            ClimaticModification = context.LightingFixtures
+                .Select(l => l.ClimaticModification)
+                .Distinct()
+                .ToArray()
+                .Select(m => new CheckBox { Content = m, Margin = new Thickness(5, 0, 5, 0) })
+                .ToArray();
+        }
     }
 }

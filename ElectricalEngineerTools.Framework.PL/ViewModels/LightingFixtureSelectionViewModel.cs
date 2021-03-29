@@ -11,7 +11,6 @@ using System.Windows.Input;
 
 namespace ElectricalEngineerTools.Framework.PL.ViewModels
 {
-
     public class LightingFixtureSelectionViewModel : ViewModelBase
     {
         private string _lamp;
@@ -19,7 +18,7 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
         private double _power;
         private double _mountingHeight;
 
-        public LightingFixtureFilterViewModel ightingFixtureFilter { get; set; }
+        public LightingFixtureFilterViewModel LightingFixtureFilter { get; set; }
         public string Lamp
         {
             get => _lamp;
@@ -55,6 +54,11 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
                 _mountingHeight = value;
                 OnPropertyChanged(nameof(MountingHeight));
             }
+        }
+
+        public LightingFixtureSelectionViewModel(LightingFixtureFilterViewModel lightingFixtureFilter)
+        {
+            LightingFixtureFilter = lightingFixtureFilter;
         }
     }
 }

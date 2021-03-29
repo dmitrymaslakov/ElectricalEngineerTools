@@ -17,7 +17,7 @@
                 <WrapPanel Margin="0 4">
                     <TextBlock Padding="1" Margin="3 0" HorizontalAlignment="Left" TextWrapping="Wrap"
                                Text="Световой поток, лм"/>
-                    <TextBox Height="20" Width="40" HorizontalAlignment="Left"/>
+                    <TextBox Height="20" Width="40" HorizontalAlignment="Left"/> 
                 </WrapPanel>
                 <WrapPanel>
                     <TextBlock Padding="1" Margin="3 0" HorizontalAlignment="Left" TextWrapping="Wrap" 

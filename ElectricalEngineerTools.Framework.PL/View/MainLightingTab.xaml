@@ -22,8 +22,8 @@
             <Button Content="Управление светильниками" Padding="3" Margin="0 3" HorizontalAlignment="Left"
                     Command="{Binding GetLightingControlPanel}"/>
         </StackPanel>
-        <StackPanel Grid.Column="1">
-            <controls:LightingFixtureSelection/>
+        <StackPanel Grid.Column="1"> 
+            <controls:LightingFixtureSelection DataContext="{Binding LightingFixtureSelection}"/>
         </StackPanel>
     </Grid>
 </Window>

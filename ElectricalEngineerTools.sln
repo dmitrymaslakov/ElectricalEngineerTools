@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElectricalEngineerTools.Fra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElectricalEngineerTools.Tab.LightingAdmin.PL", "ElectricalEngineerTools.Tab.LightingAdmin.PL\ElectricalEngineerTools.Tab.LightingAdmin.PL.csproj", "{772CC8E3-AF16-4E5C-9C35-6462649E6DCD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElectricalEngineerTools.Test", "ElectricalEngineerTools.Test\ElectricalEngineerTools.Test.csproj", "{F3DD63E9-3B32-43CB-8F74-00C6628985E8}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{772CC8E3-AF16-4E5C-9C35-6462649E6DCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{772CC8E3-AF16-4E5C-9C35-6462649E6DCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{772CC8E3-AF16-4E5C-9C35-6462649E6DCD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F3DD63E9-3B32-43CB-8F74-00C6628985E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F3DD63E9-3B32-43CB-8F74-00C6628985E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F3DD63E9-3B32-43CB-8F74-00C6628985E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F3DD63E9-3B32-43CB-8F74-00C6628985E8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

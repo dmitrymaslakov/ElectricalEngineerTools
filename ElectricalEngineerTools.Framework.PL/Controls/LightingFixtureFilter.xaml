@@ -8,11 +8,7 @@
     <Expander Margin="0" Padding="0" Header="Фильтр" IsExpanded="True">
         <StackPanel>
             <GroupBox Header="Производитель">
-                <StackPanel>
-                    <CheckBox Margin="5,0" Content="ЗАО &quot;Белинтегра&quot;"/>
-                    <CheckBox Margin="5,0" Content="ООО &quot;СВС Лайтинг&quot;"/>
-                    <CheckBox Margin="5,0" Content="Световые технологии"/>
-                </StackPanel>
+                <ListBox ItemsSource="{Binding Manufacturers}" Background="Wheat"/>
             </GroupBox>
 
             <GroupBox Header="Форма">
@@ -24,19 +20,11 @@
             </GroupBox>
 
             <GroupBox Header="Способ монтажа">
-                <StackPanel x:Name="stackMounting">
-                    <CheckBox x:Name="ceiling" Margin="5 0" Content="потолочный, настенный"/>
-                    <CheckBox x:Name="recessed" Margin="5 0" Content="встраиваемый"/>
-                    <CheckBox x:Name="pendant" Margin="5 0" Content="подвесной"/>
-                </StackPanel>
+                <ListBox ItemsSource="{Binding Mounting}" Background="Wheat"/>
             </GroupBox>
 
             <GroupBox Header="Источник света">
-                <StackPanel x:Name="stackTypeLamp">
-                    <CheckBox x:Name="LED" Margin="5 0" Content="светодиодный"/>
-                    <CheckBox x:Name="luminescent" Margin="5 0" Content="с люминесцентной лампой"/>
-                    <CheckBox x:Name="incandescent" Margin="5 0" Content="с лампой накаливания"/>
-                </StackPanel>
+                <ListBox ItemsSource="{Binding LightSource}" Background="Wheat"/>
             </GroupBox>
 
             <GroupBox x:Name="grBoxNumberLamps" Header="Количество ламп в светильнике" IsEnabled="False">
@@ -48,11 +36,7 @@
             </GroupBox>
 
             <GroupBox Header="Климатическое исполнение">
-                <StackPanel x:Name="stackClimaticVersion">
-                    <CheckBox x:Name="uhl4" Margin="5 0" Content="УХЛ4"/>
-                    <CheckBox x:Name="u1" Margin="5 0" Content="У1"/>
-                    <CheckBox x:Name="u2" Margin="5 0" Content="У2"/>
-                </StackPanel>
+                <ListBox ItemsSource="{Binding ClimaticModification}" Background="Wheat"/>
             </GroupBox>
 
             <CheckBox x:Name="chBoxIP" IsThreeState="True" IsChecked="{x:Null}" Margin="5 0" Content="Пылевлагозащищенный"/>

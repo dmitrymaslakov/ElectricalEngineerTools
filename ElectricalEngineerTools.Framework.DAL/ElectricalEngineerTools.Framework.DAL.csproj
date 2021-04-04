@@ -99,6 +99,7 @@
     <Reference Include="Ubiety.Dns.Core, Version=2.2.1.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.8.0.22\lib\net48\Ubiety.Dns.Core.dll</HintPath>
     </Reference>
+    <Reference Include="WindowsBase" />
     <Reference Include="Zstandard.Net, Version=1.1.7.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.8.0.22\lib\net48\Zstandard.Net.dll</HintPath>
     </Reference>
@@ -143,6 +144,10 @@
     <Compile Include="Migrations\202103241235004_GuidToInt.designer.cs">
       <DependentUpon>202103241235004_GuidToInt.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104041538499_AddLampsNumberColumn.cs" />
+    <Compile Include="Migrations\202104041538499_AddLampsNumberColumn.designer.cs">
+      <DependentUpon>202104041538499_AddLampsNumberColumn.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
@@ -175,6 +180,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202103241235004_GuidToInt.resx">
       <DependentUpon>202103241235004_GuidToInt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104041538499_AddLampsNumberColumn.resx">
+      <DependentUpon>202104041538499_AddLampsNumberColumn.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

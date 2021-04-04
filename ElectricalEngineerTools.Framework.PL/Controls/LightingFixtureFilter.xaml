@@ -12,11 +12,7 @@
             </GroupBox>
 
             <GroupBox Header="Форма">
-                <StackPanel x:Name="stackForm">
-                    <CheckBox x:Name="rectangular" Margin="5 0" Content="прямоугольный"/>
-                    <CheckBox x:Name="square" Margin="5 0" Content="квадрат"/>
-                    <CheckBox x:Name="circular" Margin="5 0" Content="круглый"/>
-                </StackPanel>
+                <ListBox ItemsSource="{Binding Shapes}" Background="Wheat"/>
             </GroupBox>
 
             <GroupBox Header="Способ монтажа">
@@ -27,21 +23,17 @@
                 <ListBox ItemsSource="{Binding LightSource}" Background="Wheat"/>
             </GroupBox>
 
-            <GroupBox x:Name="grBoxNumberLamps" Header="Количество ламп в светильнике" IsEnabled="False">
-                <StackPanel x:Name="stackNumberLamps">
-                    <CheckBox x:Name="one" Margin="5 0" Content="1"/>
-                    <CheckBox x:Name="two" Margin="5 0" Content="2"/>
-                    <CheckBox x:Name="four" Margin="5 0" Content="4"/>
-                </StackPanel>
+            <GroupBox Header="Количество ламп в светильнике" IsEnabled="{Binding LampsNumberIsEnabled}">
+                <ListBox ItemsSource="{Binding LampsNumber}" Background="Wheat"/>
             </GroupBox>
 
             <GroupBox Header="Климатическое исполнение">
                 <ListBox ItemsSource="{Binding ClimaticModification}" Background="Wheat"/>
             </GroupBox>
 
-            <CheckBox x:Name="chBoxIP" IsThreeState="True" IsChecked="{x:Null}" Margin="5 0" Content="Пылевлагозащищенный"/>
-            <CheckBox x:Name="chBoxFireproof" IsThreeState="True" IsChecked= "{x:Null}" Margin="5 0" Content="Пожаробезопасный"/>
-            <CheckBox x:Name="chBoxUPS" IsThreeState="True" IsChecked= "{x:Null}" Margin="5 0" Content="БАП"/>
+            <CheckBox Margin="5 0" Content="Пылевлагозащищенный"/>
+            <CheckBox Margin="5 0" Content="Пожаробезопасный"/>
+            <CheckBox Margin="5 0" Content="БАП"/>
         </StackPanel>
     </Expander>
 </UserControl>

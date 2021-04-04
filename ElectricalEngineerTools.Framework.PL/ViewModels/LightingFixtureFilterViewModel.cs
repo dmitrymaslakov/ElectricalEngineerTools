@@ -13,18 +13,25 @@ using System.Text;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows;
+using System.Collections.ObjectModel;
 
 namespace ElectricalEngineerTools.Framework.PL.ViewModels
 {
 
     public class LightingFixtureFilterViewModel : ViewModelBase
     {
-        private CheckBox[] _manufacturers;
-        private CheckBox[] _mounting;
-        private CheckBox[] _lightSource;
-        private CheckBox[] _climaticModification;
+        private ObservableCollection<CheckBox> _manufacturers;
+        private ObservableCollection<CheckBox> _shapes;
+        private ObservableCollection<CheckBox> _mounting;
+        private ObservableCollection<CheckBox> _lightSource;
+        private ObservableCollection<CheckBox> _lampsNumber;
+        private ObservableCollection<CheckBox> _climaticModification;
+        private bool _lampsNumberIsEnabled;
 
-        public CheckBox[] Manufacturers
+        public ElectricsContext Context { get; set; }
+        public Action<string[]> SettingBrands { get; set; }
+        public CheckedChangedCommand CheckedChanged { get; set; }
+        public ObservableCollection<CheckBox> Manufacturers
         {
             get => _manufacturers;
             set
@@ -33,7 +40,16 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
                 OnPropertyChanged(nameof(Manufacturers));
             }
         }
-        public CheckBox[] Mounting
+        public ObservableCollection<CheckBox> Shapes
+        {
+            get => _shapes;
+            set
+            {
+                _shapes = value;
+                OnPropertyChanged(nameof(Shapes));
+            }
+        }
+        public ObservableCollection<CheckBox> Mounting
         {
             get => _mounting;
             set
@@ -42,7 +58,7 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
                 OnPropertyChanged(nameof(Mounting));
             }
         }
-        public CheckBox[] LightSource
+        public ObservableCollection<CheckBox> LightSource
         {
             get => _lightSource;
             set
@@ -51,7 +67,16 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
                 OnPropertyChanged(nameof(LightSource));
             }
         }
-        public CheckBox[] ClimaticModification
+        public ObservableCollection<CheckBox> LampsNumber
+        {
+            get => _lampsNumber;
+            set
+            {
+                _lampsNumber = value;
+                OnPropertyChanged(nameof(LampsNumber));
+            }
+        }
+        public ObservableCollection<CheckBox> ClimaticModification
         {
             get => _climaticModification;
             set
@@ -60,37 +85,112 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
                 OnPropertyChanged(nameof(ClimaticModification));
             }
         }
-
-
-        public LightingFixtureFilterViewModel(MySqlConnection connection, ElectricsContext context)
+        public bool LampsNumberIsEnabled
         {
-            Manufacturers = context.LightingFixtures
+            get => _lampsNumberIsEnabled;
+            set
+            {
+                _lampsNumberIsEnabled = value;
+                OnPropertyChanged(nameof(LampsNumberIsEnabled));
+            }
+        }
+
+
+        public LightingFixtureFilterViewModel(ElectricsContext context)
+        {
+            LampsNumberIsEnabled = false;
+            CheckedChanged = new CheckedChangedCommand(this);
+            Context = context;
+
+            Manufacturers = new ObservableCollection<CheckBox>(context.LightingFixtures
                 .Select(l => l.Manufacturer)
                 .Distinct()
                 .ToArray()
-                .Select(m => new CheckBox { Content = m, Margin = new Thickness(5, 0, 5, 0) })
-                .ToArray();
+                .Select(m =>
+                {
+                    var chB = new CheckBox
+                    {
+                        Content = m,
+                        Margin = new Thickness(5, 0, 5, 0),
+                        Command = CheckedChanged
+                    };
+                    chB.CommandParameter = chB;
+                    return chB;
+                }));
 
-            Mounting = context.LightingFixtures
+            Shapes = new ObservableCollection<CheckBox>(new string[] { "прямоугольный", "квадрат", "круглый" }
+                .Select(sh =>
+                {
+                    var chB = new CheckBox
+                    {
+                        Content = sh,
+                        Margin = new Thickness(5, 0, 5, 0),
+                        Command = CheckedChanged
+                    };
+                    chB.CommandParameter = chB;
+                    return chB;
+                }));
+
+            Mounting = new ObservableCollection<CheckBox>(context.LightingFixtures
                 .Select(l => l.Mounting)
                 .Distinct()
                 .ToArray()
-                .Select(m => new CheckBox { Content = m, Margin = new Thickness(5, 0, 5, 0) })
-                .ToArray();
+                .Select(m =>
+                {
+                    var chB = new CheckBox
+                    {
+                        Content = m,
+                        Margin = new Thickness(5, 0, 5, 0),
+                        Command = CheckedChanged
+                    };
+                    chB.CommandParameter = chB;
+                    return chB;
+                }));
 
-            LightSource = context.LightingFixtures
+            LightSource = new ObservableCollection<CheckBox>(context.LightingFixtures
                 .Select(l => l.LightSource)
                 .Distinct()
                 .ToArray()
-                .Select(m => new CheckBox { Content = m, Margin = new Thickness(5, 0, 5, 0) })
-                .ToArray();
+                .Select(m =>
+                {
+                    var chB = new CheckBox
+                    {
+                        Content = m,
+                        Margin = new Thickness(5, 0, 5, 0),
+                        Command = CheckedChanged
+                    };
+                    chB.CommandParameter = chB;
+                    return chB;
+                }));
 
-            ClimaticModification = context.LightingFixtures
+            LampsNumber = new ObservableCollection<CheckBox>(new int[] { 1, 2, 4 }
+                .Select(sh =>
+                {
+                    var chB = new CheckBox
+                    {
+                        Content = sh,
+                        Margin = new Thickness(5, 0, 5, 0),
+                        Command = CheckedChanged
+                    };
+                    chB.CommandParameter = chB;
+                    return chB;
+                }));
+
+            ClimaticModification = new ObservableCollection<CheckBox>(context.LightingFixtures
                 .Select(l => l.ClimaticModification)
                 .Distinct()
                 .ToArray()
-                .Select(m => new CheckBox { Content = m, Margin = new Thickness(5, 0, 5, 0) })
-                .ToArray();
+                .Select(sh =>
+                {
+                    var chB = new CheckBox
+                    {
+                        Content = sh,
+                        Margin = new Thickness(5, 0, 5, 0),
+                        Command = CheckedChanged
+                    };
+                    chB.CommandParameter = chB;
+                    return chB;
+                }));
         }
     }
 }

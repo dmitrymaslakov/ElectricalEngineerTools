@@ -12,6 +12,8 @@ namespace ElectricalEngineerTools.Framework.DAL.Entities
         public string Brand { get; set; }
         [Required]
         public string Mounting { get; set; }
+        public int? LampsNumber { get; set; }
+
         [Required]
         public double Power { get; set; }
         [Required]
@@ -27,10 +29,8 @@ namespace ElectricalEngineerTools.Framework.DAL.Entities
         [Required]
         public string LightSource { get; set; }
         public string LightSourceType { get; set; }
-        [Required]
-        public double Length { get; set; }
-        [Required]
-        public double Width { get; set; }
+        public double? Length { get; set; }
+        public double? Width { get; set; }
         [Required]
         public string LdtIesFile { get; set; }
         [Required]

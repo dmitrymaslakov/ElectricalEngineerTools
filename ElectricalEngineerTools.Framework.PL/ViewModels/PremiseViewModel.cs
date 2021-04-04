@@ -7,6 +7,7 @@ using ElectricalEngineerTools.Framework.PL.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows;
 using System.Windows.Input;
 
 namespace ElectricalEngineerTools.Framework.PL.ViewModels

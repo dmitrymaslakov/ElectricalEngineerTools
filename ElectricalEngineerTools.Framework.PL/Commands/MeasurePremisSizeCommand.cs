@@ -107,7 +107,7 @@ namespace ElectricalEngineerTools.Framework.PL.Commands
                 Premise.Length = distance1 / 1000;
                 Premise.Width = distance2 / 1000;
                 Premise.Area = Premise.Length * Premise.Width;
-                Premise.Coordinates = point2Ds;
+                //Premise.Coordinates = point2Ds;
             }
             catch (Exception ex)
             {

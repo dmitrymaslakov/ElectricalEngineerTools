@@ -83,7 +83,7 @@ namespace ElectricalEngineerTools.Framework.DAL
                     BPSU = false,
                     Brand = "ЛПО12-910-4х36",
                     ClimaticModification = "УХЛ5",
-                    Mounting = "потолочный",
+                    MountingType = "потолочный",
                     DiffuserMaterial = "Опаловый рассеиватель",
                     DwgFile = "dwg.dwg",
                     IP = "IP54",

@@ -1,27 +1,21 @@
-﻿using Autodesk.AutoCAD.Geometry;
-using ElectricalEngineerTools.Framework.DAL;
+﻿using ElectricalEngineerTools.Framework.DAL;
+using ElectricalEngineerTools.Framework.DAL.Entities;
 using ElectricalEngineerTools.Framework.DAL.ViewModels;
-using ElectricalEngineerTools.Framework.PL.Commands;
-using ElectricalEngineerTools.Framework.PL.Helpers;
-using ElectricalEngineerTools.Framework.PL.Interfaces;
-using ElectricalEngineerTools.Framework.PL.Services;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Input;
 
 namespace ElectricalEngineerTools.Framework.PL.ViewModels
 {
     public class LightingFixtureSelectionViewModel : ViewModelBase
     {
+        private ElectricsContext _context;
         private string[] _brands;
+        private string _brand;
         private string _lamp;
         private double _luminousFlux;
         private double _power;
         private double _mountingHeight;
         private LightingFixtureFilterViewModel _lightingFixtureFilter;
+        private string _lightingDescription;
 
 
         /*public LightingFixtureFilterViewModel LightingFixtureFilter
@@ -47,15 +41,18 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
             }
         }
 
-        public LightingFixtureFilterViewModel LightingFixtureFilter
+        public string Brand
         {
-            get => _lightingFixtureFilter;
+            get => _brand;
             set
             {
-                _lightingFixtureFilter = value;
-                OnPropertyChanged(nameof(LightingFixtureFilter));
+                _brand = value;
+                OnPropertyChanged(nameof(Brand));
+                SetLightingParameters();
+                SetLightingDescription();
             }
         }
+
 
         public string Lamp
         {
@@ -93,15 +90,65 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
                 OnPropertyChanged(nameof(MountingHeight));
             }
         }
+        public LightingFixtureFilterViewModel LightingFixtureFilter
+        {
+            get => _lightingFixtureFilter;
+            set
+            {
+                _lightingFixtureFilter = value;
+                OnPropertyChanged(nameof(LightingFixtureFilter));
+            }
+        }
+        public string LightingDescription
+        {
+            get => _lightingDescription;
+            set
+            {
+                _lightingDescription = value;
+                OnPropertyChanged(nameof(LightingDescription));
+            }
+        }
+
+        public LdtIesFileData LdtIesFileData { get; set; }
+
 
         public LightingFixtureSelectionViewModel(LightingFixtureFilterViewModel lightingFixtureFilter, ElectricsContext context)
         {
+            _context = context;
             LightingFixtureFilter = lightingFixtureFilter;
             LightingFixtureFilter.SettingBrands = s => Brands = s;
             
-            Brands = context.LightingFixtures
+            Brands = _context.LightingFixtures
                 .Select(l => l.Brand)
                 .ToArray();
+
+            MountingHeight = 3.0;
+        }
+
+        private void SetLightingParameters()
+        {
+            var ldtIesFile = _context.LightingFixtures
+                .SingleOrDefault(l => l.Brand.Equals(Brand))
+                ?.LdtIesFile;
+
+            LdtIesFileData = new LdtIesFileData(ldtIesFile);
+
+            Lamp = LdtIesFileData.Lamps[0].TypeLamp;
+            LuminousFlux = LdtIesFileData.Lamps[0].LuminousFlux;
+            Power = LdtIesFileData.Lamps[0].Wattage;
+
+        }
+        private void SetLightingDescription()
+        {
+            var moutingType = _context.LightingFixtures
+                .FirstOrDefault(l => l.Brand.Equals(Brand))
+                .MountingType;
+
+            var lightSource = _context.LightingFixtures
+                .FirstOrDefault(l => l.Brand.Equals(Brand))
+                .LightSource;
+
+            LightingDescription = $"Светильник {moutingType} {lightSource}";
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿<Window x:Class="ElectricalEngineerTools.Framework.PL.View.MainLightingTab"
+﻿<UserControl x:Class="ElectricalEngineerTools.Framework.PL.View.MainLightingTab"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -13,12 +13,15 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0">
-            <controls:PremiseParameters DataContext="{Binding Measurer}"/>
-            <controls:SpatialArrangement/>
-            <controls:CalculatedIlluminationValue/>
-            <Button Content="Расчет освещенности" Padding="3" Margin="0 3" HorizontalAlignment="Left"/>
+            <!--<controls:PremiseParameters DataContext="{Binding Measurer}"/>-->
+            <controls:PremiseParameters DataContext="{Binding Premise}"/>
+            <controls:SpatialArrangement DataContext="{Binding SpatialArrangement}"/>
+            <controls:CalculatedIlluminanceValue DataContext="{Binding CalculatedIlluminanceValue}"/>
+            <Button Content="Расчет освещенности" Padding="3" Margin="0 3" HorizontalAlignment="Left"
+                    Command="{Binding CalculateIlluminance}"/>
             <Button Content="Расставить светильники" Padding="3" Margin="0 3" HorizontalAlignment="Left"/>
-            <Button Content="Вставить светильник" Padding="3" Margin="0 3" HorizontalAlignment="Left"/>
+            <Button Content="Вставить светильник" Padding="3" Margin="0 3" HorizontalAlignment="Left"
+                    Command="{Binding InsertLighting}" CommandParameter="{Binding LightingFixtureSelection.LightingDescription}"/>
             <Button Content="Управление светильниками" Padding="3" Margin="0 3" HorizontalAlignment="Left"
                     Command="{Binding GetLightingControlPanel}"/>
         </StackPanel>
@@ -26,4 +29,4 @@
             <controls:LightingFixtureSelection DataContext="{Binding LightingFixtureSelection}"/>
         </StackPanel>
     </Grid>
-</Window>
+</UserControl>

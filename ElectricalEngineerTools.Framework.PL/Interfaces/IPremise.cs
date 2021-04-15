@@ -12,16 +12,18 @@ namespace ElectricalEngineerTools.Framework.PL.Interfaces
 {
     public interface IPremise
     {
+        //ICommand MeasurePremisSize { get; }
+
         double Length { get; set; }
         double Width { get; set; }
         double Area { get; set; }
         /// <summary>координаты на плане</summary>
-        Point2d[] Coordinates { get; set; }
+        //Point2d[] Coordinates { get; set; }
         double Height { get; set; }
         /// <summary>угол поворота помещения в пространстве относительно X</summary>
         double dArrayAng { get; set; }
         /// <summary>коэффициенты отражения </summary>
-        PceilingPwallPworkingSurface PcPwPws { get; set; }
+        PceilingPwallPworkingSurface SelectedPcPwPws { get; set; }
         /// <summary>высота рабочей поверхности</summary>
         double WorkingSurfaceHeight { get; set; }
         /// <summary>коэффициент запаса</summary>

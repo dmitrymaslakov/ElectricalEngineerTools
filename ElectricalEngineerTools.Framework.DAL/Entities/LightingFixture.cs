@@ -11,7 +11,9 @@ namespace ElectricalEngineerTools.Framework.DAL.Entities
         [Required]
         public string Brand { get; set; }
         [Required]
-        public string Mounting { get; set; }
+        public string MountingType { get; set; }
+        public string MountingSubtype { get; set; }
+
         public int? LampsNumber { get; set; }
 
         [Required]

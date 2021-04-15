@@ -18,15 +18,18 @@
         <StackPanel>
             <WrapPanel Margin="0 4">
                 <TextBlock Padding="3" Margin="0 3" HorizontalAlignment="Left" Text="Длина, м"/>
-                <TextBox Height="20" Width="40" HorizontalAlignment="Left" Text="{Binding MeasurePremiseSize.Premise.Length}"></TextBox>
+                <!--<TextBox Height="20" Width="40" HorizontalAlignment="Left" Text="{Binding MeasurePremiseSize.Premise.Length}"></TextBox>-->
+                <TextBox Height="20" Width="40" HorizontalAlignment="Left" Text="{Binding Length, StringFormat='{}{##.##}', UpdateSourceTrigger=PropertyChanged}"/>
             </WrapPanel>
             <WrapPanel Margin="0 4">
                 <TextBlock Padding="3" Margin="0 3" HorizontalAlignment="Left" Text="Ширина, м"/>
-                <TextBox Height="20" Width="40" HorizontalAlignment="Left" Text="{Binding MeasurePremiseSize.Premise.Width}"></TextBox>
+                <!--<TextBox Height="20" Width="40" HorizontalAlignment="Left" Text="{Binding MeasurePremiseSize.Premise.Width}"></TextBox>-->
+                <TextBox Height="20" Width="40" HorizontalAlignment="Left" Text="{Binding Width, StringFormat='{}{##.##}', UpdateSourceTrigger=PropertyChanged}"/>
             </WrapPanel>
             <WrapPanel>
                 <TextBlock Padding="3" Margin="0 3" HorizontalAlignment="Left" Text="Площадь, м2"/>
-                <Label Height="25" Margin="5 0" Content="{Binding MeasurePremiseSize.Premise.Area}"/>
+                <!--<Label Height="25" Margin="5 0" Content="{Binding MeasurePremiseSize.Premise.Area}"/>-->
+                <Label Height="25" Margin="5 0" Content="{Binding Area}"/>
             </WrapPanel>
             <Button Padding="3" Margin="0 4" HorizontalAlignment="Left" Content="Вычислить размеры"                    
                     Command="{Binding MeasurePremiseSize}"/>
@@ -34,19 +37,21 @@
                 <TextBlock Height="20" Width="60" HorizontalAlignment="Left" Text="РпРсРр"
                            ToolTip="Коэффициенты отражения помещения"/>
                 <StackPanel>
-                    <ComboBox ItemsSource="{Binding Source={StaticResource pcpwpws}}">
-                    </ComboBox>
+                    <ComboBox ItemsSource="{Binding Source={StaticResource pcpwpws}}" 
+                              SelectedItem="{Binding SelectedPcPwPws}"/>
                 </StackPanel>
             </WrapPanel>
             <WrapPanel Margin="0 4">
                 <TextBlock Height="20" Width="60" HorizontalAlignment="Left" Text="hp"
                            ToolTip="Высота рабочей плоскости"/>
-                <TextBox Height="20" Width="40" HorizontalAlignment="Left" Text="{Binding MeasurePremiseSize.Premise.WorkingSurfaceHeight}"/>
+                <!--<TextBox Height="20" Width="40" HorizontalAlignment="Left" Text="{Binding MeasurePremiseSize.Premise.WorkingSurfaceHeight}"/>-->
+                <TextBox Height="20" Width="40" HorizontalAlignment="Left" Text="{Binding WorkingSurfaceHeight}"/>
             </WrapPanel>
             <WrapPanel Margin="0 4">
                 <TextBlock Height="20" Width="60" HorizontalAlignment="Left" Text="Кз"
                         ToolTip="Коэффициент запаса"/>
-                <TextBox Height="20" Width="40" HorizontalAlignment="Left" Text="{Binding MeasurePremiseSize.Premise.SafetyFactor}"/>
+                <!--<TextBox Height="20" Width="40" HorizontalAlignment="Left" Text="{Binding MeasurePremiseSize.Premise.SafetyFactor}"/>-->
+                <TextBox Height="20" Width="40" HorizontalAlignment="Left" Text="{Binding SafetyFactor}"/>
             </WrapPanel>
         </StackPanel>
     </GroupBox>

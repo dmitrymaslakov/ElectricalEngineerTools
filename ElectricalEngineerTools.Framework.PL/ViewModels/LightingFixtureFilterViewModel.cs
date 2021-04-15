@@ -27,10 +27,13 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
         private ObservableCollection<CheckBox> _lampsNumber;
         private ObservableCollection<CheckBox> _climaticModification;
         private bool _lampsNumberIsEnabled;
+        private bool _isFireproof;
+        private bool _bpsu;
+        private bool _ip;
 
         public ElectricsContext Context { get; set; }
         public Action<string[]> SettingBrands { get; set; }
-        public CheckedChangedCommand CheckedChanged { get; set; }
+        public ICommand CheckedChanged { get; set; }
         public ObservableCollection<CheckBox> Manufacturers
         {
             get => _manufacturers;
@@ -94,7 +97,33 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
                 OnPropertyChanged(nameof(LampsNumberIsEnabled));
             }
         }
-
+        public bool IsFireproof
+        {
+            get => _isFireproof;
+            set
+            {
+                _isFireproof = value;
+                OnPropertyChanged(nameof(IsFireproof));
+            }
+        }
+        public bool BPSU
+        {
+            get => _bpsu;
+            set
+            {
+                _bpsu = value;
+                OnPropertyChanged(nameof(BPSU));
+            }
+        }
+        public bool IP
+        {
+            get => _ip;
+            set
+            {
+                _ip = value;
+                OnPropertyChanged(nameof(IP));
+            }
+        }
 
         public LightingFixtureFilterViewModel(ElectricsContext context)
         {
@@ -132,7 +161,7 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
                 }));
 
             Mounting = new ObservableCollection<CheckBox>(context.LightingFixtures
-                .Select(l => l.Mounting)
+                .Select(l => l.MountingType)
                 .Distinct()
                 .ToArray()
                 .Select(m =>

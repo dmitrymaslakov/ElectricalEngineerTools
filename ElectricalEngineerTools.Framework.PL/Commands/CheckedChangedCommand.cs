@@ -54,6 +54,8 @@ namespace ElectricalEngineerTools.Framework.PL.Commands
                 ?.Select(chB => chB.Content as string)
                 ?.ToArray();
 
+
+
             if (lightSource.Contains("с люминесцентной лампой")) 
                 _lightingFixtureFilterViewModel.LampsNumberIsEnabled = true;
             else
@@ -68,7 +70,7 @@ namespace ElectricalEngineerTools.Framework.PL.Commands
             var brands =
                 _lightingFixtureFilterViewModel.Context.LightingFixtures
                 .AsEnumerable()
-                .Where(l => manufacturers.Length == 0 ? true : manufacturers.Contains(l.Manufacturer))
+                .Where(l => manufacturers.Length == 0 || manufacturers.Contains(l.Manufacturer))
                 ?.Where(l =>
                 {
                     if (shapes.Length == 0) return true;
@@ -93,13 +95,15 @@ namespace ElectricalEngineerTools.Framework.PL.Commands
                     }
                     return result;
                 })
-                ?.Where(l => mounting.Length == 0 || mounting.Contains(l.Mounting))
+                ?.Where(l => mounting.Length == 0 || mounting.Contains(l.MountingType))
                 ?.Where(l => lightSource.Length == 0 || lightSource.Contains(l.LightSource))
                 ?.Where(l => _lightingFixtureFilterViewModel.LampsNumberIsEnabled == false || lampsNumber.Length == 0 || lampsNumber.Contains(l.LampsNumber))
                 ?.Where(l => climaticModification.Length == 0 || climaticModification.Contains(l.ClimaticModification))
+                ?.Where(l => _lightingFixtureFilterViewModel.IsFireproof == false || l.IsFireproof)
+                ?.Where(l => _lightingFixtureFilterViewModel.BPSU == false || l.BPSU)
+                ?.Where(l => _lightingFixtureFilterViewModel.IP == false || int.TryParse(l.IP.Substring(3), out int ip) && ip != 0)
                 ?.Select(l => l.Brand)
                 .ToArray();
-
 
             _lightingFixtureFilterViewModel.SettingBrands(brands);
         }

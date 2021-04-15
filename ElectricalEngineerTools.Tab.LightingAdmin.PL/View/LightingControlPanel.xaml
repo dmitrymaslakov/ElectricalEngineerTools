@@ -36,7 +36,8 @@
                 </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Производитель" Width="120" Binding="{Binding Manufacturer}"/>
                 <DataGridTextColumn Header="Тип" Width="100" Binding="{Binding Brand}"/>
-                <DataGridTextColumn Header="Монтаж" Width="100" Binding="{Binding Mounting}"/>
+                <DataGridTextColumn Header="Тип монтажа" Width="100" Binding="{Binding MountingType}"/>
+                <DataGridTextColumn Header="Вид монтажа" Width="100" Binding="{Binding MountingSubtype}"/>
                 <DataGridTextColumn Header="Мощность" Width="100" Binding="{Binding Power}"/>
                 <DataGridTextColumn Header="Климат" Width="70" Binding="{Binding ClimaticModification}"/>
                 <DataGridTextColumn Header="Рассеиватель" Width="100" Binding="{Binding DiffuserMaterial}"/>

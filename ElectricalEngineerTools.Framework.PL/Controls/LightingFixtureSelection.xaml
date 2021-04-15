@@ -8,26 +8,27 @@
     <Grid>
         <GroupBox Header="Выбор светильника" Padding="5">
             <StackPanel>
-                <ComboBox ItemsSource="{Binding Brands}" MinWidth="150"/>
+                <TextBlock Text="{Binding LightingDescription}" Foreground="Maroon" FontWeight="Bold"/>
+                <ComboBox ItemsSource="{Binding Brands}" SelectedItem="{Binding Brand}" MinWidth="150"/>
                 <local:LightingFixtureFilter DataContext="{Binding LightingFixtureFilter}"/>
                 <WrapPanel>
                     <TextBlock Padding="1" Margin="3 0" HorizontalAlignment="Left" Text="Лампа"/>
-                    <Label Padding="3" Margin="3 0" HorizontalAlignment="Left"/>
+                    <Label Padding="3" Margin="3 0" HorizontalAlignment="Left" Content="{Binding Lamp}"/>
                 </WrapPanel>
                 <WrapPanel Margin="0 4">
                     <TextBlock Padding="1" Margin="3 0" HorizontalAlignment="Left" TextWrapping="Wrap"
                                Text="Световой поток, лм"/>
-                    <TextBox Height="20" Width="40" HorizontalAlignment="Left"/> 
+                    <TextBox Height="20" Width="40" HorizontalAlignment="Left" Text="{Binding LuminousFlux}"/> 
                 </WrapPanel>
                 <WrapPanel>
                     <TextBlock Padding="1" Margin="3 0" HorizontalAlignment="Left" TextWrapping="Wrap" 
                             Text="Мощность, Вт"/>
-                    <Label Padding="3" Margin="5 0" HorizontalAlignment="Left"/>
+                    <Label Padding="3" Margin="5 0" HorizontalAlignment="Left" Content="{Binding Power}"/>
                 </WrapPanel>
                 <WrapPanel Margin="0 4">
                     <TextBlock Padding="1" Margin="3 0" HorizontalAlignment="Left" TextWrapping="Wrap" 
                                Text="Высота установки, м"/>
-                    <TextBox Height="20" Width="40" HorizontalAlignment="Left"/>
+                    <TextBox Height="20" Width="40" HorizontalAlignment="Left" Text="{Binding MountingHeight}"/>
                 </WrapPanel>
             </StackPanel>
         </GroupBox>

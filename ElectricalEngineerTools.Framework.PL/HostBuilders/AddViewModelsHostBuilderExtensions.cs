@@ -14,7 +14,9 @@ namespace ElectricalEngineerTools.Framework.PL.HostBuilders
             {
                 services.AddSingleton<IPremise, PremiseViewModel>();
                 services.AddSingleton<LightingFixtureFilterViewModel>();
+                services.AddSingleton<SpatialArrangementViewModel>();
                 services.AddSingleton<LightingFixtureSelectionViewModel>();
+                services.AddSingleton<CalculatedIlluminanceValueViewModel>();
             });
 
             return host;

@@ -18,10 +18,12 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
         private double _length;
         private double _width;
         private double _area;
+        private PceilingPwallPworkingSurface _selectedPcPwPws;
         private double _workingSurfaceHeight;
         private double _safetyFactor;
+        private Action<double, double> _calculatingArea;
 
-        public ICommand MeasurePremisSize => new MeasurePremisSizeCommand(this);
+        //public ICommand MeasurePremisSize => new MeasurePremisSizeCommand(this);
 
         public double Length
         {
@@ -30,6 +32,7 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
             {
                 _length = value;
                 OnPropertyChanged(nameof(Length));
+                _calculatingArea(Width, Length);
             }
         }
         public double Width
@@ -39,6 +42,7 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
             {
                 _width = value;
                 OnPropertyChanged(nameof(Width));
+                _calculatingArea(Width, Length);
             }
         }
         public double Area
@@ -51,12 +55,20 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
             }
         }
         /// <summary>координаты на плане</summary>
-        public Point2d[] Coordinates { get; set; }
+        //public Point2d[] Coordinates { get; set; }
         public double Height { get; set; }
         /// <summary>угол поворота помещения в пространстве относительно X</summary>
         public double dArrayAng { get; set; }
         /// <summary>коэффициенты отражения </summary>
-        public PceilingPwallPworkingSurface PcPwPws { get; set; }
+        public PceilingPwallPworkingSurface SelectedPcPwPws
+        {
+            get => _selectedPcPwPws;
+            set
+            {
+                _selectedPcPwPws = value;
+                OnPropertyChanged(nameof(SelectedPcPwPws));
+            }
+        }
         /// <summary>высота рабочей поверхности</summary>
         public double WorkingSurfaceHeight
         {
@@ -80,5 +92,13 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
         /// <summary>индекс помещения</summary>
         public double i { get; set; }
 
+        public PremiseViewModel()
+        {
+            _calculatingArea = (width, length) => { Area = width * length; };
+        }
+        /*private double CalculateArea (double width, double length)
+        {
+            return width * length;
+        }*/
     }
 }

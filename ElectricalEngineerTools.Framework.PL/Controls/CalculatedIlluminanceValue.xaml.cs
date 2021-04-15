@@ -5,9 +5,9 @@ namespace ElectricalEngineerTools.Framework.PL.Controls
     /// <summary>
     /// Interaction logic for CalculatedIlluminationValue.xaml
     /// </summary>
-    public partial class CalculatedIlluminationValue : UserControl
+    public partial class CalculatedIlluminanceValue : UserControl
     {
-        public CalculatedIlluminationValue()
+        public CalculatedIlluminanceValue()
         {
             InitializeComponent();
         }

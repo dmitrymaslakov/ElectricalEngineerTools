@@ -13,32 +13,57 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Windows;
 
-/*[assembly: ExtensionApplication(typeof(ElectricalEngineerTools.Framework.PL.Program))]
-[assembly: CommandClass(typeof(ElectricalEngineerTools.Framework.PL.Program))]*/
+[assembly: ExtensionApplication(typeof(ElectricalEngineerTools.Framework.PL.Program))]
+[assembly: CommandClass(typeof(ElectricalEngineerTools.Framework.PL.Program))]
 
 namespace ElectricalEngineerTools.Framework.PL
 {
-    public sealed class Program : //IExtensionApplication
-        Application
+    public sealed class Program : IExtensionApplication
     {
         private readonly IHost _host;
         public Program()
         {
             _host = CreateHostBuilder().Build();
         }
-        //[CommandMethod("qwРасчетОсвещенностиПомещения", CommandFlags.Session)]
+        [CommandMethod("qwРасчетОсвещенностиПомещения", CommandFlags.Session)]
+        public void Main()
+        {
+            _host.Start();
+            _host.Services.GetRequiredService<Palette>().Show();
+        }
+
+        public static IHostBuilder CreateHostBuilder(string[] args = null)
+        {
+            return Host.CreateDefaultBuilder()
+                .AddConfiguration()
+                .AddServices()
+                .AddDbContext()
+                .AddViewModels()
+                .AddTabs()
+                .AddPalette();
+        }
+
+        void IExtensionApplication.Initialize()
+        {
+            Main();
+        }
+
+        void IExtensionApplication.Terminate()
+        {
+
+        }
+    }
+    /*public sealed class Program : Application
+    {
+        private readonly IHost _host;
+        public Program()
+        {
+            _host = CreateHostBuilder().Build();
+        }
         [STAThread]
         public static void Main()
         {
             new Program().Run();
-            //Example.ExecuteExample();
-            //new Application().Run(new Window());
-            /*Configuration config = ConfigurationManager.OpenExeConfiguration
-                (System.Reflection.Assembly.GetExecutingAssembly().Location);
-            string value = config.AppSettings.Settings["pdfOutput"].Value;*/
-
-            /*_host.Start();
-            _host.Services.GetRequiredService<Palette>().Show();*/
         }
 
         protected override void OnStartup(StartupEventArgs e)
@@ -59,15 +84,5 @@ namespace ElectricalEngineerTools.Framework.PL
                 .AddTabs()
                 .AddPalette();
         }
-
-        /*void IExtensionApplication.Initialize()
-        {
-            Main();
-        }
-
-        void IExtensionApplication.Terminate()
-        {
-
-        }*/
-    }
+    }*/
 }

@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AcMaslakov">
+      <HintPath>..\..\MaslakovDLL\AcMaslakov.dll</HintPath>
+    </Reference>
     <Reference Include="BouncyCastle.Crypto, Version=1.8.5.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
       <HintPath>..\packages\BouncyCastle.1.8.5\lib\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
@@ -110,6 +113,7 @@
     <Compile Include="ElectricsContextFactory.cs" />
     <Compile Include="Entities\BaseEntity.cs" />
     <Compile Include="Entities\Cable.cs" />
+    <Compile Include="Entities\LdtIesFileData.cs" />
     <Compile Include="Entities\LightingFixture.cs" />
     <Compile Include="Interfaces\IEntity.cs" />
     <Compile Include="Migrations\202102190331079_InitialCreate.cs" />
@@ -148,6 +152,14 @@
     <Compile Include="Migrations\202104041538499_AddLampsNumberColumn.designer.cs">
       <DependentUpon>202104041538499_AddLampsNumberColumn.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104100702312_AddMountingSubtype.cs" />
+    <Compile Include="Migrations\202104100702312_AddMountingSubtype.designer.cs">
+      <DependentUpon>202104100702312_AddMountingSubtype.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104100725098_MountingSubtypeNull.cs" />
+    <Compile Include="Migrations\202104100725098_MountingSubtypeNull.designer.cs">
+      <DependentUpon>202104100725098_MountingSubtypeNull.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
@@ -183,6 +195,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104041538499_AddLampsNumberColumn.resx">
       <DependentUpon>202104041538499_AddLampsNumberColumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104100702312_AddMountingSubtype.resx">
+      <DependentUpon>202104100702312_AddMountingSubtype.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104100725098_MountingSubtypeNull.resx">
+      <DependentUpon>202104100725098_MountingSubtypeNull.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

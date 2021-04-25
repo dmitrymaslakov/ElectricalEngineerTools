@@ -18,13 +18,13 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
         private double _length;
         private double _width;
         private double _area;
+        private Point2d[] _coordinates;
         private PceilingPwallPworkingSurface _selectedPcPwPws;
         private double _workingSurfaceHeight;
         private double _safetyFactor;
         private Action<double, double> _calculatingArea;
 
-        //public ICommand MeasurePremisSize => new MeasurePremisSizeCommand(this);
-
+        public ICommand MeasurePremiseSize { get; set; }
         public double Length
         {
             get => _length;
@@ -55,7 +55,16 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
             }
         }
         /// <summary>координаты на плане</summary>
-        //public Point2d[] Coordinates { get; set; }
+        public Point2d[] Coordinates
+        {
+            get => _coordinates;
+            set
+            {
+                _coordinates = value;
+                OnPropertyChanged(nameof(Coordinates));
+            }
+        }
+
         public double Height { get; set; }
         /// <summary>угол поворота помещения в пространстве относительно X</summary>
         public double dArrayAng { get; set; }
@@ -95,10 +104,7 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
         public PremiseViewModel()
         {
             _calculatingArea = (width, length) => { Area = width * length; };
+            MeasurePremiseSize = new MeasurePremisSizeCommand(this);
         }
-        /*private double CalculateArea (double width, double length)
-        {
-            return width * length;
-        }*/
     }
 }

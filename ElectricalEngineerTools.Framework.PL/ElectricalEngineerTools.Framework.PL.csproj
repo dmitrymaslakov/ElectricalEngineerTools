@@ -43,9 +43,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Ac.NetApi">
-      <HintPath>..\..\MaslakovDLL\Ac.NetApi.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Ac.NetApi, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ProgectsWPF\Ac.NetApi\bin\Debug\Ac.NetApi.dll</HintPath>
     </Reference>
     <Reference Include="AcCoreMgd">
       <HintPath>C:\Autodesk\Autodesk_ObjectARX_2014_Win_64_and_32Bit\inc\AcCoreMgd.dll</HintPath>
@@ -268,10 +268,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\ArrangeLightingsCommand.cs" />
     <Compile Include="Commands\InsertLightingCommand.cs" />
     <Compile Include="Commands\CalculateIlluminanceCommand.cs" />
     <Compile Include="Commands\CheckedChangedCommand.cs" />
     <Compile Include="Commands\GetLightingControlPanelCommand.cs" />
+    <Compile Include="Services\LightingCreator.cs" />
     <Compile Include="Commands\MeasurePremisSizeCommand.cs" />
     <Compile Include="Controls\CalculatedIlluminanceValue.xaml.cs">
       <DependentUpon>CalculatedIlluminanceValue.xaml</DependentUpon>
@@ -288,18 +290,18 @@
     <Compile Include="Controls\SpatialArrangement.xaml.cs">
       <DependentUpon>SpatialArrangement.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\MultiValueConverter.cs" />
     <Compile Include="HostBuilders\AddConfigurationHostBuilderExtensions.cs" />
     <Compile Include="HostBuilders\AddDbContextHostBuilderExtensions.cs" />
-    <Compile Include="HostBuilders\AddServicesHostBuilderExtensions.cs" />
     <Compile Include="HostBuilders\AddPaletteHostBuilderExtensions.cs" />
     <Compile Include="HostBuilders\AddViewModelsHostBuilderExtensions.cs" />
     <Compile Include="HostBuilders\AddTabsHostBuilderExtensions.cs" />
-    <Compile Include="Interfaces\IMeasurer.cs" />
     <Compile Include="Interfaces\IPremise.cs" />
     <Compile Include="Palette.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\Measurer.cs" />
+    <Compile Include="Services\NumberValidationRule.cs" />
+    <Compile Include="Services\PaletteService.cs" />
     <Compile Include="ViewModels\CalculatedIlluminanceValueViewModel.cs" />
     <Compile Include="ViewModels\SpatialArrangementViewModel.cs" />
     <Compile Include="ViewModels\LightingFixtureSelectionViewModel.cs" />

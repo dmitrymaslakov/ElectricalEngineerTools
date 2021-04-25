@@ -12,6 +12,7 @@ using System.Linq;
 using ElectricalEngineerTools.Framework.PL.ViewModels;
 using ElectricalEngineerTools.Framework.PL.Interfaces;
 using ElectricalEngineerTools.Framework.DAL.Commands;
+using ElectricalEngineerTools.Framework.PL.Services;
 
 namespace ElectricalEngineerTools.Framework.PL.Commands
 {
@@ -34,8 +35,7 @@ namespace ElectricalEngineerTools.Framework.PL.Commands
                 //Если ПСК повернут, то отрегулируем угол поворота светильников
                 double dArrayAng = acVec2dAng.Angle;
                 Point3d[] arrayPoints = new Point3d[4];
-                //this.Visibility = System.Windows.Visibility.Hidden;
-                //RollUpPalette(true);
+                PaletteService.RollUpPalette();
                 // выбор диагонали помещения
                 var pPtOpts = new PromptPointOptions("")
                 {
@@ -51,8 +51,7 @@ namespace ElectricalEngineerTools.Framework.PL.Commands
                 pPtRes = ed.GetPoint(pPtOpts);
                 Point3d ptEnd = pPtRes.Value;
                 if (pPtRes.Status == PromptStatus.Cancel) return;
-                //this.Visibility = System.Windows.Visibility.Visible;
-                //RollUpPalette(false);
+                PaletteService.UnrollPalette();
                 arrayPoints[0] = UcsToWcs(ptStart);
                 arrayPoints[1] = UcsToWcs(ptEnd);
                 // точки прямоугольника-помещения. Они содержат координаты помещения в пространстве
@@ -107,7 +106,7 @@ namespace ElectricalEngineerTools.Framework.PL.Commands
                 Premise.Length = distance1 / 1000;
                 Premise.Width = distance2 / 1000;
                 Premise.Area = Premise.Length * Premise.Width;
-                //Premise.Coordinates = point2Ds;
+                Premise.Coordinates = point2Ds;
             }
             catch (Exception ex)
             {

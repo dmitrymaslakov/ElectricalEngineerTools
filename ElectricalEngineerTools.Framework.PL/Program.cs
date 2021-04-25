@@ -36,7 +36,6 @@ namespace ElectricalEngineerTools.Framework.PL
         {
             return Host.CreateDefaultBuilder()
                 .AddConfiguration()
-                .AddServices()
                 .AddDbContext()
                 .AddViewModels()
                 .AddTabs()

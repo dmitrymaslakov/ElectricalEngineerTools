@@ -5,27 +5,49 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ElectricalEngineerTools.Framework.PL.View"
              xmlns:controls="clr-namespace:ElectricalEngineerTools.Framework.PL.Controls"
+             xmlns:helpers="clr-namespace:ElectricalEngineerTools.Framework.PL.Helpers"
              mc:Ignorable="d"
         Height="800">
+    <UserControl.Resources>
+        <helpers:MultiValueConverter x:Key="converter"/>
+    </UserControl.Resources>
     <Grid Background="Wheat">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.7*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0">
-            <!--<controls:PremiseParameters DataContext="{Binding Measurer}"/>-->
             <controls:PremiseParameters DataContext="{Binding Premise}"/>
             <controls:SpatialArrangement DataContext="{Binding SpatialArrangement}"/>
             <controls:CalculatedIlluminanceValue DataContext="{Binding CalculatedIlluminanceValue}"/>
             <Button Content="Расчет освещенности" Padding="3" Margin="0 3" HorizontalAlignment="Left"
                     Command="{Binding CalculateIlluminance}"/>
-            <Button Content="Расставить светильники" Padding="3" Margin="0 3" HorizontalAlignment="Left"/>
+            <Button Content="Расставить светильники" Padding="3" Margin="0 3" HorizontalAlignment="Left"
+                    Command="{Binding ArrangeLightings}">
+                <Button.CommandParameter>
+                    <MultiBinding Converter="{StaticResource converter}">
+                        <Binding Path="Premise"/>
+                        <Binding Path="LightingFixtureSelection.LightingDescription"/>
+                        <Binding Path="LightingFixtureSelection.Brand"/>
+                        <Binding Path="SpatialArrangement"/>
+                    </MultiBinding>
+                </Button.CommandParameter>
+            </Button>
+
             <Button Content="Вставить светильник" Padding="3" Margin="0 3" HorizontalAlignment="Left"
-                    Command="{Binding InsertLighting}" CommandParameter="{Binding LightingFixtureSelection.LightingDescription}"/>
+                    Command="{Binding InsertLighting}">
+                <!--CommandParameter="{Binding LightingFixtureSelection.LightingDescription}"-->
+                <Button.CommandParameter>
+                    <MultiBinding Converter="{StaticResource converter}">
+                        <Binding Path="LightingFixtureSelection.LightingDescription"/>
+                        <Binding Path="LightingFixtureSelection.Brand"/>
+                    </MultiBinding>
+                </Button.CommandParameter>
+            </Button>
             <Button Content="Управление светильниками" Padding="3" Margin="0 3" HorizontalAlignment="Left"
                     Command="{Binding GetLightingControlPanel}"/>
         </StackPanel>
-        <StackPanel Grid.Column="1"> 
+        <StackPanel Grid.Column="1">
             <controls:LightingFixtureSelection DataContext="{Binding LightingFixtureSelection}"/>
         </StackPanel>
     </Grid>

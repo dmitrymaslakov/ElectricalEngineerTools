@@ -1,4 +1,5 @@
-﻿using ElectricalEngineerTools.Framework.DAL.ViewModels;
+﻿using ElectricalEngineerTools.Framework.DAL;
+using ElectricalEngineerTools.Framework.DAL.ViewModels;
 using ElectricalEngineerTools.Framework.PL.Commands;
 using ElectricalEngineerTools.Framework.PL.Interfaces;
 using ElectricalEngineerTools.Framework.PL.Services;
@@ -10,7 +11,6 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
     public class MainLightingTabViewModel
     {
         public IPremise Premise { get; set; }
-        //public IMeasurer Measurer { get; set; }
         public SpatialArrangementViewModel SpatialArrangement { get; set; }
         public LightingFixtureSelectionViewModel LightingFixtureSelection { get; set; }
         public CalculatedIlluminanceValueViewModel CalculatedIlluminanceValue { get; set; }
@@ -18,10 +18,11 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
         public ICommand GetLightingControlPanel { get; set; }
         public ICommand CalculateIlluminance { get; set; }
         public ICommand InsertLighting { get; set; }
-        
+        public ICommand ArrangeLightings { get; set; }
+
         public MainLightingTabViewModel(
             IPremise premise,
-            //IMeasurer measurer,
+            ElectricsContext context,
             LightingControlPanel lightingControlPanel,
             SpatialArrangementViewModel spatialArrangement,
             LightingFixtureSelectionViewModel lightingFixtureSelection,
@@ -30,14 +31,13 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
             premise.WorkingSurfaceHeight = 0.8;
             premise.SafetyFactor = 1.4;
             Premise = premise;
-            //Measurer = measurer;
             GetLightingControlPanel = new GetLightingControlPanelCommand(lightingControlPanel);
             SpatialArrangement = spatialArrangement;
             LightingFixtureSelection = lightingFixtureSelection;
             CalculatedIlluminanceValue = calculatedIlluminanceValue;
             CalculateIlluminance = new CalculateIlluminanceCommand(this);
-            InsertLighting = new InsertLightingCommand();
+            InsertLighting = new InsertLightingCommand(context);
+            ArrangeLightings = new ArrangeLightingsCommand(context);
         }
-
     }
 }

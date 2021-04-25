@@ -18,13 +18,13 @@
         <StackPanel>
             <WrapPanel Margin="0 4">
                 <TextBlock Padding="3" Margin="0 3" HorizontalAlignment="Left" Text="Длина, м"/>
-                <!--<TextBox Height="20" Width="40" HorizontalAlignment="Left" Text="{Binding MeasurePremiseSize.Premise.Length}"></TextBox>-->
-                <TextBox Height="20" Width="40" HorizontalAlignment="Left" Text="{Binding Length, StringFormat='{}{##.##}', UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Height="20" Width="40" HorizontalAlignment="Left" Text="{Binding Length, UpdateSourceTrigger=PropertyChanged}"/>
+                <!--<TextBox Height="20" Width="40" HorizontalAlignment="Left" Text="{Binding Length, StringFormat='{}{##.##}', UpdateSourceTrigger=PropertyChanged}"/>-->
             </WrapPanel>
             <WrapPanel Margin="0 4">
                 <TextBlock Padding="3" Margin="0 3" HorizontalAlignment="Left" Text="Ширина, м"/>
-                <!--<TextBox Height="20" Width="40" HorizontalAlignment="Left" Text="{Binding MeasurePremiseSize.Premise.Width}"></TextBox>-->
-                <TextBox Height="20" Width="40" HorizontalAlignment="Left" Text="{Binding Width, StringFormat='{}{##.##}', UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Height="20" Width="40" HorizontalAlignment="Left" Text="{Binding Width, UpdateSourceTrigger=PropertyChanged}"/>
+                <!--<TextBox Height="20" Width="40" HorizontalAlignment="Left" Text="{Binding Width, StringFormat='{}{##.##}', UpdateSourceTrigger=PropertyChanged}"/>-->
             </WrapPanel>
             <WrapPanel>
                 <TextBlock Padding="3" Margin="0 3" HorizontalAlignment="Left" Text="Площадь, м2"/>

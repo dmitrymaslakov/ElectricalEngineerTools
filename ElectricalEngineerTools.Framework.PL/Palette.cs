@@ -7,12 +7,9 @@ namespace ElectricalEngineerTools.Framework.PL
     public class Palette
     {
         public static PaletteSet PaletteSet { get; set; }
-        /*[Dependency]
-        public MainWindowLighting _windowLighting { get; set; }*/
         private MainLightingTab _lightingTab;
         public Palette(MainLightingTab windowLighting)
         {
-            //_windowLighting = new MainWindowLighting();
             _lightingTab = windowLighting;
         }
 
@@ -20,7 +17,7 @@ namespace ElectricalEngineerTools.Framework.PL
         {
             if (PaletteSet is null)
             {
-                PaletteSet = new PaletteSet("Crisp Light");
+                PaletteSet = new PaletteSet("Calculate Illuminance");
                 PaletteSet.AddVisual("Расчет освещенности", _lightingTab);
                 PaletteSet.Visible = true;
                 PaletteSet.Style = PaletteSetStyles.ShowAutoHideButton | PaletteSetStyles.ShowCloseButton

@@ -25,6 +25,7 @@ namespace ElectricalEngineerTools.Tab.LightingAdmin.PL.View
             InitializeComponent();
             DataContext = dataContext;
             Closing += Window_Closing;
+            
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

@@ -1,4 +1,5 @@
 ﻿using ElectricalEngineerTools.Framework.DAL.Entities;
+using ElectricalEngineerTools.Framework.DAL.Services;
 using MySql.Data.Entity;
 using MySql.Data.MySqlClient;
 using System;
@@ -13,12 +14,7 @@ namespace ElectricalEngineerTools.Framework.DAL
     [DbConfigurationType(typeof(MySqlEFConfiguration))]
     public class ElectricsContext : DbContext
     {
-
-        public DbSet<LightingFixture> LightingFixtures { get; set; }
-        public DbSet<Cable> Cables { get; set; }
-
-
-        public ElectricsContext() : base("DefaultConnection")
+        public ElectricsContext() : base(Base.ConnectionString)
         {
 
         }
@@ -27,77 +23,24 @@ namespace ElectricalEngineerTools.Framework.DAL
         {
 
         }
+
+        public DbSet<LightingFixture> LightingFixtures { get; set; }
+        public DbSet<Manufacturer> Manufacturers { get; set; }
+        public DbSet<TechnicalSpecifications> TechnicalSpecifications { get; set; }
+        public DbSet<Mounting> Mountings { get; set; }
+        public DbSet<ClimateApplication> ClimateApplications { get; set; }
+        public DbSet<DiffuserMaterial> DiffuserMaterials { get; set; }
+        public DbSet<IngressProtection> IngressProtections { get; set; }
+        public DbSet<EquipmentClass> EquipmentClasses { get; set; }
+        public DbSet<LightSourceInfo> LightSourceInfoes { get; set; }
+        public DbSet<Dimensions> Dimensions { get; set; }
+        public DbSet<Cable> Cables { get; set; }
+
         /*protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<LightingFixture>().MapToStoredProcedures();
             modelBuilder.Entity<Cable>().MapToStoredProcedures();
         }*/
-    }
-
-    public class Example
-    {
-        public static void ExecuteExample()
-        {
-            try
-            {
-                using (var context = new ElectricsContext())
-                {
-                    var l = context.LightingFixtures.ToList();
-                }
-            }
-            catch (Exception e)
-            {
-                throw;
-            }
-            /*string _connectionString = "server=localhost;user=root;password=HichnikMySQL1985;database=electrics";
-
-            using (var connection = new MySqlConnection(_connectionString))
-            {
-                connection.Open();
-                var transaction = connection.BeginTransaction();
-
-                try
-                {
-                    using (var context = new ElectricsContext(connection, false))
-                    {
-                        context.Database.UseTransaction(transaction);
-                        var lightings = context.Set<LightingFixture>().ToList();
-                        var lightings1 = context.Set<LightingFixture>().Local;
-                    }
-                    transaction.Commit();
-                }
-                catch(Exception e)
-                {
-                    transaction.Rollback();
-                    throw;
-                }
-            }*/
-        }
-        public static void Add(ElectricsContext context)
-        {
-            var lightings = new List<LightingFixture>
-            {
-                new LightingFixture
-                {
-                    BPSU = false,
-                    Brand = "ЛПО12-910-4х36",
-                    ClimaticModification = "УХЛ5",
-                    MountingType = "потолочный",
-                    DiffuserMaterial = "Опаловый рассеиватель",
-                    DwgFile = "dwg.dwg",
-                    IP = "IP54",
-                    IsFireproof = true,
-                    LdtIesFile = "ldt.ldt",
-                    Length = 1300,
-                    LightSourceType = "T8 G13",
-                    Manufacturer = "ООО СВС Лайтинг",
-                    Power = 144.0,
-                    Width = 600
-                }
-             };
-            context.LightingFixtures.AddRange(lightings);
-            context.SaveChanges();
-        }
     }
 }

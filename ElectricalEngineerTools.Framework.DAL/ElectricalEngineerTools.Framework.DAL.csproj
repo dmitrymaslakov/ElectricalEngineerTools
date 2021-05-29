@@ -112,6 +112,15 @@
     <Compile Include="ElectricsContext.cs" />
     <Compile Include="ElectricsContextFactory.cs" />
     <Compile Include="Entities\BaseEntity.cs" />
+    <Compile Include="Entities\ClimateApplication.cs" />
+    <Compile Include="Entities\EquipmentClass.cs" />
+    <Compile Include="Entities\IngressProtection.cs" />
+    <Compile Include="Entities\LightSourceInfo.cs" />
+    <Compile Include="Entities\DiffuserMaterial.cs" />
+    <Compile Include="Entities\Dimensions.cs" />
+    <Compile Include="Entities\Mounting.cs" />
+    <Compile Include="Entities\TechnicalSpecifications.cs" />
+    <Compile Include="Entities\Manufacturer.cs" />
     <Compile Include="Entities\Cable.cs" />
     <Compile Include="Entities\LdtIesFileData.cs" />
     <Compile Include="Entities\LightingFixture.cs" />
@@ -160,8 +169,45 @@
     <Compile Include="Migrations\202104100725098_MountingSubtypeNull.designer.cs">
       <DependentUpon>202104100725098_MountingSubtypeNull.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104271605598_AddTechnicalSpecifications.cs" />
+    <Compile Include="Migrations\202104271605598_AddTechnicalSpecifications.designer.cs">
+      <DependentUpon>202104271605598_AddTechnicalSpecifications.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105010601114_AddEquipmentClass.cs" />
+    <Compile Include="Migrations\202105010601114_AddEquipmentClass.designer.cs">
+      <DependentUpon>202105010601114_AddEquipmentClass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105041513567_AddManufacturerEntity.cs" />
+    <Compile Include="Migrations\202105041513567_AddManufacturerEntity.designer.cs">
+      <DependentUpon>202105041513567_AddManufacturerEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105041626107_AddManufacturerEntity2.cs" />
+    <Compile Include="Migrations\202105041626107_AddManufacturerEntity2.designer.cs">
+      <DependentUpon>202105041626107_AddManufacturerEntity2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105041635419_AddManufacturerEntity3.cs" />
+    <Compile Include="Migrations\202105041635419_AddManufacturerEntity3.designer.cs">
+      <DependentUpon>202105041635419_AddManufacturerEntity3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105091536205_RefactoringEntities.cs" />
+    <Compile Include="Migrations\202105091536205_RefactoringEntities.designer.cs">
+      <DependentUpon>202105091536205_RefactoringEntities.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105091604088_AddForeignKeys.cs" />
+    <Compile Include="Migrations\202105091604088_AddForeignKeys.designer.cs">
+      <DependentUpon>202105091604088_AddForeignKeys.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105111421296_RefactoringEntities2.cs" />
+    <Compile Include="Migrations\202105111421296_RefactoringEntities2.designer.cs">
+      <DependentUpon>202105111421296_RefactoringEntities2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105220832456_AddIsExplosionProofProp.cs" />
+    <Compile Include="Migrations\202105220832456_AddIsExplosionProofProp.designer.cs">
+      <DependentUpon>202105220832456_AddIsExplosionProofProp.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Base.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -201,6 +247,33 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104100725098_MountingSubtypeNull.resx">
       <DependentUpon>202104100725098_MountingSubtypeNull.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104271605598_AddTechnicalSpecifications.resx">
+      <DependentUpon>202104271605598_AddTechnicalSpecifications.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105010601114_AddEquipmentClass.resx">
+      <DependentUpon>202105010601114_AddEquipmentClass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105041513567_AddManufacturerEntity.resx">
+      <DependentUpon>202105041513567_AddManufacturerEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105041626107_AddManufacturerEntity2.resx">
+      <DependentUpon>202105041626107_AddManufacturerEntity2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105041635419_AddManufacturerEntity3.resx">
+      <DependentUpon>202105041635419_AddManufacturerEntity3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105091536205_RefactoringEntities.resx">
+      <DependentUpon>202105091536205_RefactoringEntities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105091604088_AddForeignKeys.resx">
+      <DependentUpon>202105091604088_AddForeignKeys.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105111421296_RefactoringEntities2.resx">
+      <DependentUpon>202105111421296_RefactoringEntities2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105220832456_AddIsExplosionProofProp.resx">
+      <DependentUpon>202105220832456_AddIsExplosionProofProp.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

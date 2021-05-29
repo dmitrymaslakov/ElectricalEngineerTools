@@ -29,114 +29,131 @@ namespace ElectricalEngineerTools.Framework.PL.Commands
         }
         public override void Execute(object parameter)
         {
-            var lightingFixtureSelection = _mainLightingTab.LightingFixtureSelection;
-            var premise = _mainLightingTab.Premise;
-            var numberAlongX = _mainLightingTab.SpatialArrangement.NumberAlongXAxis;
-            var numberAlongY = _mainLightingTab.SpatialArrangement.NumberAlongYAxis;
-
-            var curvePolarAnglesC0 = new Dictionary<double, double>();
-            for (int i = 0; i < lightingFixtureSelection.LdtIesFileData.AnglesG.Length; i++)
+            //try
             {
-                curvePolarAnglesC0.Add(lightingFixtureSelection.LdtIesFileData.AnglesG[i],
-                    lightingFixtureSelection.LdtIesFileData.LuminousIntensity[i]);
-            }
 
-            double[] targetAngles = new double[] { 5.0, 15.0, 25.0, 35.0, 45.0, 55.0, 65.0, 75.0, 85.0 };
-            //double[] keysDict = luminaire.DictionaryCurvePolarAnglesC0.Keys.ToArray();
-            double[] keysDict = lightingFixtureSelection.LdtIesFileData.AnglesG;
-            for (int i = 0; i < targetAngles.Length; i++)
-            {
-                for (int j = 0; j < keysDict.Length; j++)
+                var lightingFixtureSelection = _mainLightingTab.LightingFixtureSelection;
+                var ldtIesFileData = lightingFixtureSelection.LdtIesFileData;
+                if (ldtIesFileData == null)
                 {
-                    double num = keysDict[j] - targetAngles[i];
-                    if (num < 0)
-                    {
-                        continue;
-                    }
-                    else if (num == targetAngles[i])
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        targetAngles[i] = keysDict[j];
-                        break;
-                    }
+                    MessageBox.Show("Не выбран тип светильника");
+                    return;
+                }
+                var premise = _mainLightingTab.Premise;
+                var numberAlongX = _mainLightingTab.SpatialArrangement.NumberAlongXAxis;
+                var numberAlongY = _mainLightingTab.SpatialArrangement.NumberAlongYAxis;
+
+                var curvePolarAnglesC0 = new Dictionary<double, double>();
+                for (int i = 0; i < ldtIesFileData.AnglesG.Length; i++)
+                {
+                    curvePolarAnglesC0.Add(ldtIesFileData.AnglesG[i],
+                        ldtIesFileData.LuminousIntensity[i]);
                 }
 
-            }
-
-            var query = curvePolarAnglesC0
-                .Where(key =>
+                double[] targetAngles = new double[] { 5.0, 15.0, 25.0, 35.0, 45.0, 55.0, 65.0, 75.0, 85.0 };
+                //double[] keysDict = luminaire.DictionaryCurvePolarAnglesC0.Keys.ToArray();
+                double[] keysDict = ldtIesFileData.AnglesG;
+                for (int i = 0; i < targetAngles.Length; i++)
                 {
-                    foreach (var angle in targetAngles)
+                    for (int j = 0; j < keysDict.Length; j++)
                     {
-                        if (key.Key == angle)
+                        double num = keysDict[j] - targetAngles[i];
+                        if (num < 0)
                         {
-                            return true;
+                            continue;
+                        }
+                        else if (num == targetAngles[i])
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            targetAngles[i] = keysDict[j];
+                            break;
                         }
                     }
-                    return false;
-                });
 
-            var dictionary_i_n = new Dictionary<double, int>();
-            //double[] listIndexValue_i = new double[] { 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 3, 3.5, 4, 5 };
-            double[] listIndexValue_i = new double[] {
+                }
+
+                var query = curvePolarAnglesC0
+                    .Where(key =>
+                    {
+                        foreach (var angle in targetAngles)
+                        {
+                            if (key.Key == angle)
+                            {
+                                return true;
+                            }
+                        }
+                        return false;
+                    });
+
+                var dictionary_i_n = new Dictionary<double, int>();
+                //double[] listIndexValue_i = new double[] { 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 3, 3.5, 4, 5 };
+                double[] listIndexValue_i = new double[] {
                     0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 3, 3.5, 4, 5 };
-            var luminousFlux = lightingFixtureSelection.LdtIesFileData.Lamps[0].LuminousFlux;
-            // световой поток условной лампы luminousFluxOfConditionalLamp
-            double luminousFluxOfConditionalLamp;
-            if (lightingFixtureSelection.LdtIesFileData.Multiplier == 1)
-                luminousFluxOfConditionalLamp = luminousFlux;
-            else
-                luminousFluxOfConditionalLamp = 1000;
+                var luminousFlux = //lightingFixtureSelection.LdtIesFileData.Lamps[0].LuminousFlux;
+                    lightingFixtureSelection.LuminousFlux;
+                // световой поток условной лампы luminousFluxOfConditionalLamp
+                double luminousFluxOfConditionalLamp;
+                if (lightingFixtureSelection.LdtIesFileData.Multiplier == 1)
+                    luminousFluxOfConditionalLamp = luminousFlux;
+                else
+                    luminousFluxOfConditionalLamp = 1000;
 
-            if (premise.SelectedPcPwPws == 0)
-            {
-                MessageBox.Show("Не установлено значение РпРсРр");
-                return;
+                if (premise.SelectedPcPwPws == 0)
+                {
+                    MessageBox.Show("Не установлено значение РпРсРр");
+                    return;
+                }
+
+                string pathTxtFile = //"ElectricalEngineerTools.Framework.PL.Properties.Зональные множители для расчетов коэффициента использования.txt";
+                "ElectricalEngineerTools.Framework.PL;component/Resources/Зональные множители для расчетов коэффициента использования.txt";
+                //"ElectricalEngineerTools.Framework.PL.Resources.Зональные множители для расчетов коэффициента использования.txt";
+
+                int[] ListCoeffValue_n = GetListCoeff_n(premise.SelectedPcPwPws, listIndexValue_i, query, pathTxtFile, luminousFluxOfConditionalLamp);
+                for (int i = 0; i < listIndexValue_i.Length; i++)
+                {
+                    dictionary_i_n.Add(listIndexValue_i[i], ListCoeffValue_n[i]);
+                }
+
+                double h = lightingFixtureSelection.MountingHeight - premise.WorkingSurfaceHeight;
+
+                // проверка на наличие значений в свойствах
+                if (premise.Length == 0 || premise.Width == 0)
+                    premise.MeasurePremiseSize.Execute(null);
+
+                if (h <= 0)
+                {
+                    MessageBox.Show("Некорректное значение высоты установки светильника ");
+                    return;
+                }
+
+                premise.i = GetIndex(premise.Length, premise.Width, h, listIndexValue_i);
+                var n = dictionary_i_n[premise.i] / 100.0;
+
+                int N;
+                if (numberAlongX != 0 && numberAlongY != 0)
+                    N = numberAlongX * numberAlongY;
+                else
+                {
+                    MessageBox.Show("Заполните поля X и Y.");
+                    return;
+                }
+
+                _mainLightingTab.CalculatedIlluminanceValue.IlluminanceValue =
+                $"{GetIllumination(n, luminousFlux, N, premise.Area, premise.SafetyFactor):f1}";
             }
-
-            string pathTxtFile = //"ElectricalEngineerTools.Framework.PL.Properties.Зональные множители для расчетов коэффициента использования.txt";
-            "ElectricalEngineerTools.Framework.PL;component/Resources/Зональные множители для расчетов коэффициента использования.txt";
-            //"ElectricalEngineerTools.Framework.PL.Resources.Зональные множители для расчетов коэффициента использования.txt";
-
-            int[] ListCoeffValue_n = GetListCoeff_n(premise.SelectedPcPwPws, listIndexValue_i, query, pathTxtFile, luminousFluxOfConditionalLamp);
-            for (int i = 0; i < listIndexValue_i.Length; i++)
+            /*catch (Exception ex)
             {
-                dictionary_i_n.Add(listIndexValue_i[i], ListCoeffValue_n[i]);
-            }
-
-            double h = lightingFixtureSelection.MountingHeight - premise.WorkingSurfaceHeight;
-
-            // проверка на наличие значений в свойствах
-            if (premise.Length == 0 || premise.Width == 0)
-                //premise.MeasurePremisSize.Execute(premise);
-
-            if (h <= 0)
-            {
-                MessageBox.Show("Некорректное значение высоты установки светильника ");
-                return;
-            }
-            premise.i = GetIndex(premise.Length, premise.Width, h, listIndexValue_i);
-            var n = dictionary_i_n[premise.i] / 100.0;
-
-            int N;
-            if (numberAlongX != 0 && numberAlongY != 0)
-                N = numberAlongX * numberAlongY;
-            else
-            {
-                MessageBox.Show("Заполните поля X и Y.");
-                return;
-            }
-
-            _mainLightingTab.CalculatedIlluminanceValue.IlluminanceValue =
-            $"{GetIllumination(n, luminousFlux, N, premise.Area, premise.SafetyFactor):f1}";
+                MessageBox.Show(ex.Message);
+            }*/
         }
+
         /// <summary>Получить массив значений коэффициента использования, который соответствует значениям массива индексов помещения
         /// </summary>
         private int[] GetListCoeff_n(PceilingPwallPworkingSurface pпPcPp, double[] listIndexValue_i,
-            IEnumerable<KeyValuePair<double, double>> query, string path, double luminousFluxOfLamps)
+                IEnumerable<KeyValuePair<double, double>> query, string path, double luminousFluxOfLamps)
         {
             //int[] res = new int[17];
             int[] res = new int[25];
@@ -274,4 +291,5 @@ namespace ElectricalEngineerTools.Framework.PL.Commands
         }
 
     }
+
 }

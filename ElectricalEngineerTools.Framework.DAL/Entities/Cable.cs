@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ElectricalEngineerTools.Framework.DAL.Entities
 {
@@ -16,9 +17,13 @@ namespace ElectricalEngineerTools.Framework.DAL.Entities
         [Required]
         public double Section { get; set; }
         public virtual IEnumerable<LightingFixture> LightingFixtures { get; set; }
-        public override string ToString()
+        [NotMapped]
+        public string FullName
         {
-            return $"{Brand} {CoresNumber}х{Section}";
+            get
+            {
+                return $"{Brand} {CoresNumber}х{Section}";
+            }
         }
     }
 }

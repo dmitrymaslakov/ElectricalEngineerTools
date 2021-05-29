@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="ElectricalEngineerTools.Tab.LightingAdmin.PL.Controls.DataTemplate.DimensionsCellEditingDataTemplate"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:services="clr-namespace:ElectricalEngineerTools.Tab.LightingAdmin.PL.Services"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <services:DataConverter x:Key="dataConverter" />
+    </UserControl.Resources>
+    <ComboBox ItemsSource="{Binding DataContext.Dimensions, 
+        RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" 
+              SelectedItem="{Binding DataContext.SelectedCell, 
+        RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
+        <ComboBox.ItemTemplate>
+            <DataTemplate>
+                <TextBlock>
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Text">
+                                <Setter.Value>
+                                    <MultiBinding Converter="{StaticResource dataConverter}" ConverterParameter="Dimensions">
+                                        <Binding Path="Id" />
+                                        <Binding Path="DataContext.Context" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=Window}"/>
+                                    </MultiBinding>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </DataTemplate>
+        </ComboBox.ItemTemplate>
+    </ComboBox>
+</UserControl>

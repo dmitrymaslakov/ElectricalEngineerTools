@@ -103,13 +103,238 @@
     <Compile Include="Commands\RevertChangesDataCommand.cs" />
     <Compile Include="Commands\CommitChangesDataCommand.cs" />
     <Compile Include="Commands\DeleteRowCommand.cs" />
+    <Compile Include="Controls\DataGrid\CablesDataGrid.xaml.cs">
+      <DependentUpon>CablesDataGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DataGrid\ClimateApplicationDataGrid.xaml.cs">
+      <DependentUpon>ClimateApplicationDataGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DataGrid\DiffuserMaterialDataGrid.xaml.cs">
+      <DependentUpon>DiffuserMaterialDataGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DataGrid\DimensionDataGrid.xaml.cs">
+      <DependentUpon>DimensionDataGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DataGrid\EquipmentClassDataGrid.xaml.cs">
+      <DependentUpon>EquipmentClassDataGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DataGrid\IPDataGrid.xaml.cs">
+      <DependentUpon>IPDataGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DataGrid\LightSourceInfoDataGrid.xaml.cs">
+      <DependentUpon>LightSourceInfoDataGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DataGrid\LuminairesDataGrid.xaml.cs">
+      <DependentUpon>LuminairesDataGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DataGrid\ManufacturersDataGrid.xaml.cs">
+      <DependentUpon>ManufacturersDataGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DataGrid\MountingDataGrid.xaml.cs">
+      <DependentUpon>MountingDataGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DataGrid\TechnicalSpecificationsDataGrid.xaml.cs">
+      <DependentUpon>TechnicalSpecificationsDataGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DataTemplate\ClimateApplicationCellDataTemplate.xaml.cs">
+      <DependentUpon>ClimateApplicationCellDataTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DataTemplate\ClimateApplicationCellEditingDataTemplate.xaml.cs">
+      <DependentUpon>ClimateApplicationCellEditingDataTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DataTemplate\DiffuserMaterialCellDataTemplate.xaml.cs">
+      <DependentUpon>DiffuserMaterialCellDataTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DataTemplate\DiffuserMaterialCellEditingDataTemplate.xaml.cs">
+      <DependentUpon>DiffuserMaterialCellEditingDataTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DataTemplate\DimensionsCellDataTemplate.xaml.cs">
+      <DependentUpon>DimensionsCellDataTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DataTemplate\DimensionsCellEditingDataTemplate.xaml.cs">
+      <DependentUpon>DimensionsCellEditingDataTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DataTemplate\EquipmentClassCellDataTemplate.xaml.cs">
+      <DependentUpon>EquipmentClassCellDataTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DataTemplate\EquipmentClassCellEditingDataTemplate.xaml.cs">
+      <DependentUpon>EquipmentClassCellEditingDataTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DataTemplate\IPCellDataTemplate.xaml.cs">
+      <DependentUpon>IPCellDataTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DataTemplate\IPCellEditingDataTemplate.xaml.cs">
+      <DependentUpon>IPCellEditingDataTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DataTemplate\LightSourceInfoCellDataTemplate.xaml.cs">
+      <DependentUpon>LightSourceInfoCellDataTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DataTemplate\LightSourceInfoCellEditingDataTemplate.xaml.cs">
+      <DependentUpon>LightSourceInfoCellEditingDataTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DataTemplate\ManufacturerCellDataTemplate.xaml.cs">
+      <DependentUpon>ManufacturerCellDataTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DataTemplate\ManufacturerCellEditingDataTemplate.xaml.cs">
+      <DependentUpon>ManufacturerCellEditingDataTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DataTemplate\MountingCellDataTemplate.xaml.cs">
+      <DependentUpon>MountingCellDataTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DataTemplate\MountingCellEditingDataTemplate.xaml.cs">
+      <DependentUpon>MountingCellEditingDataTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DataTemplate\RowDeleteCellDataTemplate.xaml.cs">
+      <DependentUpon>RowDeleteCellDataTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DataTemplate\TechnicalSpecificationsCellDataTemplate.xaml.cs">
+      <DependentUpon>TechnicalSpecificationsCellDataTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DataTemplate\TechnicalSpecificationsCellEditingDataTemplate.xaml.cs">
+      <DependentUpon>TechnicalSpecificationsCellEditingDataTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DataTemplate\СableCellDataTemplate.xaml.cs">
+      <DependentUpon>СableCellDataTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DataTemplate\СableCellEditingDataTemplate.xaml.cs">
+      <DependentUpon>СableCellEditingDataTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\DataConverter.cs" />
     <Compile Include="ViewModels\LightingControlPanelViewModel.cs" />
     <Compile Include="View\LightingControlPanel.xaml.cs">
       <DependentUpon>LightingControlPanel.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Controls\DataGrid\CablesDataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DataGrid\ClimateApplicationDataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DataGrid\DiffuserMaterialDataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DataGrid\DimensionDataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DataGrid\EquipmentClassDataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DataGrid\IPDataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DataGrid\LightSourceInfoDataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DataGrid\LuminairesDataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DataGrid\ManufacturersDataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DataGrid\MountingDataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DataGrid\TechnicalSpecificationsDataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DataTemplate\ClimateApplicationCellDataTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DataTemplate\ClimateApplicationCellEditingDataTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DataTemplate\DiffuserMaterialCellDataTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DataTemplate\DiffuserMaterialCellEditingDataTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DataTemplate\DimensionsCellDataTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DataTemplate\DimensionsCellEditingDataTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DataTemplate\EquipmentClassCellDataTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DataTemplate\EquipmentClassCellEditingDataTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DataTemplate\IPCellDataTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DataTemplate\IPCellEditingDataTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DataTemplate\LightSourceInfoCellDataTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DataTemplate\LightSourceInfoCellEditingDataTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DataTemplate\ManufacturerCellDataTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DataTemplate\ManufacturerCellEditingDataTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DataTemplate\MountingCellDataTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DataTemplate\MountingCellEditingDataTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DataTemplate\RowDeleteCellDataTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DataTemplate\TechnicalSpecificationsCellDataTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DataTemplate\TechnicalSpecificationsCellEditingDataTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DataTemplate\СableCellDataTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DataTemplate\СableCellEditingDataTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\LightingControlPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

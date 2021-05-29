@@ -22,12 +22,10 @@ namespace ElectricalEngineerTools.Framework.PL.HostBuilders
                 
                 string connectionString = context.Configuration.GetConnectionString("DefaultConnection");
                        //config.ConnectionStrings.ConnectionStrings["DefaultConnection"].ConnectionString;
-                services.AddScoped(sp => new MySqlConnection(connectionString));
-                services.AddScoped(sp => new ElectricsContext(sp.GetRequiredService<MySqlConnection>(), false));
-                //services.AddScoped(sp => new ElectricsContext());
-                /*services.AddSingleton(new ElectricsContextFactory(connectionString));
-                services.AddSingleton(new ElectricsContext(connectionString));
-                services.AddTransient<IDbContextFactory<ElectricsContext>, ElectricsContextFactory>();*/
+
+                /*services.AddScoped(sp => new MySqlConnection(connectionString));
+                services.AddScoped(sp => new ElectricsContext(sp.GetRequiredService<MySqlConnection>(), false));*/
+                services.AddTransient(sp => new ElectricsContext());
             });
 
             return host;

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using ElectricalEngineerTools.Framework.DAL.Commands;
 using AcAppServices = Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
@@ -20,23 +22,22 @@ namespace ElectricalEngineerTools.Framework.PL.Commands
 {
     public class ArrangeLightingsCommand : BaseCommand
     {
-        private readonly AcAppServices.Document _doc;
-        private readonly Database _db;
-        private readonly Editor _ed;
         private readonly ElectricsContext _context;
         private LightingFixture _lighting;
 
         public LightingFixture Lighting { get; set; }
         public ArrangeLightingsCommand(ElectricsContext context)
         {
-            _doc = AcAppServices.Application.DocumentManager.MdiActiveDocument;
-            _db = _doc.Database;
-            _ed = _doc.Editor;
-            _context = context;
+            _context = //context;
+                new ElectricsContext();
         }
 
         public override void Execute(object parameter)
         {
+            var doc = AcAppServices.Application.DocumentManager.MdiActiveDocument;
+            var db = doc.Database;
+            var ed = doc.Editor;
+
             var values = (object[])parameter;
             var c = 0;
 
@@ -52,9 +53,11 @@ namespace ElectricalEngineerTools.Framework.PL.Commands
                 MessageBox.Show("Светильник не выбран. Выберите светильник");
                 return;
             }
-            _lighting = _context.LightingFixtures.SingleOrDefault(l => l.Brand.Equals(brand));
 
-            using (_doc.LockDocument())
+            //_lighting = _context.LightingFixtures.SingleOrDefault(l => l.Brand.Equals(brand));
+            _lighting = _context.LightingFixtures.Include(l => l.EquipmentClass).SingleOrDefault(l => l.Brand.Equals(brand));
+
+            using (doc.LockDocument())
             {
                 PaletteService.RollUpPalette();
                 measurePremiseSize.Execute(null);
@@ -62,26 +65,19 @@ namespace ElectricalEngineerTools.Framework.PL.Commands
                 // базовая точка помещения, от которой строится массив светильников
                 Point2d BasePointRectangular = coordinates[0];
                 // делаем Пространство Модели владельцем нового примитива
-                ObjectId modelSpaceId = SymbolUtilityServices.GetBlockModelSpaceId(_db);
-                using (Transaction tr = _db.TransactionManager.StartTransaction())
+                ObjectId modelSpaceId = SymbolUtilityServices.GetBlockModelSpaceId(db);
+                using (Transaction tr = db.TransactionManager.StartTransaction())
                 {
-                    var lightingBlock = LightingCreator.Create(lightingBlockName, new Point3d(0, 0, 0), _db, _lighting, tr);
+                    var lightingBlock = LightingCreator.Create(lightingBlockName, new Point3d(0, 0, 0), db, _lighting, tr);
                     if (lightingBlock == null)
                     {
                         MessageBox.Show($"Блок с именем {lightingBlockName} не определен. Создайте блок c таким именем");
                         PaletteService.UnrollPalette();
                         return;
                     }
-                    foreach (DynamicBlockReferenceProperty prop in lightingBlock.DynamicBlockReferencePropertyCollection)
-                    {
-                        if (prop.PropertyName.ToString().Equals("длина", StringComparison.OrdinalIgnoreCase))
-                            prop.Value = _lighting.Length;
-                        if (prop.PropertyName.ToString().Equals("ширина", StringComparison.OrdinalIgnoreCase))
-                            prop.Value = _lighting.Width;
-
-                    }
+                    LightingCustomizing.Customize(lightingBlock, _lighting);
                     var lightingBlockId = lightingBlock.Id;
-                    new EvaluatingFields().acdbEvaluateFields(ref lightingBlockId, 16);
+
                     var collection = new ObjectIdCollection { lightingBlockId };
 
                     var rows = spatialArrangement.NumberAlongYAxis;
@@ -111,7 +107,7 @@ namespace ElectricalEngineerTools.Framework.PL.Commands
 
                                 double columnOffset = j != 0 ? partDistance1 * m : partDistance1;
                                 mapping = new IdMapping();
-                                _db.DeepCloneObjects(collection, modelSpaceId, mapping, false);
+                                db.DeepCloneObjects(collection, modelSpaceId, mapping, false);
                                 idPair = mapping[lightingBlockId];
                                 blockClones = tr.GetObject(idPair.Value, OpenMode.ForWrite, false, true) as BlockReference;
                                 blockClones.Rotation = dArrayAng;
@@ -150,7 +146,7 @@ namespace ElectricalEngineerTools.Framework.PL.Commands
                             while (j < columns)
                             {
                                 mapping = new IdMapping();
-                                _db.DeepCloneObjects(collection, modelSpaceId, mapping, false);
+                                db.DeepCloneObjects(collection, modelSpaceId, mapping, false);
                                 idPair = mapping[lightingBlockId];
                                 blockClones = tr.GetObject(idPair.Value, OpenMode.ForWrite, false, true) as BlockReference;
                                 initialX =
@@ -184,6 +180,5 @@ namespace ElectricalEngineerTools.Framework.PL.Commands
             newPoint = new Point2d(origin.X + legB1, origin.Y + legA1);
             return newPoint = new Point2d();
         }
-
     }
 }

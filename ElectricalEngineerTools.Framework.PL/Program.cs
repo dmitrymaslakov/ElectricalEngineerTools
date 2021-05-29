@@ -28,8 +28,15 @@ namespace ElectricalEngineerTools.Framework.PL
         [CommandMethod("qwРасчетОсвещенностиПомещения", CommandFlags.Session)]
         public void Main()
         {
-            _host.Start();
-            _host.Services.GetRequiredService<Palette>().Show();
+            try
+            {
+                _host.Start();
+                _host.Services.GetRequiredService<Palette>().Show();
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args = null)
@@ -38,6 +45,7 @@ namespace ElectricalEngineerTools.Framework.PL
                 .AddConfiguration()
                 .AddDbContext()
                 .AddViewModels()
+                .AddCommands()
                 .AddTabs()
                 .AddPalette();
         }
@@ -77,7 +85,6 @@ namespace ElectricalEngineerTools.Framework.PL
         {
             return Host.CreateDefaultBuilder()
                 .AddConfiguration()
-                .AddServices()
                 .AddDbContext()
                 .AddViewModels()
                 .AddTabs()

@@ -6,6 +6,7 @@ using MySql.Data.MySqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ElectricalEngineerTools.Tab.LightingAdmin.PL.ViewModels;
 
 namespace ElectricalEngineerTools.Tab.LightingAdmin.PL.Commands
 {
@@ -25,6 +26,7 @@ namespace ElectricalEngineerTools.Tab.LightingAdmin.PL.Commands
         }
         public override void Execute(object parameter)
         {
+            
             _connection.Open();
             var transaction = _connection.BeginTransaction();
             try
@@ -42,6 +44,7 @@ namespace ElectricalEngineerTools.Tab.LightingAdmin.PL.Commands
                 _setCommitState(false);
                 transaction.Commit();
                 _connection.Close();
+
             }
             catch
             {

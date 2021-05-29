@@ -2,21 +2,34 @@
 using ElectricalEngineerTools.Framework.DAL.Entities;
 using ElectricalEngineerTools.Framework.DAL.ViewModels;
 using System.Linq;
+using System.Text;
+using System.Windows;
 
 namespace ElectricalEngineerTools.Framework.PL.ViewModels
 {
     public class LightingFixtureSelectionViewModel : ViewModelBase
     {
-        private ElectricsContext _context;
+        private bool _dimensionsInBlockName;
         private string[] _brands;
         private string _brand;
         private string _lamp;
         private double _luminousFlux;
         private double _power;
         private double _mountingHeight;
-        private LightingFixtureFilterViewModel _lightingFixtureFilter;
         private string _lightingDescription;
+        private bool _isUpdateContext;
+        public LightingFixtureSelectionViewModel(LightingFixtureFilterViewModel lightingFixtureFilter, ElectricsContext context)
+        {
+            Context = context;
+            LightingFixtureFilter = lightingFixtureFilter;
+            LightingFixtureFilter.SetBrands = s => Brands = s;
 
+            Brands = Context.LightingFixtures
+                .Select(l => l.Brand)
+                .ToArray();
+
+            MountingHeight = 3.0;
+        }
 
         /*public LightingFixtureFilterViewModel LightingFixtureFilter
         {
@@ -31,124 +44,160 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
         private static void Method(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
         }*/
+        public ElectricsContext Context { get; set; }
+        public bool DimensionsInBlockName
+        {
+            get => _dimensionsInBlockName;
+            set
+            {
+                Set(ref _dimensionsInBlockName, value);
+                SetLightingDescription();
+            }
+        }
         public string[] Brands
         {
             get => _brands;
-            set
-            {
-                _brands = value;
-                OnPropertyChanged(nameof(Brands));
-            }
+            set => Set(ref _brands, value);
         }
-
         public string Brand
         {
             get => _brand;
             set
             {
-                _brand = value;
-                OnPropertyChanged(nameof(Brand));
+                Set(ref _brand, value);
                 SetLightingParameters();
                 SetLightingDescription();
             }
         }
-
-
         public string Lamp
         {
             get => _lamp;
-            set
-            {
-                _lamp = value;
-                OnPropertyChanged(nameof(Lamp));
-            }
+            set => Set(ref _lamp, value);
         }
         public double LuminousFlux
         {
             get => _luminousFlux;
-            set
-            {
-                _luminousFlux = value;
-                OnPropertyChanged(nameof(LuminousFlux));
-            }
+            set => Set(ref _luminousFlux, value);
         }
         public double Power
         {
             get => _power;
-            set
-            {
-                _power = value;
-                OnPropertyChanged(nameof(Power));
-            }
+            set => Set(ref _power, value);
         }
         public double MountingHeight
         {
             get => _mountingHeight;
-            set
-            {
-                _mountingHeight = value;
-                OnPropertyChanged(nameof(MountingHeight));
-            }
+            set => Set(ref _mountingHeight, value);
         }
-        public LightingFixtureFilterViewModel LightingFixtureFilter
-        {
-            get => _lightingFixtureFilter;
-            set
-            {
-                _lightingFixtureFilter = value;
-                OnPropertyChanged(nameof(LightingFixtureFilter));
-            }
-        }
+        public LightingFixtureFilterViewModel LightingFixtureFilter { get; set; }
         public string LightingDescription
         {
             get => _lightingDescription;
-            set
-            {
-                _lightingDescription = value;
-                OnPropertyChanged(nameof(LightingDescription));
-            }
+            set => Set(ref _lightingDescription, value);
+        }
+
+        public void UpdateContext()
+        {
+            Context = new ElectricsContext();
+            SetLightingDescription();
+            LightingFixtureFilter.UpdateContext();
         }
 
         public LdtIesFileData LdtIesFileData { get; set; }
-
-
-        public LightingFixtureSelectionViewModel(LightingFixtureFilterViewModel lightingFixtureFilter, ElectricsContext context)
+        public bool IsUpdateContext
         {
-            _context = context;
-            LightingFixtureFilter = lightingFixtureFilter;
-            LightingFixtureFilter.SettingBrands = s => Brands = s;
-            
-            Brands = _context.LightingFixtures
-                .Select(l => l.Brand)
-                .ToArray();
-
-            MountingHeight = 3.0;
+            get => _isUpdateContext;
+            set
+            {
+                Set(ref _isUpdateContext, value);
+                if (_isUpdateContext is true)
+                {
+                    UpdateContext();
+                }
+            }
         }
+
 
         private void SetLightingParameters()
         {
-            var ldtIesFile = _context.LightingFixtures
-                .SingleOrDefault(l => l.Brand.Equals(Brand))
-                ?.LdtIesFile;
+            if (string.IsNullOrEmpty(Brand))
+            {
+                LdtIesFileData = null;
 
-            LdtIesFileData = new LdtIesFileData(ldtIesFile);
+                Lamp = "";
+                LuminousFlux = 0;
+                Power = 0;
+            }
+            else
+            {
+                var ldtIesFile = Context.LightingFixtures
+                    .SingleOrDefault(l => l.Brand.Equals(Brand))
+                    ?.LdtIesFile;
 
-            Lamp = LdtIesFileData.Lamps[0].TypeLamp;
-            LuminousFlux = LdtIesFileData.Lamps[0].LuminousFlux;
-            Power = LdtIesFileData.Lamps[0].Wattage;
+                if (string.IsNullOrEmpty(ldtIesFile))
+                {
+                    MessageBox.Show("ldt (Ies) файл отсутствует в базе, не найден или не смог быть прочитан");
+                    return;
+                }
+                LdtIesFileData = new LdtIesFileData(ldtIesFile);
 
+                Lamp = LdtIesFileData.Lamps[0].TypeLamp;
+                LuminousFlux = LdtIesFileData.Lamps[0].LuminousFlux;
+                Power = LdtIesFileData.Lamps[0].Wattage;
+            }
         }
         private void SetLightingDescription()
         {
-            var moutingType = _context.LightingFixtures
-                .FirstOrDefault(l => l.Brand.Equals(Brand))
-                .MountingType;
+            if (string.IsNullOrEmpty(Brand))
+            {
+                LightingDescription = "";
+            }
+            else
+            {
 
-            var lightSource = _context.LightingFixtures
-                .FirstOrDefault(l => l.Brand.Equals(Brand))
-                .LightSource;
+                var moutingType = Context.LightingFixtures
+                    .FirstOrDefault(l => l.Brand.Equals(Brand))
+                    ?.Mounting.MountingType;
 
-            LightingDescription = $"Светильник {moutingType} {lightSource}";
+                var lightSource = Context.LightingFixtures
+                    .FirstOrDefault(l => l.Brand.Equals(Brand))
+                    ?.LightSourceInfo.LightSourceType;
+
+                var diameter = Context.LightingFixtures
+                    .FirstOrDefault(l => l.Brand.Equals(Brand))
+                    ?.Dimensions.Diameter;
+
+                var round = "";
+
+                if (diameter != null)
+                {
+                    round = " круглый";
+                }
+                var str = new StringBuilder($"Светильник {moutingType}{round} ({lightSource})");
+
+                if (DimensionsInBlockName)
+                {
+
+                    var length = Context.LightingFixtures
+                        .FirstOrDefault(l => l.Brand.Equals(Brand))
+                        ?.Dimensions.Length;
+
+                    var width = Context.LightingFixtures
+                        .FirstOrDefault(l => l.Brand.Equals(Brand))
+                        ?.Dimensions.Width;
+
+                    if (length != null && width != null)
+                    {
+                        str.Append($" {length}х{width}");
+                    }
+                    else if (diameter != null)
+                    {
+                        str.Append($" Ø{diameter}");
+                    }
+                }
+
+                LightingDescription = str.ToString();
+            }
         }
     }
 }

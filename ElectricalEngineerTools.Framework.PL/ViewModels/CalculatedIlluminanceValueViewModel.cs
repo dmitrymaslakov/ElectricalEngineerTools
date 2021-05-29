@@ -2,7 +2,6 @@
 
 namespace ElectricalEngineerTools.Framework.PL.ViewModels
 {
-
     public class CalculatedIlluminanceValueViewModel : ViewModelBase
     {
         private string _illuminanceValue;

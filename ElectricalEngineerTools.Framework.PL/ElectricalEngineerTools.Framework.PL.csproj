@@ -273,6 +273,8 @@
     <Compile Include="Commands\CalculateIlluminanceCommand.cs" />
     <Compile Include="Commands\CheckedChangedCommand.cs" />
     <Compile Include="Commands\GetLightingControlPanelCommand.cs" />
+    <Compile Include="HostBuilders\AddCommandsHostBuilderExtensions.cs" />
+    <Compile Include="Services\LightingCustomizing.cs" />
     <Compile Include="Services\LightingCreator.cs" />
     <Compile Include="Commands\MeasurePremisSizeCommand.cs" />
     <Compile Include="Controls\CalculatedIlluminanceValue.xaml.cs">

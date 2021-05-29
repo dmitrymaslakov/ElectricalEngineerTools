@@ -13,13 +13,17 @@ namespace ElectricalEngineerTools.Framework.PL.Services
         private const string LAMPS_NUMBER_TAG = "Количество_ламп";
         private const string POWER_TAG = "Мощность_лампы_Вт";
         private const string IP_TAG = "Степень_защиты";
+        private const string EQUIPMENT_CLASS_TAG = "Класс_защиты";
         private const string DIFFUSER_MATERIAL_TAG = "Оптическая_часть";
         private const string CLIMATIC_MODIFICATION_TAG = "Климатическое_исполнение";
         private const string LIGHT_SOURCE_TYPE_TAG = "Тип_лампы";
         private const string MOUNTING_SUBTYPE_TAG = "Установка";
+        private const string IS_FIREPROOF = "Пожаробезопасный";
+        private const string IS_EXPLOSION_PROOF = "Взрывобезопасный";
+        private const string BPSU = "БАП";
+        private const string TECHNICAL_SPECIFICATIONS = "Технические_условия";
         private const string LOWER_LENGTH = "Длина_опуска";
         private static LightingFixture _lighting;
-
 
         public static BlockReference Create(string blockName, Point3d insertPoint, Database db, LightingFixture lighting, Transaction tr)
         {
@@ -51,10 +55,15 @@ namespace ElectricalEngineerTools.Framework.PL.Services
                 LAMPS_NUMBER_TAG ,
                 POWER_TAG,
                 IP_TAG,
+                EQUIPMENT_CLASS_TAG,
                 DIFFUSER_MATERIAL_TAG,
                 CLIMATIC_MODIFICATION_TAG,
                 LIGHT_SOURCE_TYPE_TAG,
                 MOUNTING_SUBTYPE_TAG,
+                IS_FIREPROOF,
+                IS_EXPLOSION_PROOF,
+                BPSU,
+                TECHNICAL_SPECIFICATIONS,
                 LOWER_LENGTH
             };
 
@@ -88,7 +97,7 @@ namespace ElectricalEngineerTools.Framework.PL.Services
             }
             return lightingReference;
         }
-        
+
         private static AttributeDefinition AddAttributeDefinition(BlockTableRecord acBlkTblRec, string attributeTag, Transaction tr)
         {
             var attrDef = new AttributeDefinition
@@ -117,39 +126,61 @@ namespace ElectricalEngineerTools.Framework.PL.Services
 
         private static void SetAttributeTextString(AttributeReference attributeReference)
         {
-            switch (attributeReference.Tag)
+            //try
             {
-                case MANUFACTURER_TAG:
-                    attributeReference.TextString = _lighting.Manufacturer;
-                    break;                          
-                case BRAND_TAG:                     
-                    attributeReference.TextString = _lighting.Brand;
-                    break;                          
-                case LAMPS_NUMBER_TAG:              
-                    attributeReference.TextString = _lighting.LampsNumber.ToString();
-                    break;                          
-                case POWER_TAG:                     
-                    attributeReference.TextString = _lighting.Power.ToString();
-                    break;                          
-                case IP_TAG:                        
-                    attributeReference.TextString = _lighting.IP;
-                    break;                          
-                case DIFFUSER_MATERIAL_TAG:         
-                    attributeReference.TextString = _lighting.DiffuserMaterial;
-                    break;                          
-                case CLIMATIC_MODIFICATION_TAG:     
-                    attributeReference.TextString = _lighting.ClimaticModification;
-                    break;                          
-                case LIGHT_SOURCE_TYPE_TAG:         
-                    attributeReference.TextString = _lighting.LightSourceType;
-                    break;                          
-                case MOUNTING_SUBTYPE_TAG:          
-                    attributeReference.TextString = _lighting.MountingSubtype;
-                    break;
-                case LOWER_LENGTH:
-                    attributeReference.TextString = "";
-                    break;
+                switch (attributeReference.Tag)
+                {
+                    case MANUFACTURER_TAG:
+                        attributeReference.TextString = _lighting.Manufacturer.Name;
+                        break;
+                    case BRAND_TAG:
+                        attributeReference.TextString = _lighting.Brand;
+                        break;
+                    case LAMPS_NUMBER_TAG:
+                        attributeReference.TextString = _lighting.LightSourceInfo.LampsNumber.ToString();
+                        break;
+                    case POWER_TAG:
+                        attributeReference.TextString = _lighting.LightSourceInfo.Power.ToString();
+                        break;
+                    case IP_TAG:
+                        attributeReference.TextString = _lighting.IP.Value.ToString();
+                        break;
+                    case EQUIPMENT_CLASS_TAG:
+                        attributeReference.TextString = _lighting.EquipmentClass.Value;
+                        break;
+                    case DIFFUSER_MATERIAL_TAG:
+                        attributeReference.TextString = _lighting.DiffuserMaterial.Description;
+                        break;
+                    case CLIMATIC_MODIFICATION_TAG:
+                        attributeReference.TextString = _lighting.ClimateApplication.Value;
+                        break;
+                    case LIGHT_SOURCE_TYPE_TAG:
+                        attributeReference.TextString = _lighting.LightSourceInfo.LightSourceType;
+                        break;
+                    case MOUNTING_SUBTYPE_TAG:
+                        attributeReference.TextString = _lighting.Mounting.MountingSubtype;
+                        break;
+                    case IS_FIREPROOF:
+                        attributeReference.TextString = _lighting.IsFireproof ? "Да" : "Нет";
+                        break;
+                    case IS_EXPLOSION_PROOF:
+                        attributeReference.TextString = _lighting.IsExplosionProof ? "Да" : "Нет";
+                        break;
+                    case BPSU:
+                        attributeReference.TextString = _lighting.BPSU ? "Да" : "Нет";
+                        break;
+                    case TECHNICAL_SPECIFICATIONS:
+                        attributeReference.TextString = _lighting.TechnicalSpecifications.Number ?? "";
+                        break;
+                    case LOWER_LENGTH:
+                        attributeReference.TextString = "";
+                        break;
+                }
             }
+            /*catch
+            {
+                throw;
+            }*/
         }
     }
 }

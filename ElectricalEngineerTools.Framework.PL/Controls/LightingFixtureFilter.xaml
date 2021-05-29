@@ -33,6 +33,7 @@
 
             <CheckBox Margin="5 0" Content="Пылевлагозащищенный" IsChecked="{Binding IP}" Command="{Binding CheckedChanged}"/>
             <CheckBox Margin="5 0" Content="Пожаробезопасный" IsChecked="{Binding IsFireproof}" Command="{Binding CheckedChanged}"/>
+            <CheckBox Margin="5 0" Content="Взрывобезопасный" IsChecked="{Binding IsExplosionProof}" Command="{Binding CheckedChanged}"/>
             <CheckBox Margin="5 0" Content="БАП" IsChecked="{Binding BPSU}" Command="{Binding CheckedChanged}"/>
         </StackPanel>
     </Expander>

@@ -14,6 +14,8 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows;
 using System.Collections.ObjectModel;
+using System.Data.Entity;
+using ElectricalEngineerTools.Framework.DAL.Entities;
 
 namespace ElectricalEngineerTools.Framework.PL.ViewModels
 {
@@ -28,11 +30,19 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
         private ObservableCollection<CheckBox> _climaticModification;
         private bool _lampsNumberIsEnabled;
         private bool _isFireproof;
+        private bool _isExplosionProof;
         private bool _bpsu;
         private bool _ip;
 
+        public LightingFixtureFilterViewModel(ElectricsContext context)
+        {
+            LampsNumberIsEnabled = false;
+            CheckedChanged = new CheckedChangedCommand(this);
+            Context = context;
+            SetFilter();
+        }
         public ElectricsContext Context { get; set; }
-        public Action<string[]> SettingBrands { get; set; }
+        public Action<string[]> SetBrands { get; set; }
         public ICommand CheckedChanged { get; set; }
         public ObservableCollection<CheckBox> Manufacturers
         {
@@ -66,8 +76,7 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
             get => _lightSource;
             set
             {
-                _lightSource = value;
-                OnPropertyChanged(nameof(LightSource));
+                Set(ref _lightSource, value);
             }
         }
         public ObservableCollection<CheckBox> LampsNumber
@@ -93,17 +102,25 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
             get => _lampsNumberIsEnabled;
             set
             {
-                _lampsNumberIsEnabled = value;
-                OnPropertyChanged(nameof(LampsNumberIsEnabled));
+                Set(ref _lampsNumberIsEnabled, value);
             }
         }
+
+
         public bool IsFireproof
         {
             get => _isFireproof;
             set
             {
-                _isFireproof = value;
-                OnPropertyChanged(nameof(IsFireproof));
+                Set(ref _isFireproof, value);
+            }
+        }
+        public bool IsExplosionProof
+        {
+            get => _isExplosionProof;
+            set
+            {
+                Set(ref _isExplosionProof, value);
             }
         }
         public bool BPSU
@@ -124,102 +141,118 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
                 OnPropertyChanged(nameof(IP));
             }
         }
-
-        public LightingFixtureFilterViewModel(ElectricsContext context)
+        public void SetFilter()
         {
-            LampsNumberIsEnabled = false;
-            CheckedChanged = new CheckedChangedCommand(this);
-            Context = context;
-
-            Manufacturers = new ObservableCollection<CheckBox>(context.LightingFixtures
-                .Select(l => l.Manufacturer)
-                .Distinct()
-                .ToArray()
-                .Select(m =>
-                {
-                    var chB = new CheckBox
+            try
+            {
+                Manufacturers = new ObservableCollection<CheckBox>(Context.LightingFixtures.Include(l => l.Manufacturer)
+                    .Select(l => l.Manufacturer.Name)
+                    .Distinct()
+                    /*Context.Database.SqlQuery<Manufacturer>($"SELECT * FROM {nameof(Context.Manufacturers)}")*/
+                    .ToArray()
+                    .Select(m =>
                     {
-                        Content = m,
-                        Margin = new Thickness(5, 0, 5, 0),
-                        Command = CheckedChanged
-                    };
-                    chB.CommandParameter = chB;
-                    return chB;
-                }));
+                        var chB = new CheckBox
+                        {
+                            Content = m,//.Name,
+                            Margin = new Thickness(5, 0, 5, 0),
+                            Command = CheckedChanged
+                        };
+                        chB.CommandParameter = chB;
+                        return chB;
+                    }));
 
-            Shapes = new ObservableCollection<CheckBox>(new string[] { "прямоугольный", "квадрат", "круглый" }
-                .Select(sh =>
-                {
-                    var chB = new CheckBox
+                Shapes = new ObservableCollection<CheckBox>(new string[] { "прямоугольный", "квадрат", "круглый" }
+                    .Select(sh =>
                     {
-                        Content = sh,
-                        Margin = new Thickness(5, 0, 5, 0),
-                        Command = CheckedChanged
-                    };
-                    chB.CommandParameter = chB;
-                    return chB;
-                }));
+                        var chB = new CheckBox
+                        {
+                            Content = sh,
+                            Margin = new Thickness(5, 0, 5, 0),
+                            Command = CheckedChanged
+                        };
+                        chB.CommandParameter = chB;
+                        return chB;
+                    }));
 
-            Mounting = new ObservableCollection<CheckBox>(context.LightingFixtures
-                .Select(l => l.MountingType)
-                .Distinct()
-                .ToArray()
-                .Select(m =>
-                {
-                    var chB = new CheckBox
+                Mounting = new ObservableCollection<CheckBox>(/*Context.LightingFixtures
+                .Select(l => l.Mounting.MountingType)
+                .Distinct()*/
+                    Context.Database.SqlQuery<Mounting>($"SELECT * FROM {nameof(Context.Mountings)}")
+                    .ToArray()
+                    .Select(m => m.MountingType)
+                    .Distinct()
+                    .Select(m =>
                     {
-                        Content = m,
-                        Margin = new Thickness(5, 0, 5, 0),
-                        Command = CheckedChanged
-                    };
-                    chB.CommandParameter = chB;
-                    return chB;
-                }));
+                        var chB = new CheckBox
+                        {
+                            Content = m,
+                            Margin = new Thickness(5, 0, 5, 0),
+                            Command = CheckedChanged
+                        };
+                        chB.CommandParameter = chB;
+                        return chB;
+                    }));
 
-            LightSource = new ObservableCollection<CheckBox>(context.LightingFixtures
-                .Select(l => l.LightSource)
-                .Distinct()
-                .ToArray()
-                .Select(m =>
-                {
-                    var chB = new CheckBox
+                LightSource = new ObservableCollection<CheckBox>(/*Context.LightingFixtures
+                .Select(l => l.LightSourceInfo.LightSourceType)
+                .Distinct()*/
+                    Context.Database.SqlQuery<LightSourceInfo>($"SELECT * FROM {nameof(Context.LightSourceInfoes)}")
+                    .ToArray()
+                    .Select(lsi => lsi.LightSourceType)
+                    .Distinct()
+                    .Select(ls =>
                     {
-                        Content = m,
-                        Margin = new Thickness(5, 0, 5, 0),
-                        Command = CheckedChanged
-                    };
-                    chB.CommandParameter = chB;
-                    return chB;
-                }));
+                        var chB = new CheckBox
+                        {
+                            Content = ls,
+                            Margin = new Thickness(5, 0, 5, 0),
+                            Command = CheckedChanged
+                        };
+                        chB.CommandParameter = chB;
+                        return chB;
+                    }));
 
-            LampsNumber = new ObservableCollection<CheckBox>(new int[] { 1, 2, 4 }
-                .Select(sh =>
-                {
-                    var chB = new CheckBox
+                LampsNumber = new ObservableCollection<CheckBox>(new int[] { 1, 2, 4 }
+                    .Select(sh =>
                     {
-                        Content = sh,
-                        Margin = new Thickness(5, 0, 5, 0),
-                        Command = CheckedChanged
-                    };
-                    chB.CommandParameter = chB;
-                    return chB;
-                }));
+                        var chB = new CheckBox
+                        {
+                            Content = sh,
+                            Margin = new Thickness(5, 0, 5, 0),
+                            Command = CheckedChanged
+                        };
+                        chB.CommandParameter = chB;
+                        return chB;
+                    }));
 
-            ClimaticModification = new ObservableCollection<CheckBox>(context.LightingFixtures
-                .Select(l => l.ClimaticModification)
-                .Distinct()
-                .ToArray()
-                .Select(sh =>
-                {
-                    var chB = new CheckBox
+                ClimaticModification = new ObservableCollection<CheckBox>(/*Context.LightingFixtures
+                .Select(l => l.ClimateApplication.Value)
+                .Distinct()*/
+                    Context.Database.SqlQuery<ClimateApplication>($"SELECT * FROM {nameof(Context.ClimateApplications)}")
+                    .ToArray()
+                    .Select(ca =>
                     {
-                        Content = sh,
-                        Margin = new Thickness(5, 0, 5, 0),
-                        Command = CheckedChanged
-                    };
-                    chB.CommandParameter = chB;
-                    return chB;
-                }));
+                        var chB = new CheckBox
+                        {
+                            Content = ca.Value,
+                            Margin = new Thickness(5, 0, 5, 0),
+                            Command = CheckedChanged
+                        };
+                        chB.CommandParameter = chB;
+                        return chB;
+                    }));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message); ;
+            }
+        }
+        public void UpdateContext()
+        {
+            Context = new ElectricsContext();
+            SetFilter();
+            CheckedChanged.Execute(null);
         }
     }
 }

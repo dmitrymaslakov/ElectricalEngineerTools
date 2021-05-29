@@ -9,8 +9,6 @@ namespace ElectricalEngineerTools.Framework.DAL.Entities
 {
     public abstract class BaseEntity : IEntity
     {
-        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
-        //public Guid Id { get; set; }
         public int Id { get; set; }
     }
 }

@@ -2,7 +2,6 @@
 
 namespace ElectricalEngineerTools.Framework.PL.ViewModels
 {
-
     public class SpatialArrangementViewModel : ViewModelBase
     {
         private int _numberAlongXAxis;

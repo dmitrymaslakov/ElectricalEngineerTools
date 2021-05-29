@@ -1,4 +1,5 @@
-﻿using Ap = Autodesk.AutoCAD.ApplicationServices;
+﻿using AcAppServices = Autodesk.AutoCAD.ApplicationServices;
+
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -27,7 +28,7 @@ namespace ElectricalEngineerTools.Framework.PL.Commands
 
         public override void Execute(object parameter)
         {
-            var ed = Ap.Application.DocumentManager.MdiActiveDocument.Editor;
+            var ed = AcAppServices.Application.DocumentManager.MdiActiveDocument.Editor;
             try
             {
                 CoordinateSystem3d curUCS = ed.CurrentUserCoordinateSystem.CoordinateSystem3d;

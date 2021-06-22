@@ -9,11 +9,7 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
         public string IlluminanceValue
         {
             get => _illuminanceValue;
-            set
-            {
-                _illuminanceValue = value;
-                OnPropertyChanged(nameof(IlluminanceValue));
-            }
+            set => Set(ref _illuminanceValue, value);
         }
     }
 }

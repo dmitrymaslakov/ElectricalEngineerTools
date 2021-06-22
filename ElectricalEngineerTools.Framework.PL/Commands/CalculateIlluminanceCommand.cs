@@ -1,21 +1,13 @@
-﻿using ElectricalEngineerTools.Tab.LightingAdmin.PL.View;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AppServ = Autodesk.AutoCAD.ApplicationServices;
 using ElectricalEngineerTools.Framework.DAL.Commands;
-using System.Windows.Controls;
-using System.Windows.Media;
 using ElectricalEngineerTools.Framework.PL.ViewModels;
-using ElectricalEngineerTools.Framework.DAL.Entities;
-using System.Reflection;
 using System.IO;
 using ElectricalEngineerTools.Framework.PL.Helpers;
 using AcMaslakov;
-using ElectricalEngineerTools.Framework.PL.Interfaces;
 using System.Windows;
+using System.Text;
 
 namespace ElectricalEngineerTools.Framework.PL.Commands
 {
@@ -29,7 +21,7 @@ namespace ElectricalEngineerTools.Framework.PL.Commands
         }
         public override void Execute(object parameter)
         {
-            //try
+            try
             {
 
                 var lightingFixtureSelection = _mainLightingTab.LightingFixtureSelection;
@@ -144,10 +136,12 @@ namespace ElectricalEngineerTools.Framework.PL.Commands
                 _mainLightingTab.CalculatedIlluminanceValue.IlluminanceValue =
                 $"{GetIllumination(n, luminousFlux, N, premise.Area, premise.SafetyFactor):f1}";
             }
-            /*catch (Exception ex)
+            catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
-            }*/
+                var exception = new StringBuilder(ex.Message);
+                exception.Append($" {ex.TargetSite.DeclaringType.Name}.{ex.TargetSite.Name}");
+                MessageBox.Show(exception.ToString());
+            }
         }
 
         /// <summary>Получить массив значений коэффициента использования, который соответствует значениям массива индексов помещения
@@ -155,6 +149,7 @@ namespace ElectricalEngineerTools.Framework.PL.Commands
         private int[] GetListCoeff_n(PceilingPwallPworkingSurface pпPcPp, double[] listIndexValue_i,
                 IEnumerable<KeyValuePair<double, double>> query, string path, double luminousFluxOfLamps)
         {
+
             //int[] res = new int[17];
             int[] res = new int[25];
             using (var sr = new StreamReader(Application.GetResourceStream(new Uri(path, UriKind.Relative)).Stream))

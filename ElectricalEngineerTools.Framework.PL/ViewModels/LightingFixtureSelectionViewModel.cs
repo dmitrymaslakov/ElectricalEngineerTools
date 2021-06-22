@@ -95,14 +95,6 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
             get => _lightingDescription;
             set => Set(ref _lightingDescription, value);
         }
-
-        public void UpdateContext()
-        {
-            Context = new ElectricsContext();
-            SetLightingDescription();
-            LightingFixtureFilter.UpdateContext();
-        }
-
         public LdtIesFileData LdtIesFileData { get; set; }
         public bool IsUpdateContext
         {
@@ -117,6 +109,12 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
             }
         }
 
+        public void UpdateContext()
+        {
+            Context = new ElectricsContext();
+            SetLightingDescription();
+            LightingFixtureFilter.UpdateContext();
+        }
 
         private void SetLightingParameters()
         {
@@ -154,7 +152,6 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
             }
             else
             {
-
                 var moutingType = Context.LightingFixtures
                     .FirstOrDefault(l => l.Brand.Equals(Brand))
                     ?.Mounting.MountingType;
@@ -169,15 +166,14 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
 
                 var round = "";
 
-                if (diameter != null)
+                if (diameter != null && lightSource.Equals("светодиодный модуль"))
                 {
                     round = " круглый";
                 }
                 var str = new StringBuilder($"Светильник {moutingType}{round} ({lightSource})");
 
-                if (DimensionsInBlockName)
+                /*if (DimensionsInBlockName)
                 {
-
                     var length = Context.LightingFixtures
                         .FirstOrDefault(l => l.Brand.Equals(Brand))
                         ?.Dimensions.Length;
@@ -194,7 +190,7 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
                     {
                         str.Append($" Ø{diameter}");
                     }
-                }
+                }*/
 
                 LightingDescription = str.ToString();
             }

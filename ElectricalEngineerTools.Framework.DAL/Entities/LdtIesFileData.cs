@@ -132,188 +132,198 @@ namespace ElectricalEngineerTools.Framework.DAL.Entities
 
         private void InitializeFields(string fileName)
         {
-            if (fileName.ToLower().EndsWith(".ldt"))
-                using (var reader = new StreamReader(fileName))
-                {
-                    CompanyIdentification = reader.ReadLine();
-                    Ityp = reader.ReadLine();
-                    Isym = reader.ReadLine();
-                    Mc = int.Parse(reader.ReadLine());
-                    Dc = Parser(reader.ReadLine());
-                    Ng = int.Parse(reader.ReadLine());
-                    Dg = Parser(reader.ReadLine());
-                    MeasurementReport = reader.ReadLine();
-                    LuminaireName = reader.ReadLine();
-                    LuminaireNumber = reader.ReadLine();
-                    FileName = reader.ReadLine();
-                    DateUser = reader.ReadLine();
-                    LengthOrDiameter = Parser(reader.ReadLine());
-                    Width = Parser(reader.ReadLine());
-                    Height = Parser(reader.ReadLine());
-                    LengthOrDiameterLuminousArea = Parser(reader.ReadLine());
-                    WidthLuminousArea = Parser(reader.ReadLine());
-                    HeightLuminousAreaC0 = Parser(reader.ReadLine());
-                    HeightLuminousAreaC90 = Parser(reader.ReadLine());
-                    HeightLuminousAreaC180 = Parser(reader.ReadLine());
-                    HeightLuminousAreaC270 = Parser(reader.ReadLine());
-                    Dff = Parser(reader.ReadLine());
-                    Lorl = Parser(reader.ReadLine());
-                    ConversionFactor = Parser(reader.ReadLine());
-                    TiltLuminaire = reader.ReadLine();
-                    NumberSetLamps = int.Parse(reader.ReadLine());
-                    Lamps = new SetLamps[NumberSetLamps];
-                    for (int i = 0; i < NumberSetLamps; i++)
-                    {
-                        SetLamps setLamps = new SetLamps
-                        {
-                            NumberLamps = Parser(reader.ReadLine()),
-                            TypeLamp = reader.ReadLine(),
-                            LuminousFlux = Parser(reader.ReadLine()),
-                            ColorTemperature = reader.ReadLine(),
-                            ColorRenderingIndex = reader.ReadLine(),
-                            Wattage = Parser(reader.ReadLine())
-                        };
-                        Lamps[i] = setLamps;
-                    }
-                    DrRoomIndex = new double[10];
-                    for (int i = 0; i < DrRoomIndex.Length; i++)
-                    {
-                        DrRoomIndex[i] = Parser(reader.ReadLine());
-                    }
-                    AnglesC = new double[Mc];
-                    for (int i = 0; i < Mc; i++)
-                    {
-                        AnglesC[i] = Parser(reader.ReadLine());
-                    }
-                    AnglesG = new double[Ng];
-                    for (int i = 0; i < Ng; i++)
-                    {
-                        AnglesG[i] = Parser(reader.ReadLine());
-                    }
-                    LuminousIntensity = new double[Ng];
-                    for (int i = 0; i < LuminousIntensity.Length; i++)
-                    {
-                        LuminousIntensity[i] = Parser(reader.ReadLine());
-                    }
-                    Multiplier = 0;
-                }
-            if (fileName.ToLower().EndsWith(".ies"))
+            try
             {
-                string[] keyWords = { "[TEST]", "[MANUFAC]", "[LUMCAT]", "[LAMPCAT]", "TILT=" };
-                using (var reader = new StreamReader(fileName))
-                {
-                    string line = default(string);
-                    do
+                fileName = fileName.Trim('\"', ' ').ToLower();
+                if (fileName.EndsWith(".ldt"))
+                    using (var reader = new StreamReader(fileName))
                     {
-                        line = reader.ReadLine();
-                        foreach (string keyWord in keyWords)
+                        CompanyIdentification = reader.ReadLine();
+                        Ityp = reader.ReadLine();
+                        Isym = reader.ReadLine();
+                        Mc = int.Parse(reader.ReadLine());
+                        Dc = Parser(reader.ReadLine());
+                        Ng = int.Parse(reader.ReadLine());
+                        Dg = Parser(reader.ReadLine());
+                        MeasurementReport = reader.ReadLine();
+                        LuminaireName = reader.ReadLine();
+                        LuminaireNumber = reader.ReadLine();
+                        FileName = reader.ReadLine();
+                        DateUser = reader.ReadLine();
+                        LengthOrDiameter = Parser(reader.ReadLine());
+                        Width = Parser(reader.ReadLine());
+                        Height = Parser(reader.ReadLine());
+                        LengthOrDiameterLuminousArea = Parser(reader.ReadLine());
+                        WidthLuminousArea = Parser(reader.ReadLine());
+                        HeightLuminousAreaC0 = Parser(reader.ReadLine());
+                        HeightLuminousAreaC90 = Parser(reader.ReadLine());
+                        HeightLuminousAreaC180 = Parser(reader.ReadLine());
+                        HeightLuminousAreaC270 = Parser(reader.ReadLine());
+                        Dff = Parser(reader.ReadLine());
+                        Lorl = Parser(reader.ReadLine());
+                        ConversionFactor = Parser(reader.ReadLine());
+                        TiltLuminaire = reader.ReadLine();
+                        NumberSetLamps = int.Parse(reader.ReadLine());
+                        Lamps = new SetLamps[NumberSetLamps];
+                        for (int i = 0; i < NumberSetLamps; i++)
                         {
-                            if (!line.Contains(keyWord))
-                                continue;
-                            switch (keyWord)
+                            SetLamps setLamps = new SetLamps
                             {
-                                case "[TEST]":
-                                    MeasurementReport = line.Substring(line.IndexOf("]") + 1).Trim();
-                                    break;
-                                case "[MANUFAC]":
-                                    CompanyIdentification = line.Substring(line.IndexOf("]") + 1).Trim();
-                                    break;
-                                case "[LUMCAT]":
-                                    LuminaireName = line.Substring(line.IndexOf("]") + 1).Trim();
-                                    break;
-                                case "[LAMPCAT]":
-                                    if (Lamps is null)
-                                    {
-                                        Lamps = new SetLamps[1];
-                                        SetLamps setLamps = new SetLamps();
-                                        Lamps[0] = setLamps;
-                                    }
-                                    Lamps[0].TypeLamp = line.Substring(line.IndexOf("]") + 1).Trim();
-                                    break;
-                                case "TILT=":
-                                    TiltLuminaire = line.Substring(line.IndexOf("=") + 1).Trim();
-                                    break;
+                                NumberLamps = Parser(reader.ReadLine()),
+                                TypeLamp = reader.ReadLine(),
+                                LuminousFlux = Parser(reader.ReadLine()),
+                                ColorTemperature = reader.ReadLine(),
+                                ColorRenderingIndex = reader.ReadLine(),
+                                Wattage = Parser(reader.ReadLine())
+                            };
+                            Lamps[i] = setLamps;
+                        }
+                        DrRoomIndex = new double[10];
+                        for (int i = 0; i < DrRoomIndex.Length; i++)
+                        {
+                            DrRoomIndex[i] = Parser(reader.ReadLine());
+                        }
+                        AnglesC = new double[Mc];
+                        for (int i = 0; i < Mc; i++)
+                        {
+                            AnglesC[i] = Parser(reader.ReadLine());
+                        }
+                        AnglesG = new double[Ng];
+                        for (int i = 0; i < Ng; i++)
+                        {
+                            AnglesG[i] = Parser(reader.ReadLine());
+                        }
+                        LuminousIntensity = new double[Ng];
+                        for (int i = 0; i < LuminousIntensity.Length; i++)
+                        {
+                            LuminousIntensity[i] = Parser(reader.ReadLine());
+                        }
+                        Multiplier = 0;
+                    }
+                if (fileName.EndsWith(".ies"))
+                {
+                    string[] keyWords = { "[TEST]", "[MANUFAC]", "[LUMCAT]", "[LAMPCAT]", "TILT=" };
+                    using (var reader = new StreamReader(fileName))
+                    {
+                        string line = default(string);
+                        if (Lamps is null)
+                        {
+                            Lamps = new SetLamps[1];
+                            SetLamps setLamps = new SetLamps();
+                            Lamps[0] = setLamps;
+                        }
+                        do
+                        {
+                            line = reader.ReadLine();
+                            foreach (string keyWord in keyWords)
+                            {
+                                if (!line.Contains(keyWord))
+                                    continue;
+                                switch (keyWord)
+                                {
+                                    case "[TEST]":
+                                        MeasurementReport = line.Substring(line.IndexOf("]") + 1).Trim();
+                                        break;
+                                    case "[MANUFAC]":
+                                        CompanyIdentification = line.Substring(line.IndexOf("]") + 1).Trim();
+                                        break;
+                                    case "[LUMCAT]":
+                                        LuminaireName = line.Substring(line.IndexOf("]") + 1).Trim();
+                                        break;
+                                    case "[LAMPCAT]":
+                                        Lamps[0].TypeLamp = line.Substring(line.IndexOf("]") + 1).Trim();
+                                        break;
+                                    case "TILT=":
+                                        TiltLuminaire = line.Substring(line.IndexOf("=") + 1).Trim();
+                                        break;
+                                }
+                                break;
                             }
+                        } while (!line.Contains(keyWords[4]));
+                        do
+                        {
+                            line = reader.ReadLine();
+
+                            List<string> parameters = line.Trim().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                            var str1 = parameters[0];
+                            Parser(str1);
+                            var q = Parser(parameters[0]);
+                            Lamps[0].NumberLamps = Parser(parameters[0]);
+                            Lamps[0].LuminousFlux = Lamps[0].NumberLamps * Parser(parameters[1]);
+                            Multiplier = Parser(parameters[2]);
+                            Ng = int.Parse(parameters[3]);
+                            Mc = int.Parse(parameters[4]);
+                            Width = Parser(parameters[7]) * 1000;
+                            LengthOrDiameter = Parser(parameters[8]) * 1000;
+                            Height = Parser(parameters[9]) * 1000;
+
+                            line = reader.ReadLine();
+                            if (string.IsNullOrEmpty(line))
+                                continue;
+                            parameters = line.Trim().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                            Lamps[0].Wattage = Parser(parameters[2]);
                             break;
-                        }
-                    } while (!line.Contains(keyWords[4]));
-                    do
-                    {
-                        line = reader.ReadLine();
-                        if (string.IsNullOrEmpty(line))
-                            continue;
 
-                        string[] parameters = line.Trim().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                        Lamps[0].NumberLamps = Parser(parameters[0]);
-                        Lamps[0].LuminousFlux = Lamps[0].NumberLamps * Parser(parameters[1]);
-                        Multiplier = Parser(parameters[2]);
-                        Ng = int.Parse(parameters[3]);
-                        Mc = int.Parse(parameters[4]);
-                        Width = Parser(parameters[7]) * 1000;
-                        LengthOrDiameter = Parser(parameters[8]) * 1000;
-                        Height = Parser(parameters[9]) * 1000;
-
-                        line = reader.ReadLine();
-                        if (string.IsNullOrEmpty(line))
-                            continue;
-                        parameters = line.Trim().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                        Lamps[0].Wattage = Parser(parameters[2]);
-                        break;
-
-                    } while (true);
-                    AnglesG = new double[Ng];
-                    List<double> listAnglesG = new List<double>();
-                    do
-                    {
-                        line = reader.ReadLine();
-                        if (string.IsNullOrEmpty(line))
-                            continue;
-
-                        foreach (var anglesG in line.Trim().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries))
+                        } while (true);
+                        AnglesG = new double[Ng];
+                        List<double> listAnglesG = new List<double>();
+                        do
                         {
-                            listAnglesG.Add(Parser(anglesG));
-                        }
-                    } while (listAnglesG.Count != Ng);
-                    for (int i = 0; i < AnglesG.Length; i++)
-                    {
-                        AnglesG[i] = listAnglesG[i];
-                    }
-                    AnglesC = new double[Mc];
-                    List<double> listAnglesC = new List<double>();
-                    do
-                    {
-                        line = reader.ReadLine();
-                        if (string.IsNullOrEmpty(line))
-                            continue;
-                        foreach (var anglesC in line.Trim().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries))
-                        {
-                            listAnglesC.Add(Parser(anglesC));
-                        }
+                            line = reader.ReadLine();
+                            if (string.IsNullOrEmpty(line))
+                                continue;
 
-                    } while (listAnglesC.Count != Mc);
-                    for (int i = 0; i < AnglesC.Length; i++)
-                    {
-                        AnglesC[i] = listAnglesC[i];
-                    }
-                    LuminousIntensity = new double[Ng];
-                    List<double> listLumIntensity = new List<double>();
-                    do
-                    {
-                        line = reader.ReadLine();
-                        if (string.IsNullOrEmpty(line))
-                            continue;
-
-                        foreach (var intensity in line.Trim().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries))
+                            foreach (var anglesG in line.Trim().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries))
+                            {
+                                listAnglesG.Add(Parser(anglesG));
+                            }
+                        } while (listAnglesG.Count != Ng);
+                        for (int i = 0; i < AnglesG.Length; i++)
                         {
-                            listLumIntensity.Add(Parser(intensity));
+                            AnglesG[i] = listAnglesG[i];
                         }
-                    } while (listLumIntensity.Count != Ng);
-                    for (int i = 0; i < LuminousIntensity.Length; i++)
-                    {
-                        LuminousIntensity[i] = listLumIntensity[i];
+                        AnglesC = new double[Mc];
+                        List<double> listAnglesC = new List<double>();
+                        do
+                        {
+                            line = reader.ReadLine();
+                            if (string.IsNullOrEmpty(line))
+                                continue;
+                            foreach (var anglesC in line.Trim().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries))
+                            {
+                                listAnglesC.Add(Parser(anglesC));
+                            }
+
+                        } while (listAnglesC.Count != Mc);
+                        for (int i = 0; i < AnglesC.Length; i++)
+                        {
+                            AnglesC[i] = listAnglesC[i];
+                        }
+                        LuminousIntensity = new double[Ng];
+                        List<double> listLumIntensity = new List<double>();
+                        do
+                        {
+                            line = reader.ReadLine();
+                            if (string.IsNullOrEmpty(line))
+                                continue;
+
+                            foreach (var intensity in line.Trim().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries))
+                            {
+                                listLumIntensity.Add(Parser(intensity));
+                            }
+                        } while (listLumIntensity.Count != Ng);
+                        for (int i = 0; i < LuminousIntensity.Length; i++)
+                        {
+                            LuminousIntensity[i] = listLumIntensity[i];
+                        }
                     }
                 }
             }
+            catch (Exception ex)
+            {
+
+            }
+
         }
 
         public class SetLamps : DependencyObject

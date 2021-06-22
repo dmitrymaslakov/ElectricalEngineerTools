@@ -1,19 +1,14 @@
 ﻿using AcAppServices = Autodesk.AutoCAD.ApplicationServices;
-
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows;
-using System.Windows.Input;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.EditorInput;
-using static AcMaslakov.BlockReferenceSupport;
 using static Ac.NetApi.Rivilis;
 using System.Linq;
-using ElectricalEngineerTools.Framework.PL.ViewModels;
 using ElectricalEngineerTools.Framework.PL.Interfaces;
 using ElectricalEngineerTools.Framework.DAL.Commands;
 using ElectricalEngineerTools.Framework.PL.Services;
+using System.Text;
 
 namespace ElectricalEngineerTools.Framework.PL.Commands
 {
@@ -28,9 +23,9 @@ namespace ElectricalEngineerTools.Framework.PL.Commands
 
         public override void Execute(object parameter)
         {
-            var ed = AcAppServices.Application.DocumentManager.MdiActiveDocument.Editor;
             try
             {
+                var ed = AcAppServices.Application.DocumentManager.MdiActiveDocument.Editor;
                 CoordinateSystem3d curUCS = ed.CurrentUserCoordinateSystem.CoordinateSystem3d;
                 Vector2d acVec2dAng = new Vector2d(curUCS.Xaxis.X, curUCS.Xaxis.Y);
                 //Если ПСК повернут, то отрегулируем угол поворота светильников
@@ -111,7 +106,9 @@ namespace ElectricalEngineerTools.Framework.PL.Commands
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                var exception = new StringBuilder(ex.Message);
+                exception.Append($" {ex.TargetSite.DeclaringType.Name}.{ex.TargetSite.Name}");
+                MessageBox.Show(exception.ToString());
             }
         }
     }

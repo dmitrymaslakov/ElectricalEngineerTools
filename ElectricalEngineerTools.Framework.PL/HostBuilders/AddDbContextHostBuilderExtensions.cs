@@ -2,12 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Data.Entity.Infrastructure;
-using System.Text;
 
 namespace ElectricalEngineerTools.Framework.PL.HostBuilders
 {

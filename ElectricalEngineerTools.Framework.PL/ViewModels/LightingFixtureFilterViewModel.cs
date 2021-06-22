@@ -47,114 +47,68 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
         public ObservableCollection<CheckBox> Manufacturers
         {
             get => _manufacturers;
-            set
-            {
-                _manufacturers = value;
-                OnPropertyChanged(nameof(Manufacturers));
-            }
+            set => Set(ref _manufacturers, value);
         }
         public ObservableCollection<CheckBox> Shapes
         {
             get => _shapes;
-            set
-            {
-                _shapes = value;
-                OnPropertyChanged(nameof(Shapes));
-            }
+            set => Set(ref _shapes, value);
         }
         public ObservableCollection<CheckBox> Mounting
         {
             get => _mounting;
-            set
-            {
-                _mounting = value;
-                OnPropertyChanged(nameof(Mounting));
-            }
+            set => Set(ref _mounting, value);
         }
         public ObservableCollection<CheckBox> LightSource
         {
             get => _lightSource;
-            set
-            {
-                Set(ref _lightSource, value);
-            }
+            set => Set(ref _lightSource, value);
         }
         public ObservableCollection<CheckBox> LampsNumber
         {
             get => _lampsNumber;
-            set
-            {
-                _lampsNumber = value;
-                OnPropertyChanged(nameof(LampsNumber));
-            }
+            set => Set(ref _lampsNumber, value);
         }
         public ObservableCollection<CheckBox> ClimaticModification
         {
             get => _climaticModification;
-            set
-            {
-                _climaticModification = value;
-                OnPropertyChanged(nameof(ClimaticModification));
-            }
+            set => Set(ref _climaticModification, value);
         }
         public bool LampsNumberIsEnabled
         {
             get => _lampsNumberIsEnabled;
-            set
-            {
-                Set(ref _lampsNumberIsEnabled, value);
-            }
+            set => Set(ref _lampsNumberIsEnabled, value);
         }
-
-
         public bool IsFireproof
         {
             get => _isFireproof;
-            set
-            {
-                Set(ref _isFireproof, value);
-            }
+            set => Set(ref _isFireproof, value);
         }
         public bool IsExplosionProof
         {
             get => _isExplosionProof;
-            set
-            {
-                Set(ref _isExplosionProof, value);
-            }
+            set => Set(ref _isExplosionProof, value);
         }
         public bool BPSU
         {
             get => _bpsu;
-            set
-            {
-                _bpsu = value;
-                OnPropertyChanged(nameof(BPSU));
-            }
+            set => Set(ref _bpsu, value);
         }
         public bool IP
         {
             get => _ip;
-            set
-            {
-                _ip = value;
-                OnPropertyChanged(nameof(IP));
-            }
+            set => Set(ref _ip, value);
         }
         public void SetFilter()
         {
             try
             {
-                Manufacturers = new ObservableCollection<CheckBox>(Context.LightingFixtures.Include(l => l.Manufacturer)
-                    .Select(l => l.Manufacturer.Name)
-                    .Distinct()
-                    /*Context.Database.SqlQuery<Manufacturer>($"SELECT * FROM {nameof(Context.Manufacturers)}")*/
-                    .ToArray()
+                Manufacturers = new ObservableCollection<CheckBox>(Context.Manufacturers.ToArray()
                     .Select(m =>
                     {
                         var chB = new CheckBox
                         {
-                            Content = m,//.Name,
+                            Content = m.Name,
                             Margin = new Thickness(5, 0, 5, 0),
                             Command = CheckedChanged
                         };
@@ -175,18 +129,16 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
                         return chB;
                     }));
 
-                Mounting = new ObservableCollection<CheckBox>(/*Context.LightingFixtures
-                .Select(l => l.Mounting.MountingType)
-                .Distinct()*/
-                    Context.Database.SqlQuery<Mounting>($"SELECT * FROM {nameof(Context.Mountings)}")
+                Mounting = new ObservableCollection<CheckBox>(/*Context.LightingFixtures.Include(l => l.Mounting)
+                    .Select(l => l.Mounting.MountingType)
+                    .Distinct()*/
+                    Context.Mountings
                     .ToArray()
-                    .Select(m => m.MountingType)
-                    .Distinct()
                     .Select(m =>
                     {
                         var chB = new CheckBox
                         {
-                            Content = m,
+                            Content = m.MountingType,
                             Margin = new Thickness(5, 0, 5, 0),
                             Command = CheckedChanged
                         };
@@ -194,13 +146,13 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
                         return chB;
                     }));
 
-                LightSource = new ObservableCollection<CheckBox>(/*Context.LightingFixtures
-                .Select(l => l.LightSourceInfo.LightSourceType)
-                .Distinct()*/
-                    Context.Database.SqlQuery<LightSourceInfo>($"SELECT * FROM {nameof(Context.LightSourceInfoes)}")
-                    .ToArray()
-                    .Select(lsi => lsi.LightSourceType)
+                LightSource = new ObservableCollection<CheckBox>(/*Context.LightingFixtures.Include(l => l.LightSourceInfo)
+                    .Select(l => l.LightSourceInfo.LightSourceType)
+                    .Distinct()*/
+                    Context.LightSourceInfoes
+                    .Select(ls => ls.LightSourceType)
                     .Distinct()
+                    .ToArray()
                     .Select(ls =>
                     {
                         var chB = new CheckBox
@@ -227,9 +179,9 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
                     }));
 
                 ClimaticModification = new ObservableCollection<CheckBox>(/*Context.LightingFixtures
-                .Select(l => l.ClimateApplication.Value)
-                .Distinct()*/
-                    Context.Database.SqlQuery<ClimateApplication>($"SELECT * FROM {nameof(Context.ClimateApplications)}")
+                    .Select(l => l.ClimateApplication.Value)
+                    .Distinct()*/
+                    Context.ClimateApplications
                     .ToArray()
                     .Select(ca =>
                     {
@@ -245,7 +197,7 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message); ;
+                MessageBox.Show(ex.Message);
             }
         }
         public void UpdateContext()

@@ -1,18 +1,10 @@
 ﻿using ElectricalEngineerTools.Framework.DAL;
-using ElectricalEngineerTools.Framework.DAL.Entities;
 using ElectricalEngineerTools.Framework.DAL.ViewModels;
 using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.ComponentModel;
-using System.Windows.Data;
 using System.Data;
 using ElectricalEngineerTools.Tab.LightingAdmin.PL.Commands;
 using System.Windows.Input;
-using System.Windows;
 using ElectricalEngineerTools.Framework.DAL.Services;
 
 namespace ElectricalEngineerTools.Tab.LightingAdmin.PL.ViewModels
@@ -147,8 +139,9 @@ namespace ElectricalEngineerTools.Tab.LightingAdmin.PL.ViewModels
                 connection.Close();*/
                 throw;
             }
-            CommitChangesData = new CommitChangesDataCommand(Context, dataSet, queries, value => CommitState = value, value => IsUpdateContext = value);
+            CommitChangesData = new CommitChangesDataCommand(dataSet, queries, value => CommitState = value, value => IsUpdateContext = value);
             //CommitChangesData = new CommitChangesDataCommand(Context, dataSet, queries, connection, value => CommitState = value, value => IsUpdateFilter = value);
+            RevertChangesData = new RevertChangesDataCommand(dataSet, queries, value => CommitState = value);
             //RevertChangesData = new RevertChangesDataCommand(dataSet, queries, connection, value => CommitState = value);
             DeleteRow = new DeleteRowCommand();
         }

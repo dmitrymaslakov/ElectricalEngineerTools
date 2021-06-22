@@ -1,11 +1,8 @@
 ﻿using ElectricalEngineerTools.Framework.DAL.Commands;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using MySql.Data.MySqlClient;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 
 namespace ElectricalEngineerTools.Tab.LightingAdmin.PL.Commands
 {
@@ -17,11 +14,12 @@ namespace ElectricalEngineerTools.Tab.LightingAdmin.PL.Commands
             {
                 ((DataRowView)parameter).Delete();
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                var exception = new StringBuilder(ex.Message);
+                exception.Append($" {ex.TargetSite.DeclaringType.Name}.{ex.TargetSite.Name}");
+                MessageBox.Show(exception.ToString());
             }
-
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using ElectricalEngineerTools.Framework.PL.Controls;
-using ElectricalEngineerTools.Framework.PL.Interfaces;
+﻿using ElectricalEngineerTools.Framework.PL.Interfaces;
 using ElectricalEngineerTools.Framework.PL.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

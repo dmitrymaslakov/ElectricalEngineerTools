@@ -1,4 +1,4 @@
-﻿using Autodesk.AutoCAD.Runtime;
+﻿using AcRuntime = Autodesk.AutoCAD.Runtime;
 using ElectricalEngineerTools.Framework.DAL;
 using ElectricalEngineerTools.Framework.DAL.Entities;
 using ElectricalEngineerTools.Framework.PL.HostBuilders;
@@ -12,20 +12,21 @@ using System.Configuration;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Windows;
+using System.Text;
 
-[assembly: ExtensionApplication(typeof(ElectricalEngineerTools.Framework.PL.Program))]
-[assembly: CommandClass(typeof(ElectricalEngineerTools.Framework.PL.Program))]
+[assembly: AcRuntime.ExtensionApplication(typeof(ElectricalEngineerTools.Framework.PL.Program))]
+[assembly: AcRuntime.CommandClass(typeof(ElectricalEngineerTools.Framework.PL.Program))]
 
 namespace ElectricalEngineerTools.Framework.PL
 {
-    public sealed class Program : IExtensionApplication
+    public sealed class Program : AcRuntime.IExtensionApplication
     {
         private readonly IHost _host;
         public Program()
         {
             _host = CreateHostBuilder().Build();
         }
-        [CommandMethod("qwРасчетОсвещенностиПомещения", CommandFlags.Session)]
+        [AcRuntime.CommandMethod("qwРасчетОсвещенностиПомещения", AcRuntime.CommandFlags.Session)]
         public void Main()
         {
             try
@@ -33,29 +34,41 @@ namespace ElectricalEngineerTools.Framework.PL
                 _host.Start();
                 _host.Services.GetRequiredService<Palette>().Show();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                var exception = new StringBuilder(ex.Message);
+                exception.Append($" {ex.TargetSite.DeclaringType.Name}.{ex.TargetSite.Name}");
+                MessageBox.Show(exception.ToString());
             }
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args = null)
         {
-            return Host.CreateDefaultBuilder()
-                .AddConfiguration()
-                .AddDbContext()
-                .AddViewModels()
-                .AddCommands()
-                .AddTabs()
-                .AddPalette();
+            try
+            {
+                return Host.CreateDefaultBuilder()
+                    .AddConfiguration()
+                    .AddDbContext()
+                    .AddViewModels()
+                    .AddCommands()
+                    .AddTabs()
+                    .AddPalette();
+            }
+            catch (Exception ex)
+            {
+                var exception = new StringBuilder(ex.Message);
+                exception.Append($" {ex.TargetSite.DeclaringType.Name}.{ex.TargetSite.Name}");
+                MessageBox.Show(exception.ToString());
+                return Host.CreateDefaultBuilder();
+            }
         }
 
-        void IExtensionApplication.Initialize()
+        void AcRuntime.IExtensionApplication.Initialize()
         {
             Main();
         }
 
-        void IExtensionApplication.Terminate()
+        void AcRuntime.IExtensionApplication.Terminate()
         {
 
         }
@@ -70,25 +83,54 @@ namespace ElectricalEngineerTools.Framework.PL
         [STAThread]
         public static void Main()
         {
-            new Program().Run();
+            try
+            {
+                new Program().Run();
+            }
+            catch (Exception ex)
+            {
+                var exception = new StringBuilder(ex.Message);
+                exception.Append($" {ex.TargetSite.DeclaringType.Name}.{ex.TargetSite.Name}");
+                MessageBox.Show(exception.ToString());
+            }
         }
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            _host.Start();
-            _host.Services.GetRequiredService<MainLightingTab>().Show();
+            try
+            {
+                _host.Start();
+                _host.Services.GetRequiredService<MainLightingTab>().Show();
 
-            base.OnStartup(e);
+                base.OnStartup(e);
+            }
+            catch (Exception ex)
+            {
+                var exception = new StringBuilder(ex.Message);
+                exception.Append($" {ex.TargetSite.DeclaringType.Name}.{ex.TargetSite.Name}");
+                MessageBox.Show(exception.ToString());
+            }
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args = null)
         {
-            return Host.CreateDefaultBuilder()
-                .AddConfiguration()
-                .AddDbContext()
-                .AddViewModels()
-                .AddTabs()
-                .AddPalette();
+            try
+            {
+                return Host.CreateDefaultBuilder()
+                    .AddConfiguration()
+                    .AddDbContext()
+                    .AddViewModels()
+                    .AddCommands()
+                    .AddTabs()
+                    .AddPalette();
+            }
+            catch (Exception ex)
+            {
+                var exception = new StringBuilder(ex.Message);
+                exception.Append($" {ex.TargetSite.DeclaringType.Name}.{ex.TargetSite.Name}");
+                MessageBox.Show(exception.ToString());
+                return Host.CreateDefaultBuilder();
+            }
         }
     }*/
 }

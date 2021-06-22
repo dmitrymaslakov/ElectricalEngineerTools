@@ -10,20 +10,12 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
         public int NumberAlongXAxis
         {
             get => _numberAlongXAxis;
-            set
-            {
-                _numberAlongXAxis = value;
-                OnPropertyChanged(nameof(NumberAlongXAxis));
-            }
+            set => Set(ref _numberAlongXAxis, value);
         }
         public int NumberAlongYAxis
         {
             get => _numberAlongYAxis;
-            set
-            {
-                _numberAlongYAxis = value;
-                OnPropertyChanged(nameof(NumberAlongYAxis));
-            }
+            set => Set(ref _numberAlongYAxis, value);
         }
     }
 }

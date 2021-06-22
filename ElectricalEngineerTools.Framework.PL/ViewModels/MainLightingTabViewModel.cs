@@ -31,9 +31,7 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
             LightingFixtureSelection = lightingFixtureSelection;
             CalculatedIlluminanceValue = calculatedIlluminanceValue;
             CalculateIlluminance = new CalculateIlluminanceCommand(this);
-            //InsertLighting = new InsertLightingCommand(context);
             InsertLighting = insertLightingCommand;
-            //ArrangeLightings = new ArrangeLightingsCommand(context);
             ArrangeLightings = arrangeLightingsCommand;
         }
 

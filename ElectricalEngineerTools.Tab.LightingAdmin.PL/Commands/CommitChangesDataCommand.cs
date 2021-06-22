@@ -1,15 +1,9 @@
 ﻿using ElectricalEngineerTools.Framework.DAL.Commands;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using MySql.Data.MySqlClient;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using ElectricalEngineerTools.Framework.DAL;
-using ElectricalEngineerTools.Framework.DAL.Entities;
 using ElectricalEngineerTools.Framework.DAL.Services;
 
 namespace ElectricalEngineerTools.Tab.LightingAdmin.PL.Commands
@@ -17,16 +11,14 @@ namespace ElectricalEngineerTools.Tab.LightingAdmin.PL.Commands
     public class CommitChangesDataCommand : BaseCommand
     {
         private DataSet _dataSet;
-        private MySqlConnection _connection;
+        //private MySqlConnection _connection;
         private string[] _queries;
         private Action<bool> _setCommitState;
         private Action<bool> _setIsUpdateFilterProp;
-        private ElectricsContext _context;
 
         //public CommitChangesDataCommand(ElectricsContext ctx, DataSet dataSet, string[] queries, MySqlConnection connection, Action<bool> setCommitState, Action<bool> setIsUpdateFilterProp)
-        public CommitChangesDataCommand(ElectricsContext ctx, DataSet dataSet, string[] queries, Action<bool> setCommitState, Action<bool> setIsUpdateFilterProp)
+        public CommitChangesDataCommand(DataSet dataSet, string[] queries, Action<bool> setCommitState, Action<bool> setIsUpdateFilterProp)
         {
-            _context = ctx;
             _dataSet = dataSet;
             _queries = queries;
             //_connection = connection;
@@ -56,8 +48,6 @@ namespace ElectricalEngineerTools.Tab.LightingAdmin.PL.Commands
                 _setCommitState(false);
                 _setIsUpdateFilterProp(true);                
                 _setIsUpdateFilterProp(false);
-                _context = new ElectricsContext();
-
             }
             catch(Exception ex)
             {
@@ -79,7 +69,9 @@ namespace ElectricalEngineerTools.Tab.LightingAdmin.PL.Commands
                 }
                 /*transaction.Rollback();
                 _connection.Close();*/
-                throw;
+                var exception = new StringBuilder(ex.Message);
+                exception.Append($" {ex.TargetSite.DeclaringType.Name}.{ex.TargetSite.Name}");
+                MessageBox.Show(exception.ToString());
             }
         }
     }

@@ -35,12 +35,5 @@ namespace ElectricalEngineerTools.Framework.DAL
         public DbSet<LightSourceInfo> LightSourceInfoes { get; set; }
         public DbSet<Dimensions> Dimensions { get; set; }
         public DbSet<Cable> Cables { get; set; }
-
-        /*protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<LightingFixture>().MapToStoredProcedures();
-            modelBuilder.Entity<Cable>().MapToStoredProcedures();
-        }*/
     }
 }

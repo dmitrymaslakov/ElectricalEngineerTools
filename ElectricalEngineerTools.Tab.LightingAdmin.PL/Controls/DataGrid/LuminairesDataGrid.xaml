@@ -29,8 +29,8 @@
                     </DataTemplate>
                 </DataGridTemplateColumn.CellEditingTemplate>
             </DataGridTemplateColumn>
-            <DataGridTextColumn Header="Тип" Width="100" Binding="{Binding Brand}"/>
-            <DataGridTemplateColumn Header="Источник света" Width="110">
+            <DataGridTextColumn Header="Тип" Width="150" Binding="{Binding Brand}"/>
+            <DataGridTemplateColumn Header="Источник света" Width="150">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
                         <dataTemplate:LightSourceInfoCellDataTemplate/>
@@ -42,7 +42,7 @@
                     </DataTemplate>
                 </DataGridTemplateColumn.CellEditingTemplate>
             </DataGridTemplateColumn>
-            <DataGridTemplateColumn Header="Монтаж" Width="110">
+            <DataGridTemplateColumn Header="Монтаж" Width="120">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
                         <dataTemplate:MountingCellDataTemplate/>
@@ -66,7 +66,7 @@
                     </DataTemplate>
                 </DataGridTemplateColumn.CellEditingTemplate>
             </DataGridTemplateColumn>
-            <DataGridTemplateColumn Header="Рассеиватель" Width="100">
+            <DataGridTemplateColumn Header="Рассеиватель" Width="120">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
                         <dataTemplate:DiffuserMaterialCellDataTemplate/>
@@ -105,7 +105,7 @@
             <DataGridCheckBoxColumn Header="Пожаробезопасный" Binding="{Binding IsFireproof}"/>
             <DataGridCheckBoxColumn Header="Взрывобезопасный" Binding="{Binding IsExplosionProof}"/>
             <DataGridCheckBoxColumn Header="БАП" Width="40" Binding="{Binding BPSU}"/>
-            <DataGridTemplateColumn Header="Размеры" Width="100">
+            <DataGridTemplateColumn Header="Размеры" Width="120">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
                         <dataTemplate:DimensionsCellDataTemplate/>

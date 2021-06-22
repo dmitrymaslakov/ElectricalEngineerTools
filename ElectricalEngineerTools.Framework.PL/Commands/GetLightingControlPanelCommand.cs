@@ -1,11 +1,8 @@
 ﻿using ElectricalEngineerTools.Tab.LightingAdmin.PL.View;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Autodesk.AutoCAD.ApplicationServices;
 using ElectricalEngineerTools.Framework.DAL.Commands;
+using System.Windows;
+using System.Text;
 
 namespace ElectricalEngineerTools.Framework.PL.Commands
 {
@@ -21,17 +18,24 @@ namespace ElectricalEngineerTools.Framework.PL.Commands
         }
         public override void Execute(object parameter)
         {
-            //Application.ShowModelessWindow(_lightingControlPanel);
-            if (_isShown == false)
+            try
             {
-                _lightingControlPanel.ShowDialog();
-                _isShown = true;
+                if (_isShown == false)
+                {
+                    _lightingControlPanel.ShowDialog();
+                    _isShown = true;
+                }
+                else
+                {
+                    _lightingControlPanel.Visibility = System.Windows.Visibility.Visible;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                _lightingControlPanel.Visibility = System.Windows.Visibility.Visible;
+                var exception = new StringBuilder(ex.Message);
+                exception.Append($" {ex.TargetSite.DeclaringType.Name}.{ex.TargetSite.Name}");
+                MessageBox.Show(exception.ToString());
             }
-
         }
     }
 }

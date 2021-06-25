@@ -16,7 +16,7 @@ namespace ElectricalEngineerTools.Framework.PL.Services
         private const string INCANDESCENT_LAMP = "лампа накаливания";
         public static void Customize(BlockReference lightingBlock, LightingFixture lighting)
         {
-            if (lighting.Dimensions.DiameterOnDwg is null)
+            if (lighting.Dimensions.DiameterOnDwg is null || lighting.Dimensions.DiameterOnDwg == 0)
             {
                 foreach (DynamicBlockReferenceProperty prop in lightingBlock.DynamicBlockReferencePropertyCollection)
                 {
@@ -31,20 +31,66 @@ namespace ElectricalEngineerTools.Framework.PL.Services
                         switch (lighting.LightSourceInfo.LightSourceType)
                         {
                             case FLUORESCENT_LAMP:
-                                if (lighting.IsFireproof) prop.Value = lighting.Dimensions.LengthOnDwg;
+                                //if (lighting.IsFireproof) prop.Value = lighting.Dimensions.LengthOnDwg;
+                                if (lighting.IsFireproof)
+                                {
+                                    var isFireproofCornerBlockRefProp1 = lightingBlock.DynamicBlockReferencePropertyCollection
+                                        .Cast<DynamicBlockReferenceProperty>()
+                                        .Where(p => p.PropertyName.Equals("уголп", StringComparison.OrdinalIgnoreCase))
+                                        .FirstOrDefault();
+
+                                    var isFireproofCornerBlockRefProp2 = lightingBlock.DynamicBlockReferencePropertyCollection
+                                        .Cast<DynamicBlockReferenceProperty>()
+                                        .Where(p => p.PropertyName.Equals("уголп2", StringComparison.OrdinalIgnoreCase))
+                                        .FirstOrDefault();
+
+                                    var cornerF = CalcFluorFireproof(lighting, out double ledLengtFireproof);
+                                    if (isFireproofCornerBlockRefProp1 != null)
+                                    {
+                                        isFireproofCornerBlockRefProp1.Value = (double)isFireproofCornerBlockRefProp1.Value + cornerF;
+                                    }
+                                    if (isFireproofCornerBlockRefProp2 != null)
+                                    {
+                                        isFireproofCornerBlockRefProp2.Value = (double)isFireproofCornerBlockRefProp2.Value + cornerF;
+                                    }
+
+                                    prop.Value = ledLengtFireproof;
+                                }
+                                else
+                                {
+                                    prop.Value = lighting.Dimensions.WidthOnDwg;
+                                }
+
                                 break;
                             case LED_LAMP:
                             case LED:
                                 if (lighting.IsFireproof)
                                 {
-                                    var isFireproofBlockReferenceProperty = lightingBlock.DynamicBlockReferencePropertyCollection
+                                    var isFireproofCornerBlockRefProp1 = lightingBlock.DynamicBlockReferencePropertyCollection
                                         .Cast<DynamicBlockReferenceProperty>()
                                         .Where(p => p.PropertyName.Equals("уголп", StringComparison.OrdinalIgnoreCase))
                                         .FirstOrDefault();
 
-                                    isFireproofBlockReferenceProperty.Value = (double)isFireproofBlockReferenceProperty.Value + CalcLedFireproof(lighting, out double ledLengtFireproof);
+                                    var isFireproofCornerBlockRefProp2 = lightingBlock.DynamicBlockReferencePropertyCollection
+                                        .Cast<DynamicBlockReferenceProperty>()
+                                        .Where(p => p.PropertyName.Equals("уголп2", StringComparison.OrdinalIgnoreCase))
+                                        .FirstOrDefault();
 
+                                    var cornerF = CalcLedFireproof(lighting, out double ledLengtFireproof);
+
+                                    if (isFireproofCornerBlockRefProp1 != null)
+                                    {
+                                        isFireproofCornerBlockRefProp1.Value = (double)isFireproofCornerBlockRefProp1.Value + cornerF;
+                                    }
+                                    if (isFireproofCornerBlockRefProp2 != null)
+                                    {
+                                        isFireproofCornerBlockRefProp2.Value = (double)isFireproofCornerBlockRefProp2.Value + cornerF;
+                                    }
                                     prop.Value = ledLengtFireproof;
+                                }
+                                else
+                                {
+                                    prop.Value = lighting.Dimensions.WidthOnDwg;
                                 }
                                 break;
                         }
@@ -91,7 +137,7 @@ namespace ElectricalEngineerTools.Framework.PL.Services
                         switch (lighting.LightSourceInfo.LightSourceType)
                         {
                             case COMPACT_FLUORESCENT_LAMP:
-                                if (lighting.IsExplosionProof) 
+                                if (lighting.IsExplosionProof)
                                 {
                                     isFireproofBlockReferenceProperty.Value = 45.0;
                                     prop.Value = 45.0;
@@ -99,17 +145,17 @@ namespace ElectricalEngineerTools.Framework.PL.Services
                                 break;
                             case LED_LAMP:
                             case LED:
-                                if (lighting.IsExplosionProof) 
+                                if (lighting.IsExplosionProof)
                                 {
                                     isFireproofBlockReferenceProperty.Value = diameterOnDwg * 0.332;
-                                    prop.Value = diameterOnDwg * 0.332; 
-                                }                                    
+                                    prop.Value = diameterOnDwg * 0.332;
+                                }
                                 break;
                             case INCANDESCENT_LAMP:
-                                if (lighting.IsExplosionProof) 
+                                if (lighting.IsExplosionProof)
                                 {
                                     isFireproofBlockReferenceProperty.Value = lighting.Dimensions.DiameterOnDwg;
-                                    prop.Value = lighting.Dimensions.DiameterOnDwg; 
+                                    prop.Value = lighting.Dimensions.DiameterOnDwg;
                                 }
                                 break;
                         }
@@ -125,7 +171,13 @@ namespace ElectricalEngineerTools.Framework.PL.Services
         {
             ledLengtFireproof = Math.Sqrt(Math.Pow((double)(lighting.Dimensions.LengthOnDwg - 300.0), 2) + Math.Pow((double)lighting.Dimensions.Width, 2));
             var cosf = (double)lighting.Dimensions.Width / ledLengtFireproof;
-            return Math.Acos(cosf);             
+            return Math.Acos(cosf);
+        }
+        private static double CalcFluorFireproof(LightingFixture lighting, out double ledLengtFireproof)
+        {
+            ledLengtFireproof = Math.Sqrt(Math.Pow((double)(lighting.Dimensions.LengthOnDwg), 2) + Math.Pow((double)lighting.Dimensions.Width, 2));
+            var cosf = (double)lighting.Dimensions.Width / ledLengtFireproof;
+            return Math.Acos(cosf);
         }
     }
 }

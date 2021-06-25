@@ -75,6 +75,10 @@
       <HintPath>C:\Autodesk\Autodesk_ObjectARX_2014_Win_64_and_32Bit\inc\AcDbMgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="AcMaslakov, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\AcMaslakov.dll</HintPath>
+    </Reference>
     <Reference Include="AcMgd">
       <HintPath>C:\Autodesk\Autodesk_ObjectARX_2014_Win_64_and_32Bit\inc\AcMgd.dll</HintPath>
       <Private>False</Private>
@@ -407,10 +411,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\ProgectsWPF\AcMaslakov\AcMaslakov.csproj">
-      <Project>{130b4d11-e3ff-43a8-be4e-0feee41f71ad}</Project>
-      <Name>AcMaslakov</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ElectricalEngineerTools.Framework.DAL\ElectricalEngineerTools.Framework.DAL.csproj">
       <Project>{f63b3a1e-32d3-4219-a951-00193d9fcb65}</Project>
       <Name>ElectricalEngineerTools.Framework.DAL</Name>

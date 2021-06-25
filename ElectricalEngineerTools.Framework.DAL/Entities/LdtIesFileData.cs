@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using static AcMaslakov.StringToDouble;
+
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -319,7 +320,7 @@ namespace ElectricalEngineerTools.Framework.DAL.Entities
                     }
                 }
             }
-            catch (Exception ex)
+            catch
             {
 
             }

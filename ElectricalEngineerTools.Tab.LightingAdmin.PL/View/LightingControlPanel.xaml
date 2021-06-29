@@ -6,13 +6,14 @@
              xmlns:dataGrid="clr-namespace:ElectricalEngineerTools.Tab.LightingAdmin.PL.Controls.DataGrid"
              xmlns:services="clr-namespace:ElectricalEngineerTools.Tab.LightingAdmin.PL.Services"
              mc:Ignorable="d"
+        Height="1000"
         Width="1500">
     <Window.Resources>
         <services:DataConverter x:Key="dataConverter" />
     </Window.Resources>
     <Grid Background="LavenderBlush">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <TabControl Grid.Row="0">

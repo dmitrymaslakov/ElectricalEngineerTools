@@ -103,7 +103,10 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
         {
             try
             {
-                Manufacturers = new ObservableCollection<CheckBox>(Context.Manufacturers.ToArray()
+
+
+                Manufacturers = new ObservableCollection<CheckBox>(Context.Manufacturers
+                    .ToArray()
                     .Select(m =>
                     {
                         var chB = new CheckBox
@@ -129,16 +132,15 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
                         return chB;
                     }));
 
-                Mounting = new ObservableCollection<CheckBox>(/*Context.LightingFixtures.Include(l => l.Mounting)
-                    .Select(l => l.Mounting.MountingType)
-                    .Distinct()*/
-                    Context.Mountings
+                Mounting = new ObservableCollection<CheckBox>(Context.Mountings
+                    .Select(m => m.MountingType)
+                    .Distinct()                    
                     .ToArray()
-                    .Select(m =>
+                    .Select(mt =>
                     {
                         var chB = new CheckBox
                         {
-                            Content = m.MountingType,
+                            Content = mt,
                             Margin = new Thickness(5, 0, 5, 0),
                             Command = CheckedChanged
                         };

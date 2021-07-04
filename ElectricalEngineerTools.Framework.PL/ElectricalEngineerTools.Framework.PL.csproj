@@ -58,10 +58,8 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Ac.NetApi, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\ProgectsWPF\Ac.NetApi\bin\Debug\Ac.NetApi.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Ac.NetApi">
+      <HintPath>..\..\MaslakovDLL\Ac.NetApi.dll</HintPath>
     </Reference>
     <Reference Include="AcCoreMgd">
       <HintPath>C:\Autodesk\Autodesk_ObjectARX_2014_Win_64_and_32Bit\inc\AcCoreMgd.dll</HintPath>
@@ -75,9 +73,8 @@
       <HintPath>C:\Autodesk\Autodesk_ObjectARX_2014_Win_64_and_32Bit\inc\AcDbMgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="AcMaslakov, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\AcMaslakov.dll</HintPath>
+    <Reference Include="AcMaslakov">
+      <HintPath>..\..\MaslakovDLL\AcMaslakov.dll</HintPath>
     </Reference>
     <Reference Include="AcMgd">
       <HintPath>C:\Autodesk\Autodesk_ObjectARX_2014_Win_64_and_32Bit\inc\AcMgd.dll</HintPath>

@@ -9,6 +9,7 @@
         <GroupBox Header="Выбор светильника" Padding="5">
             <StackPanel>
                 <!--<CheckBox Margin="5 0" Content="Размеры в имени блока" IsChecked="{Binding DimensionsInBlockName}"/>-->
+                <CheckBox Margin="5 0" Content="работаю дома" IsChecked="{Binding IsAtHome}"/>
 
                 <TextBlock Text="{Binding LightingDescription}" Foreground="Maroon" FontWeight="Bold"/>
                 <ComboBox ItemsSource="{Binding Brands}" SelectedItem="{Binding Brand}" MinWidth="150"/>

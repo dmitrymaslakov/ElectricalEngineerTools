@@ -18,6 +18,7 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
         private double _mountingHeight;
         private string _lightingDescription;
         private bool _isUpdateContext;
+        private bool _isAtHome;
         public LightingFixtureSelectionViewModel(LightingFixtureFilterViewModel lightingFixtureFilter, ElectricsContext context)
         {
             Context = context;
@@ -108,6 +109,11 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
                 }
             }
         }
+        public bool IsAtHome
+        {
+            get => _isAtHome;
+            set => Set(ref _isAtHome, value);            
+        }
 
         public void UpdateContext()
         {
@@ -132,10 +138,23 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
                     .SingleOrDefault(l => l.Brand.Equals(Brand))
                     ?.LdtIesFile;
 
+
                 if (string.IsNullOrEmpty(ldtIesFile))
                 {
                     MessageBox.Show("ldt (Ies) файл отсутствует в базе, не найден или не смог быть прочитан");
                     return;
+                }
+                const string ggp = @"p:\ПМ-2\4.Сотрудники\к.416эл\Маслаков Д А\Колл черчение\Внутреннее освещение\base-for-Dialux\";
+                const string atHome = @"p:\ПМ-2\4.Сотрудники\к.416эл\Маслаков Д А\Колл черчение\Внутреннее освещение\base-for-Dialux\";
+                if (IsAtHome && ldtIesFile.Contains(ggp))
+                {
+                    //ldtIesFile = atHome + ldtIesFile.Remove(ggp.Length);
+                    var s1 = atHome + ldtIesFile.Remove(0, ggp.Length);
+                }
+                else if(ldtIesFile.Contains(atHome))
+                {
+                    //ldtIesFile = ggp + ldtIesFile.Remove(atHome.Length);
+                    var s2 = ggp + ldtIesFile.Remove(0, atHome.Length);
                 }
                 LdtIesFileData = new LdtIesFileData(ldtIesFile);
 

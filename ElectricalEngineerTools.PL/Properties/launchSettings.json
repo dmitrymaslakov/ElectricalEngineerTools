@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "ElectricalEngineerTools.PL": {
-      "commandName": "Executable",
-      "executablePath": "C:\\Program Files\\Autodesk\\AutoCAD 2014\\acad.exe"
-    }
-  }
-}

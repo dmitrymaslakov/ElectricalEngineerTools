@@ -112,7 +112,7 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
         public bool IsAtHome
         {
             get => _isAtHome;
-            set => Set(ref _isAtHome, value);            
+            set => Set(ref _isAtHome, value);
         }
 
         public void UpdateContext()
@@ -145,16 +145,19 @@ namespace ElectricalEngineerTools.Framework.PL.ViewModels
                     return;
                 }
                 const string ggp = @"p:\ПМ-2\4.Сотрудники\к.416эл\Маслаков Д А\Колл черчение\Внутреннее освещение\base-for-Dialux\";
-                const string atHome = @"p:\ПМ-2\4.Сотрудники\к.416эл\Маслаков Д А\Колл черчение\Внутреннее освещение\base-for-Dialux\";
-                if (IsAtHome && ldtIesFile.Contains(ggp))
+                const string atHome = @"e:\Работа\Разное\Светильники\base-for-Dialux\";
+                if (IsAtHome)
                 {
-                    //ldtIesFile = atHome + ldtIesFile.Remove(ggp.Length);
-                    var s1 = atHome + ldtIesFile.Remove(0, ggp.Length);
+                    if (ldtIesFile.Contains(ggp))
+                    {
+                        var q = ldtIesFile.Remove(0, ggp.Length);
+                        var q2 = atHome + q;
+                    }
+                    ldtIesFile = ldtIesFile.ToLower().Contains(ggp.ToLower()) ? atHome + ldtIesFile.Remove(0, ggp.Length) : ldtIesFile;
                 }
-                else if(ldtIesFile.Contains(atHome))
+                else
                 {
-                    //ldtIesFile = ggp + ldtIesFile.Remove(atHome.Length);
-                    var s2 = ggp + ldtIesFile.Remove(0, atHome.Length);
+                    ldtIesFile = ldtIesFile.ToLower().Contains(atHome.ToLower()) ? ggp + ldtIesFile.Remove(0, atHome.Length) : ldtIesFile;
                 }
                 LdtIesFileData = new LdtIesFileData(ldtIesFile);
 
